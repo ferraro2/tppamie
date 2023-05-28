@@ -159,7 +159,7 @@ define(['jquery', 'io', 'settings',
         // websockets
         if (io) {    
             var versionIO = '(1.1)';
-            var localSockOn = true;
+            var localSockOn = false;
             var matchSock;
             if (localSockOn) {
                 matchSock = io('http://localhost:8000/');
