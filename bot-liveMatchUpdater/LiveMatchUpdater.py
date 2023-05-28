@@ -229,7 +229,7 @@ def main():
 	cred = utils.readJson('../oauth.json')['liveMatchUpdater']
 	nick = cred['user']
 	# CANNOT be blank
-	pword = cred['pass']
+	pword = cred['oauth']
 	sioRoutines.addSocket(8000)
 	while True:
 		try:
