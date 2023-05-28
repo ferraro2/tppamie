@@ -1,0 +1,9 @@
+/www-build/
+/venv/
+*.log*
+/logs*
+/.idea*
+*.cred
+/nbproject/
+/auth_socketIO
+/oauth.json

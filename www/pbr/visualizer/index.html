@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>PBR Visualizer</title>
+
+<!--
+--><meta property="og:description" content="A sophisticated Pokémon battle visualizer, written for 3v3 PBR matches on TwitchPlaysPokémon with preset Pokémon.  (Generation 4-DPP)."/>
+<meta name="description" content="A sophisticated Pokémon battle visualizer, written for 3v3 PBR matches on TwitchPlaysPokémon with preset Pokémon.  (Generation 4-DPP)."/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:image" content="/img/vball.png" />
+<link rel="shortcut icon" href="/img/vball.png" />
+<link rel="icon" sizes='42x42' href="/img/vball.png" />
+
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.min.css" />
+
+<link rel="stylesheet" href="/css/visualizer.css?v=1.0.0" />
+</head>
+<body>	
+    
+<div class="mainBackground">
+    
+<div id="js-page-container" class="page-container page-container-diamond">
+    	<div id='bottomMiddleContainer'></div>
+	<div id="bottomMiddle">
+	
+            <button id="js-layout" class="layout layout-diamond" tabindex="-1">
+                Grid<br>Layout
+            </button>
+            
+            <button id="js-help" class="help help-diamond" tabindex="-1">
+            </button>
+            
+            <button id="js-options" class="options options-diamond" tabindex="-1">
+                <br><span class="text">Settings</span>
+            </button>
+         
+<!--            <div class="notice1">
+                <br><br><br><br>
+                <img style="float:left;" class="xflip" src="/img/pokemon/xy-shiny/gourgeist.gif"/>
+                
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img style="float:left;" class="xflip" src="/img/pokemon/xy/pumpkaboo-super.gif"/>
+            </div>
+            
+            
+            <div class="notice2">
+                <img style="float:left;" class="xflip" src="/img/pokemon/xy/misdreavus.gif"/>
+            </div>
+            
+            <div class="notice3">
+                <img style="float:left;" class="xflip" src="/img/pokemon/xy-shiny/duskull.gif"/>
+                
+            </div>-->
+            
+            <div id="js-notice0" class="notice0"></div>
+            
+            
+            <div id="diamond">
+            </div>
+
+            <div id="grid">
+            </div>
+
+
+            <div id="blueItems">
+                <div class="blueItems-item tooltip" id="js-item-2"></div>
+                <div class="blueItems-item tooltip" id="js-item-1"></div>
+                <div class="blueItems-item tooltip" id="js-item-0"></div>
+            </div>
+            
+            <div id="redItems">
+                <div class="redItems-item tooltip" id="js-item-3"></div>
+                <div class="redItems-item tooltip" id="js-item-4"></div>
+                <div class="redItems-item tooltip" id="js-item-5"></div>
+            </div>
+
+            <div id="bluePartyButtonsAndStages" class="bluePartyButtonsAndStages-diamond">
+                    <div class="pkmnButtonsAndStages">
+                            <div class="blueButtons">
+                                    <div class="buttonPair">
+                                    </div><div class="buttonPair">
+                                            <button class="atk buttonPlus js-stage-inc" id="js-stage-inc-0-0">+</button>
+                                            <button class="atk buttonMinus js-stage-dec" id="js-stage-dec-0-0">-</button>
+                                    </div><div class="buttonPair">
+                                            <button class="def buttonPlus js-stage-inc" id="js-stage-inc-0-1">+</button>
+                                            <button class="def buttonMinus js-stage-dec" id="js-stage-dec-0-1">-</button>
+                                    </div><div class="buttonPair">
+                                            <button class="sat buttonPlus js-stage-inc" id="js-stage-inc-0-2">+</button>
+                                            <button class="sat buttonMinus js-stage-dec" id="js-stage-dec-0-2">-</button>
+                                    </div><div class="buttonPair">
+                                            <button class="sdf buttonPlus js-stage-inc" id="js-stage-inc-0-3">+</button>
+                                            <button class="sdf buttonMinus js-stage-dec" id="js-stage-dec-0-3">-</button>
+                                    </div><div class="buttonPair">
+                                            <button class="spd buttonPlus js-stage-inc" id="js-stage-inc-0-4">+</button>
+                                            <button class="spd buttonMinus js-stage-dec" id="js-stage-dec-0-4">-</button>
+                                    </div><div class="buttonPair">
+                                            <button class="acc buttonPlus js-stage-inc" id="js-stage-inc-0-5">+</button>
+                                            <button class="acc buttonMinus js-stage-dec" id="js-stage-dec-0-5">-</button>
+                                    </div><div class="buttonPair">
+                                            <button class="eva buttonPlus js-stage-inc" id="js-stage-inc-0-6">+</button>
+                                            <button class="eva buttonMinus js-stage-dec" id="js-stage-dec-0-6">-</button>
+                                    </div>
+                            </div>
+                            <div class="stages">
+                                    <div class="stage hp">
+                                            <span class="blueStageValue stageValue pkmn-hp-0">123</span>
+                                            <span class="blueStageName stageName">HP</span>
+                                    </div><div class="stage atk tooltip stat-0-0">
+                                            <span class="blueStageValue stageValue" id="stage-0-0">+0</span>
+                                            <span class="blueStageName stageName">ATK</span>
+                                    </div><div class="stage def tooltip stat-0-1">
+                                            <span class="blueStageValue stageValue" id="stage-0-1">+0</span>
+                                            <span class="blueStageName stageName">DEF</span>
+                                    </div><div class="stage sat tooltip stat-0-2">
+                                            <span class="blueStageValue stageValue" id="stage-0-2">+0</span>
+                                            <span class="blueStageName stageName">SAT</span>
+                                    </div><div class="stage sdf tooltip stat-0-3">
+                                            <span class="blueStageValue stageValue" id="stage-0-3">+0</span>
+                                            <span class="blueStageName stageName">SDF</span>
+                                    </div><div class="stage spd tooltip stat-0-4">
+                                            <span class="blueStageValue stageValue" id="stage-0-4">+0</span>
+                                            <span class="blueStageName stageName">SPD</span>
+                                    </div><div class="stage acc">
+                                            <span class="blueStageValue stageValue" id="stage-0-5">+0</span>
+                                            <span class="blueStageName stageName">ACC</span>
+                                    </div><div class="stage eva">
+                                            <span class="blueStageValue stageValue" id="stage-0-6">+0</span>
+                                            <span class="blueStageName stageName">EVA</span>
+                                    </div>
+                            </div>
+                    </div>
+                    <div class="pkmnButtonsAndStages">
+                            <div class="blueButtons">
+                                    <div class="buttonPair">
+                                    </div><div class="buttonPair">
+                                            <button class="atk buttonPlus js-stage-inc" id="js-stage-inc-1-0">+</button>
+                                            <button class="atk buttonMinus js-stage-dec" id="js-stage-dec-1-0">-</button>
+                                    </div><div class="buttonPair">
+                                            <button class="def buttonPlus js-stage-inc" id="js-stage-inc-1-1">+</button>
+                                            <button class="def buttonMinus js-stage-dec" id="js-stage-dec-1-1">-</button>
+                                    </div><div class="buttonPair">
+                                            <button class="sat buttonPlus js-stage-inc" id="js-stage-inc-1-2">+</button>
+                                            <button class="sat buttonMinus js-stage-dec" id="js-stage-dec-1-2">-</button>
+                                    </div><div class="buttonPair">
+                                            <button class="sdf buttonPlus js-stage-inc" id="js-stage-inc-1-3">+</button>
+                                            <button class="sdf buttonMinus js-stage-dec" id="js-stage-dec-1-3">-</button>
+                                    </div><div class="buttonPair">
+                                            <button class="spd buttonPlus js-stage-inc" id="js-stage-inc-1-4">+</button>
+                                            <button class="spd buttonMinus js-stage-dec" id="js-stage-dec-1-4">-</button>
+                                    </div><div class="buttonPair">
+                                            <button class="acc buttonPlus js-stage-inc" id="js-stage-inc-1-5">+</button>
+                                            <button class="acc buttonMinus js-stage-dec" id="js-stage-dec-1-5">-</button>
+                                    </div><div class="buttonPair">
+                                            <button class="eva buttonPlus js-stage-inc" id="js-stage-inc-1-6">+</button>
+                                            <button class="eva buttonMinus js-stage-dec" id="js-stage-dec-1-6">-</button>
+                                    </div>
+                            </div>
+                            <div class="stages">
+                                    <div class="stage hp">
+                                            <span class="blueStageValue stageValue pkmn-hp-1">123</span>
+                                            <span class="blueStageName stageName">HP</span>
+                                    </div><div class="stage atk tooltip stat-1-0">
+                                            <span class="blueStageValue stageValue" id="stage-1-0">+0</span>
+                                            <span class="blueStageName stageName">ATK</span>
+                                    </div><div class="stage def tooltip stat-1-1">
+                                            <span class="blueStageValue stageValue" id="stage-1-1">+0</span>
+                                            <span class="blueStageName stageName">DEF</span>
+                                    </div><div class="stage sat tooltip stat-1-2">
+                                            <span class="blueStageValue stageValue" id="stage-1-2">+0</span>
+                                            <span class="blueStageName stageName">SAT</span>
+                                    </div><div class="stage sdf tooltip stat-1-3">
+                                            <span class="blueStageValue stageValue" id="stage-1-3">+0</span>
+                                            <span class="blueStageName stageName">SDF</span>
+                                    </div><div class="stage spd tooltip stat-1-4">
+                                            <span class="blueStageValue stageValue" id="stage-1-4">+0</span>
+                                            <span class="blueStageName stageName">SPD</span>
+                                    </div><div class="stage acc">
+                                            <span class="blueStageValue stageValue" id="stage-1-5">+0</span>
+                                            <span class="blueStageName stageName">ACC</span>
+                                    </div><div class="stage eva">
+                                            <span class="blueStageValue stageValue" id="stage-1-6">+0</span>
+                                            <span class="blueStageName stageName">EVA</span>
+                                    </div>
+                            </div>
+                    </div><div class="pkmnButtonsAndStages">
+                            <div class="blueButtons">
+                                    <div class="buttonPair">
+                                    </div><div class="buttonPair">
+                                            <button class="atk buttonPlus js-stage-inc" id="js-stage-inc-2-0">+</button>
+                                            <button class="atk buttonMinus js-stage-dec" id="js-stage-dec-2-0">-</button>
+                                    </div><div class="buttonPair">
+                                            <button class="def buttonPlus js-stage-inc" id="js-stage-inc-2-1">+</button>
+                                            <button class="def buttonMinus js-stage-dec" id="js-stage-dec-2-1">-</button>
+                                    </div><div class="buttonPair">
+                                            <button class="sat buttonPlus js-stage-inc" id="js-stage-inc-2-2">+</button>
+                                            <button class="sat buttonMinus js-stage-dec" id="js-stage-dec-2-2">-</button>
+                                    </div><div class="buttonPair">
+                                            <button class="sdf buttonPlus js-stage-inc" id="js-stage-inc-2-3">+</button>
+                                            <button class="sdf buttonMinus js-stage-dec" id="js-stage-dec-2-3">-</button>
+                                    </div><div class="buttonPair">
+                                            <button class="spd buttonPlus js-stage-inc" id="js-stage-inc-2-4">+</button>
+                                            <button class="spd buttonMinus js-stage-dec" id="js-stage-dec-2-4">-</button>
+                                    </div><div class="buttonPair">
+                                            <button class="acc buttonPlus js-stage-inc" id="js-stage-inc-2-5">+</button>
+                                            <button class="acc buttonMinus js-stage-dec" id="js-stage-dec-2-5">-</button>
+                                    </div><div class="buttonPair">
+                                            <button class="eva buttonPlus js-stage-inc" id="js-stage-inc-2-6">+</button>
+                                            <button class="eva buttonMinus js-stage-dec" id="js-stage-dec-2-6">-</button>
+                                    </div>
+                            </div>
+                            <div class="stages">
+                                    <div class="stage hp">
+                                            <span class="blueStageValue stageValue pkmn-hp-2">123</span>
+                                            <span class="blueStageName stageName">HP</span>
+                                    </div><div class="stage atk tooltip stat-2-0">
+                                            <span class="blueStageValue stageValue" id="stage-2-0">+0</span>
+                                            <span class="blueStageName stageName">ATK</span>
+                                    </div><div class="stage def tooltip stat-2-1">
+                                            <span class="blueStageValue stageValue" id="stage-2-1">+0</span>
+                                            <span class="blueStageName stageName">DEF</span>
+                                    </div><div class="stage sat tooltip stat-2-2">
+                                            <span class="blueStageValue stageValue" id="stage-2-2">+0</span>
+                                            <span class="blueStageName stageName">SAT</span>
+                                    </div><div class="stage sdf tooltip stat-2-3">
+                                            <span class="blueStageValue stageValue" id="stage-2-3">+0</span>
+                                            <span class="blueStageName stageName">SDF</span>
+                                    </div><div class="stage spd tooltip stat-2-4">
+                                            <span class="blueStageValue stageValue" id="stage-2-4">+0</span>
+                                            <span class="blueStageName stageName">SPD</span>
+                                    </div><div class="stage acc">
+                                            <span class="blueStageValue stageValue" id="stage-2-5">+0</span>
+                                            <span class="blueStageName stageName">ACC</span>
+                                    </div><div class="stage eva">
+                                            <span class="blueStageValue stageValue" id="stage-2-6">+0</span>
+                                            <span class="blueStageName stageName">EVA</span>
+                                    </div>
+                            </div>
+                    </div>
+            </div>
+
+            
+            
+            <div id="redPartyButtonsAndStages" class="redPartyButtonsAndStages-diamond">
+                    <div class="pkmnButtonsAndStages">
+                            <div class="stages">
+                                    <div class="stage hp">
+                                            <span class="redStageValue stageValue pkmn-hp-3">123</span>
+                                            <span class="redStageName stageName">HP</span>
+                                    </div><div class="stage atk tooltip stat-3-0">
+                                            <span class="redStageValue stageValue" id="stage-3-0">+0</span>
+                                            <span class="redStageName stageName">ATK</span>
+                                    </div><div class="stage def tooltip stat-3-1">
+                                            <span class="redStageValue stageValue" id="stage-3-1">+0</span>
+                                            <span class="redStageName stageName">DEF</span>
+                                    </div><div class="stage sat tooltip stat-3-2">
+                                            <span class="redStageValue stageValue" id="stage-3-2">+0</span>
+                                            <span class="redStageName stageName">SAT</span>
+                                    </div><div class="stage sdf tooltip stat-3-3">
+                                            <span class="redStageValue stageValue" id="stage-3-3">+0</span>
+                                            <span class="redStageName stageName">SDF</span>
+                                    </div><div class="stage spd tooltip stat-3-4">
+                                            <span class="redStageValue stageValue" id="stage-3-4">+0</span>
+                                            <span class="redStageName stageName">SPD</span>
+                                    </div><div class="stage acc">
+                                            <span class="redStageValue stageValue" id="stage-3-5">+0</span>
+                                            <span class="redStageName stageName">ACC</span>
+                                    </div><div class="stage eva">
+                                            <span class="redStageValue stageValue" id="stage-3-6">+0</span>
+                                            <span class="redStageName stageName">EVA</span>
+                                    </div>
+                            </div>
+                            <div class="redButtons xflip">
+                                    <div class="buttonPair">
+                                    </div><div class="buttonPair">
+                                            <button class="atk buttonPlus js-stage-inc" id="js-stage-inc-3-0">+</button>
+                                            <button class="atk buttonMinus js-stage-dec" id="js-stage-dec-3-0">-</button>
+                                    </div><div class="buttonPair">
+                                            <button class="def buttonPlus js-stage-inc" id="js-stage-inc-3-1">+</button>
+                                            <button class="def buttonMinus js-stage-dec" id="js-stage-dec-3-1">-</button>
+                                    </div><div class="buttonPair">
+                                            <button class="sat buttonPlus js-stage-inc" id="js-stage-inc-3-2">+</button>
+                                            <button class="sat buttonMinus js-stage-dec" id="js-stage-dec-3-2">-</button>
+                                    </div><div class="buttonPair">
+                                            <button class="sdf buttonPlus js-stage-inc" id="js-stage-inc-3-3">+</button>
+                                            <button class="sdf buttonMinus js-stage-dec" id="js-stage-dec-3-3">-</button>
+                                    </div><div class="buttonPair">
+                                            <button class="spd buttonPlus js-stage-inc" id="js-stage-inc-3-4">+</button>
+                                            <button class="spd buttonMinus js-stage-dec" id="js-stage-dec-3-4">-</button>
+                                    </div><div class="buttonPair">
+                                            <button class="acc buttonPlus js-stage-inc" id="js-stage-inc-3-5">+</button>
+                                            <button class="acc buttonMinus js-stage-dec" id="js-stage-dec-3-5">-</button>
+                                    </div><div class="buttonPair">
+                                            <button class="eva buttonPlus js-stage-inc" id="js-stage-inc-3-6">+</button>
+                                            <button class="eva buttonMinus js-stage-dec" id="js-stage-dec-3-6">-</button>
+                                    </div>
+                            </div>
+                    </div>
+                    <div class="pkmnButtonsAndStages">
+                            <div class="stages">
+                                    <div class="stage hp">
+                                            <span class="redStageValue stageValue pkmn-hp-4">123</span>
+                                            <span class="redStageName stageName">HP</span>
+                                    </div><div class="stage atk tooltip stat-4-0">
+                                            <span class="redStageValue stageValue" id="stage-4-0">+0</span>
+                                            <span class="redStageName stageName">ATK</span>
+                                    </div><div class="stage def tooltip stat-4-1">
+                                            <span class="redStageValue stageValue" id="stage-4-1">+0</span>
+                                            <span class="redStageName stageName">DEF</span>
+                                    </div><div class="stage sat tooltip stat-4-2">
+                                            <span class="redStageValue stageValue" id="stage-4-2">+0</span>
+                                            <span class="redStageName stageName">SAT</span>
+                                    </div><div class="stage sdf tooltip stat-4-3">
+                                            <span class="redStageValue stageValue" id="stage-4-3">+0</span>
+                                            <span class="redStageName stageName">SDF</span>
+                                    </div><div class="stage spd tooltip stat-4-4">
+                                            <span class="redStageValue stageValue" id="stage-4-4">+0</span>
+                                            <span class="redStageName stageName">SPD</span>
+                                    </div><div class="stage acc">
+                                            <span class="redStageValue stageValue" id="stage-4-5">+0</span>
+                                            <span class="redStageName stageName">ACC</span>
+                                    </div><div class="stage eva">
+                                            <span class="redStageValue stageValue" id="stage-4-6">+0</span>
+                                            <span class="redStageName stageName">EVA</span>
+                                    </div>
+                            </div>
+                            <div class="redButtons xflip">
+                                    <div class="buttonPair">
+                                    </div><div class="buttonPair">
+                                            <button class="atk buttonPlus js-stage-inc" id="js-stage-inc-4-0">+</button>
+                                            <button class="atk buttonMinus js-stage-dec" id="js-stage-dec-4-0">-</button>
+                                    </div><div class="buttonPair">
+                                            <button class="def buttonPlus js-stage-inc" id="js-stage-inc-4-1">+</button>
+                                            <button class="def buttonMinus js-stage-dec" id="js-stage-dec-4-1">-</button>
+                                    </div><div class="buttonPair">
+                                            <button class="sat buttonPlus js-stage-inc" id="js-stage-inc-4-2">+</button>
+                                            <button class="sat buttonMinus js-stage-dec" id="js-stage-dec-4-2">-</button>
+                                    </div><div class="buttonPair">
+                                            <button class="sdf buttonPlus js-stage-inc" id="js-stage-inc-4-3">+</button>
+                                            <button class="sdf buttonMinus js-stage-dec" id="js-stage-dec-4-3">-</button>
+                                    </div><div class="buttonPair">
+                                            <button class="spd buttonPlus js-stage-inc" id="js-stage-inc-4-4">+</button>
+                                            <button class="spd buttonMinus js-stage-dec" id="js-stage-dec-4-4">-</button>
+                                    </div><div class="buttonPair">
+                                            <button class="acc buttonPlus js-stage-inc" id="js-stage-inc-4-5">+</button>
+                                            <button class="acc buttonMinus js-stage-dec" id="js-stage-dec-4-5">-</button>
+                                    </div><div class="buttonPair">
+                                            <button class="eva buttonPlus js-stage-inc" id="js-stage-inc-4-6">+</button>
+                                            <button class="eva buttonMinus js-stage-dec" id="js-stage-dec-4-6">-</button>
+                                    </div>
+                            </div>
+                    </div>
+                    <div class="pkmnButtonsAndStages">
+                            <div class="stages">
+                                    <div class="stage hp">
+                                            <span class="redStageValue stageValue pkmn-hp-5">123</span>
+                                            <span class="redStageName stageName">HP</span>
+                                    </div><div class="stage atk tooltip stat-5-0">
+                                            <span class="redStageValue stageValue" id="stage-5-0">+0</span>
+                                            <span class="redStageName stageName">ATK</span>
+                                    </div><div class="stage def tooltip stat-5-1">
+                                            <span class="redStageValue stageValue" id="stage-5-1">+0</span>
+                                            <span class="redStageName stageName">DEF</span>
+                                    </div><div class="stage sat tooltip stat-5-2">
+                                            <span class="redStageValue stageValue" id="stage-5-2">+0</span>
+                                            <span class="redStageName stageName">SAT</span>
+                                    </div><div class="stage sdf tooltip stat-5-3">
+                                            <span class="redStageValue stageValue" id="stage-5-3">+0</span>
+                                            <span class="redStageName stageName">SDF</span>
+                                    </div><div class="stage spd tooltip stat-5-4">
+                                            <span class="redStageValue stageValue" id="stage-5-4">+0</span>
+                                            <span class="redStageName stageName">SPD</span>
+                                    </div><div class="stage acc">
+                                            <span class="redStageValue stageValue" id="stage-5-5">+0</span>
+                                            <span class="redStageName stageName">ACC</span>
+                                    </div><div class="stage eva">
+                                            <span class="redStageValue stageValue" id="stage-5-6">+0</span>
+                                            <span class="redStageName stageName">EVA</span>
+                                    </div>
+                            </div>
+                            <div class="redButtons xflip">
+                                    <div class="buttonPair">
+                                    </div><div class="buttonPair">
+                                            <button class="atk buttonPlus js-stage-inc" id="js-stage-inc-5-0">+</button>
+                                            <button class="atk buttonMinus js-stage-dec" id="js-stage-dec-5-0">-</button>
+                                    </div><div class="buttonPair">
+                                            <button class="def buttonPlus js-stage-inc" id="js-stage-inc-5-1">+</button>
+                                            <button class="def buttonMinus js-stage-dec" id="js-stage-dec-5-1">-</button>
+                                    </div><div class="buttonPair">
+                                            <button class="sat buttonPlus js-stage-inc" id="js-stage-inc-5-2">+</button>
+                                            <button class="sat buttonMinus js-stage-dec" id="js-stage-dec-5-2">-</button>
+                                    </div><div class="buttonPair">
+                                            <button class="sdf buttonPlus js-stage-inc" id="js-stage-inc-5-3">+</button>
+                                            <button class="sdf buttonMinus js-stage-dec" id="js-stage-dec-5-3">-</button>
+                                    </div><div class="buttonPair">
+                                            <button class="spd buttonPlus js-stage-inc" id="js-stage-inc-5-4">+</button>
+                                            <button class="spd buttonMinus js-stage-dec" id="js-stage-dec-5-4">-</button>
+                                    </div><div class="buttonPair">
+                                            <button class="acc buttonPlus js-stage-inc" id="js-stage-inc-5-5">+</button>
+                                            <button class="acc buttonMinus js-stage-dec" id="js-stage-dec-5-5">-</button>
+                                    </div><div class="buttonPair">
+                                            <button class="eva buttonPlus js-stage-inc" id="js-stage-inc-5-6">+</button>
+                                            <button class="eva buttonMinus js-stage-dec" id="js-stage-dec-5-6">-</button>
+                                    </div>
+                            </div>
+                    </div>					
+            </div>
+
+            <div id="blueTypesAndAbilities">
+                    <div class="typeAndAbility">
+                            <div class="typeAndGender">
+                                    <span id="js-pkmn-types-2"></span>
+                                    <span id="js-pkmn-gender-2" class="gender"></span></div>
+                            <div id="js-ability-2" class = "ability tooltip"></div></div>
+                    <div class="typeAndAbility">
+                            <div class="typeAndGender">
+                                    <span id="js-pkmn-types-1"></span>
+                                    <span id="js-pkmn-gender-1" class="gender"></span></div>
+                    <div id="js-ability-1" class="ability tooltip"></div></div>
+                    <div class="typeAndAbility">
+                            <div class="typeAndGender">
+                                    <span id="js-pkmn-types-0"></span>
+                                    <span id="js-pkmn-gender-0" class="gender"></span></div>
+                            <div id="js-ability-0" class="ability tooltip"></div></div>
+            </div>
+
+            <div id="redTypesAndAbilities">
+
+                    <div class="typeAndAbility">
+                            <div class="typeAndGender">
+                                    <span id="js-pkmn-types-3"></span>
+                                    <span class="gender" id="js-pkmn-gender-3"></span></div>
+                            <div id="js-ability-3" class="ability tooltip"></div></div>
+
+                    <div class="typeAndAbility">
+                            <div class="typeAndGender">
+                                    <span id="js-pkmn-types-4"></span>
+                                    <span class="gender" id="js-pkmn-gender-4"></span></div>
+                            <div id="js-ability-4" class="ability tooltip"></div></div>
+
+                    <div class="typeAndAbility">
+                            <div class="typeAndGender">
+                                    <span id="js-pkmn-types-5"></span>
+                                            <span class="gender" id="js-pkmn-gender-5"></span></div>
+                            <div id="js-ability-5" class="ability tooltip"></div></div>
+            </div>
+
+            
+            
+            <div id="bluePkmnInfo-grid">
+                <div class="pkmnInfo-grid">
+                    <div id="js-sprite-0" class="spriteSpace-grid"></div>
+                    <div id="js-ability-grid-0" class="ability-grid tooltip"></div>
+                    <div id="js-type-grid-0-1" class="type0-grid"></div>
+                    <div id="js-type-grid-0-2" class="type1-grid"></div>
+                    <div id="js-item-grid-0" class="item-grid tooltip"></div>
+                </div>
+                <div class="pkmnInfo-grid">
+                    <div id="js-sprite-1" class="spriteSpace-grid"></div>
+                    <div id="js-ability-grid-1" class="ability-grid tooltip"></div>
+                    <div id="js-type-grid-1-1" class="type0-grid"></div>
+                    <div id="js-type-grid-1-2" class="type1-grid"></div>
+                    <div id="js-item-grid-1" class="item-grid tooltip"></div>
+                </div>
+                <div class="pkmnInfo-grid">
+                    <div id="js-sprite-2" class="spriteSpace-grid"></div>
+                    <div id="js-ability-grid-2" class="ability-grid tooltip"></div>
+                    <div id="js-type-grid-2-1" class="type0-grid"></div>
+                    <div id="js-type-grid-2-2" class="type1-grid"></div>
+                    <div id="js-item-grid-2" class="item-grid tooltip"></div>
+                </div>
+            </div>
+            
+            <div id="redPkmnInfo-grid">
+                <div class="pkmnInfo-grid">
+                    <div id="js-sprite-3" class="spriteSpace-grid"></div>
+                    <div id="js-ability-grid-3" class="ability-grid tooltip"></div>
+                    <div id="js-type-grid-3-1" class="type0-grid"></div>
+                    <div id="js-type-grid-3-2" class="type1-grid"></div>
+                    <div id="js-item-grid-3" class="item-grid tooltip"></div>
+                </div>
+                <div class="pkmnInfo-grid">
+                    <div id="js-sprite-4" class="spriteSpace-grid"></div>
+                    <div id="js-ability-grid-4" class="ability-grid tooltip"></div>
+                    <div id="js-type-grid-4-1" class="type0-grid"></div>
+                    <div id="js-type-grid-4-2" class="type1-grid"></div>
+                    <div id="js-item-grid-4" class="item-grid tooltip"></div>
+                </div>
+                <div class="pkmnInfo-grid">
+                    <div id="js-sprite-5" class="spriteSpace-grid"></div>
+                    <div id="js-ability-grid-5" class="ability-grid tooltip"></div>
+                    <div id="js-type-grid-5-1" class="type0-grid"></div>
+                    <div id="js-type-grid-5-2" class="type1-grid"></div>
+                    <div id="js-item-grid-5" class="item-grid tooltip"></div>
+                </div>
+            </div>
+            
+            
+            <div class='gifContainer' id="container0"></div>
+            <div class='gifContainer' id="container1"></div>
+            <div class='gifContainer' id="container2"></div>
+            <div class='gifContainer' id="container3"></div>
+            <div class='gifContainer' id="container4"></div>
+            <div class='gifContainer' id="container5"></div>
+
+            <div id="js-global-weather-icons" class="global-weather-icons">
+                    <div class="weatherFirstSquare weatherNone tooltip" title="no weather"><input name="weather" type="radio" class="globalWeather"
+                            id="weather-none" checked /><label for="weather-none"></label></div>
+
+                    <div class="weatherFirstSquare tooltip" title="sun"><input name="weather" type="radio" class="globalWeather" id="weather-sun" /><label
+                            for="weather-sun"><img class="sun-sprite" alt="sun" src="/img/none.png" /></label></div>
+                    <div class="weatherSquare tooltip" title="rain"><input name="weather" type="radio" class="globalWeather" id="weather-rain" /><label
+                            for="weather-rain"><img class="rain-sprite" alt="rain" src="/img/none.png" /></label></div>
+
+                    <div class="weatherFirstSquare tooltip" title="sandstorm"><input name="weather" type="radio" class="globalWeather"
+                            id="weather-sandstorm" /><label for="weather-sandstorm"><img class="sandstorm-sprite" alt="sandstorm" src="/img/none.png" /></label></div>
+                    <div class="weatherSquare tooltip" title="hail"><input name="weather" type="radio" class="globalWeather" id="weather-hail" /><label
+                            for="weather-hail"><img class="hail-sprite" alt="hail" src="/img/none.png" /></label></div>
+                    <div class="weatherSquare tooltip" title="fog"><input name="weather" type="radio" class="globalWeather" id="weather-fog" /><label
+                            for="weather-fog"><img class="fog-sprite" alt="fog" src="/img/none.png" /></label></div>
+            </div>
+            
+            <div id="js-grid-global-weather-icons" class="grid-global-weather-icons">
+                    <div class="weatherSquare weatherNone tooltip" title="no weather"><input name="weather" type="radio" class="globalWeather"
+                            checked /><label for="weather-none"></label></div>
+
+                    <div class="weatherSquare tooltip" title="sun"><input name="weather" type="radio" class="globalWeather"/><label
+                            for="weather-sun"><img class="sun-sprite" alt="sun" src="/img/none.png" /></label></div>
+                    <div class="weatherSquare tooltip" title="rain"><input name="weather" type="radio" class="globalWeather"/><label
+                            for="weather-rain"><img class="rain-sprite" alt="rain" src="/img/none.png" /></label></div>
+
+                    <div class="weatherSquare tooltip" title="sandstorm"><input name="weather" type="radio" class="globalWeather"
+                            id="grid-weather-sandstorm" /><label for="weather-sandstorm"><img class="sandstorm-sprite" alt="sandstorm" src="/img/none.png" /></label></div>
+                    <div class="weatherSquare tooltip" title="hail"><input name="weather" type="radio" class="globalWeather"/><label
+                            for="weather-hail"><img class="hail-sprite" alt="hail" src="/img/none.png" /></label></div>
+                    <div class="weatherSquare tooltip" title="fog"><input name="weather" type="radio" class="globalWeather"/><label
+                            for="weather-fog"><img class="fog-sprite" alt="fog" src="/img/none.png" /></label></div>
+            </div>
+
+            <div id="clickmapDiamond">
+                <div class="diamondTipNoBG"></div>
+                <div class='redEmptyPkmnMovesetNoBG'></div>
+                <div class='redEmptyPkmnMovesetNoBG'></div>
+                <div class='redEmptyPkmnMovesetNoBG'></div>
+                <div class='blueEmptyPkmnMovesetNoBG'></div>
+                <div data-left-click="attack-0-0-3" data-right-click='resetAll' class='emptyDuel leftClick rightClick'>
+                        <div data-left-click="attack-0-0-2" class='move3Border leftClick'>
+                        <div data-left-click="attack-0-0-1" class='move2Border leftClick'>
+                        <div data-left-click="attack-0-0-0" class='move1Border leftClick'>
+                        <div data-right-click='set-weather-0-0' data-left-click='none' class='rightClick leftClick move0Border'></div></div></div></div></div>
+
+                <div data-left-click="attack-0-1-3" data-right-click='resetAll' class='emptyDuel leftClick rightClick'>
+                        <div data-left-click="attack-0-1-2" class='move3Border leftClick'>
+                        <div data-left-click="attack-0-1-1" class='move2Border leftClick'>
+                        <div data-left-click="attack-0-1-0" class='move1Border leftClick'>
+                        <div data-right-click='set-weather-0-1' data-left-click='none' class='rightClick leftClick move0Border'></div></div></div></div></div>
+
+                <div data-left-click="attack-0-2-3" data-right-click='resetAll' class='emptyDuel leftClick rightClick'>
+                        <div data-left-click="attack-0-2-2" class='move3Border leftClick'>
+                        <div data-left-click="attack-0-2-1" class='move2Border leftClick'>
+                        <div data-left-click="attack-0-2-0" class='move1Border leftClick'>
+                        <div data-right-click='set-weather-0-2' data-left-click='none' class='rightClick leftClick move0Border'></div></div></div></div></div>
+
+                <div class='blueEmptyPkmnMovesetNoBG'></div>
+                <div data-left-click="attack-1-0-3" data-right-click='resetAll' class='emptyDuel leftClick rightClick'>
+                        <div data-left-click="attack-1-0-2" class='move3Border leftClick'>
+                        <div data-left-click="attack-1-0-1" class='move2Border leftClick'>
+                        <div data-left-click="attack-1-0-0" class='move1Border leftClick'>
+                        <div data-right-click='set-weather-1-0' data-left-click='none' class='rightClick leftClick move0Border'></div></div></div></div></div>
+
+                <div data-left-click="attack-1-1-3" data-right-click='resetAll' class='emptyDuel leftClick rightClick'>
+                        <div data-left-click="attack-1-1-2" class='move3Border leftClick'>
+                        <div data-left-click="attack-1-1-1" class='move2Border leftClick'>
+                        <div data-left-click="attack-1-1-0" class='move1Border leftClick'>
+                        <div data-right-click='set-weather-1-1' data-left-click='none' class='rightClick leftClick move0Border'></div></div></div></div></div>
+
+                <div data-left-click="attack-1-2-3" data-right-click='resetAll' class='emptyDuel leftClick rightClick'>
+                        <div data-left-click="attack-1-2-2" class='move3Border leftClick'>
+                        <div data-left-click="attack-1-2-1" class='move2Border leftClick'>
+                        <div data-left-click="attack-1-2-0" class='move1Border leftClick'>
+                        <div data-right-click='set-weather-1-2' data-left-click='none' class='rightClick leftClick move0Border'></div></div></div></div></div>
+
+                <div class='blueEmptyPkmnMovesetNoBG'></div>
+                <div data-left-click="attack-2-0-3" data-right-click='resetAll' class='emptyDuel leftClick rightClick'>
+                        <div data-left-click="attack-2-0-2" class='move3Border leftClick'>
+                        <div data-left-click="attack-2-0-1" class='move2Border leftClick'>
+                        <div data-left-click="attack-2-0-0" class='move1Border leftClick'>
+                        <div data-right-click='set-weather-2-0' data-left-click='none' class='rightClick leftClick move0Border'></div></div></div></div></div>
+
+                <div data-left-click="attack-2-1-3" data-right-click='resetAll' class='emptyDuel leftClick rightClick'>
+                        <div data-left-click="attack-2-1-2" class='move3Border leftClick'>
+                        <div data-left-click="attack-2-1-1" class='move2Border leftClick'>
+                        <div data-left-click="attack-2-1-0" class='move1Border leftClick'>
+                        <div data-right-click='set-weather-2-1' data-left-click='none' class='rightClick leftClick move0Border'></div></div></div></div></div>
+
+                <div data-left-click="attack-2-2-3" data-right-click='resetAll' class='emptyDuel leftClick rightClick'>
+                        <div data-left-click="attack-2-2-2" class='move3Border leftClick'>
+                        <div data-left-click="attack-2-2-1" class='move2Border leftClick'>
+                        <div data-left-click="attack-2-2-0" class='move1Border leftClick'>
+                        <div data-right-click='set-weather-2-2' data-left-click='none' class='rightClick leftClick move0Border'></div></div></div></div></div>
+            </div>
+
+
+
+            <form id="teamPkmn-form" class="diamond-team-pkmn-form">
+                    <table>
+                            <tr>
+                                    <td><input type="text" id="js-pkmn-name-0" class="team1Pkmn-formText teamPkmn-formText tooltip"/></td>
+                                    <td><input type="text" id="js-pkmn-name-3" class="team2Pkmn-formText teamPkmn-formText tooltip"/></td></tr>
+                            <tr>
+                                    <td><input type="text" id="js-pkmn-name-1" class="team1Pkmn-formText teamPkmn-formText tooltip"/></td>
+                                    <td><input type="text" id="js-pkmn-name-4" class="team2Pkmn-formText teamPkmn-formText tooltip"/></td></tr>
+                            <tr>
+                                    <td><input type="text" id="js-pkmn-name-2" class="team1Pkmn-formText teamPkmn-formText tooltip"/></td>
+                                    <td><input type="text" id="js-pkmn-name-5" class="team2Pkmn-formText teamPkmn-formText tooltip"/>
+                                            <input type="submit" class="invisible submit" value="ignoremeplz" tabindex="-1"/></td></tr>	
+                            <tr>
+                    </table>					
+
+                <div style="position:relative">
+                        <button  id="visualize" type="button">Visualize</button>
+                        <button id="randomize" type="button">Randomize</button>
+                </div>
+            </form>
+
+           
+
+            <div id="StageMultContainer" class="diamond-stage-mult-container">
+                    <table class="StageMultTable">
+
+                            <tr>
+                                    <td>Crit %</td>
+                                    <td >-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>6.25</td>
+                                    <td>12.5</td>
+                                    <td>25</td>
+                                    <td>33.3</td>
+                                    <td>50 </td>
+                                    <td>-</td>
+                                    </tr>
+                            <tr>
+                            <div style="box-shadow: 2px 0px #111; border-right:2px solid #111;">
+                                    <td>Acc-Eva</td>
+                                    <td>.33</td>
+                                    <td>.36</td>
+                                    <td>.43</td>
+                                    <td>.50</td>
+                                    <td>.60</td>
+                                    <td>.75</td>
+                                    <td>1</td>
+                                    <td>1.33</td>
+                                    <td>1.66</td>
+                                    <td>2</td>
+                                    <td>2.5 </td>
+                                    <td>2.66</td>
+                                    <td>3</td></tr>
+                            <tr>
+                                    <td>Main 5</td>
+                                    <td >.25</td>
+                                    <td>.28</td>
+                                    <td>.33</td>
+                                    <td>.40</td>
+                                    <td>.50</td>
+                                    <td>.66</td>
+                                    <td>1</td>
+                                    <td>1.5 </td>
+                                    <td>2</td>
+                                    <td>2.5 </td>
+                                    <td>3</td>
+                                    <td>3.5 </td>
+                                    <td>4</td></tr>
+                            <tr>
+                                    <td>Stages</td>
+                                    <td>-6</td>
+                                    <td>-5</td>
+                                    <td>-4</td>
+                                    <td>-3</td>
+                                    <td>-2</td>
+                                    <td>-1</td>
+                                    <td>0</td>
+                                    <td>+1</td>
+                                    <td>+2</td>
+                                    <td>+3</td>
+                                    <td>+4</td>
+                                    <td>+5</td>
+                                    <td>+6</td></div></tr>
+                    </table>
+            </div>
+
+            <div id="bluePartyMoveset" class="bluePartyMoveset-diamond">
+                    <div class="pkmnMoveset">
+                            <div id="js-pkmn-img-0" data-left-click='pkmn-img-0' data-right-click='pkmn-img-0' class='pkmnImgSpace leftClick rightClick tooltip'></div>
+                            <div class="blueMoveName move-0-0 tooltip"></div>
+                            <div class="blueMoveName move-0-1 tooltip"></div>
+                            <div class="blueMoveName move-0-2 tooltip"></div>
+                            <div class="blueMoveName move-0-3 tooltip"></div>
+                    </div>
+                    <div class="pkmnMoveset">
+                            <div id="js-pkmn-img-1" data-left-click='pkmn-img-1' data-right-click='pkmn-img-1' class='pkmnImgSpace leftClick rightClick tooltip'></div>
+                            <div class="blueMoveName move-1-0 tooltip"></div>
+                            <div class="blueMoveName move-1-1 tooltip"></div>
+                            <div class="blueMoveName move-1-2 tooltip"></div>
+                            <div class="blueMoveName move-1-3 tooltip"></div>
+                    </div>
+                    <div class="pkmnMoveset">
+                            <div id="js-pkmn-img-2" data-left-click='pkmn-img-2' data-right-click='pkmn-img-2' class='pkmnImgSpace leftClick rightClick tooltip'></div>
+                            <div class="blueMoveName move-2-0 tooltip"></div>
+                            <div class="blueMoveName move-2-1 tooltip"></div>
+                            <div class="blueMoveName move-2-2 tooltip"></div>
+                            <div class="blueMoveName move-2-3 tooltip"></div>
+                    </div>
+            </div>
+
+            <div id="redPartyMoveset" class="redPartyMoveset-diamond">
+                    <div class="pkmnMoveset">
+                            <div id="js-pkmn-img-3" data-left-click='pkmn-img-3' data-right-click='pkmn-img-3' class='pkmnImgSpace leftClick rightClick tooltip'></div>
+                            <div class="redMoveName move-3-0 tooltip"></div>
+                            <div class="redMoveName move-3-1 tooltip"></div>
+                            <div class="redMoveName move-3-2 tooltip"></div>
+                            <div class="redMoveName move-3-3 tooltip"></div>
+                    </div>
+                    <div class="pkmnMoveset">
+                            <div id="js-pkmn-img-4" data-left-click='pkmn-img-4' data-right-click='pkmn-img-4' class='pkmnImgSpace leftClick rightClick tooltip'></div>
+                            <div class="redMoveName move-4-0 tooltip"></div>
+                            <div class="redMoveName move-4-1 tooltip"></div>
+                            <div class="redMoveName move-4-2 tooltip"></div>
+                            <div class="redMoveName move-4-3 tooltip"></div>
+                    </div>
+                    <div class="pkmnMoveset">
+                            <div id="js-pkmn-img-5" data-left-click='pkmn-img-5' data-right-click='pkmn-img-5' class='pkmnImgSpace leftClick rightClick tooltip'></div>
+                            <div class="redMoveName move-5-0 tooltip"></div>
+                            <div class="redMoveName move-5-1 tooltip"></div>
+                            <div class="redMoveName move-5-2 tooltip"></div>
+                            <div class="redMoveName move-5-3 tooltip"></div>
+                    </div>
+            </div>	
+
+
+            <div id="bidCommandContainer" class="diamond-bid-command-container">
+                    <div id="showBidCommand"></div>
+            </div>
+
+            <span id="js-redBets" class="notice-right-0 redBets bets tooltip"></span>
+            
+            <span id="js-blueBets" class="notice-left-0 blueBets bets tooltip"></span>
+            
+            <span id="js-blueMovePerc" class="notice-left-1"></span>
+            
+            <span id="js-redMovePerc" class="notice-right-1"></span>
+            
+            <span id="js-odds" class="diamondTipNotice odds"></span>
+            
+            <!-- temporary sample live bets
+            <span id="js-blueBets" class="topLeftNotice blueBets bets tooltip"><span title="Raw winrate: 64.18% (1607/2504)&lt;br&gt;&lt;br&gt;Weighted for odds: 67.17%&lt;br&gt;&lt;br&gt;Top Bettor rank: #3&lt;br&gt;&lt;br&gt;(The top bettor ranking algorithm grades the skill of top bettors based on several factors.  Rank is only shown for #999 and below.)" class="tooltip"><span class="move moveA">A</span><span class="amount">  ₱22,222</span><span class="username">  danimg12</span><span class="rank">  #3 </span><div class="emoteContainer"><img src="/img/emotes/Kreygasm-small.png"></div><div class="emoteContainer"><img src="/img/emotes/OSsloth-small.png"></div></span><br><span title="Raw winrate: 44.29% (849/1917)&lt;br&gt;&lt;br&gt;Weighted for odds: 49.58%&lt;br&gt;&lt;br&gt;Top Bettor rank: #256&lt;br&gt;&lt;br&gt;(The top bettor ranking algorithm grades the skill of top bettors based on several factors.  Rank is only shown for #999 and below.)" class="tooltip"><span class="move moveA">A</span><span class="amount">  ₱12,345</span><span class="username">  mehcheniti</span><span class="rank">  #256 </span></span><br><span title="Raw winrate: 50.17% (145/289)&lt;br&gt;&lt;br&gt;Weighted for odds: 50.77%" class="tooltip"><span class="move move-">-</span><span class="amount">  ₱12,245</span><span class="username">  oswin2014</span><div class="emoteContainer"><img src="/img/emotes/TriHard-small.png"></div></span><br><span title="Raw winrate: 50.31% (80/159)&lt;br&gt;&lt;br&gt;Weighted for odds: 59.3%" class="tooltip"><span class="move move-">-</span><span class="amount">  ₱10,500</span><span class="username">  prof_nibbles</span><div class="emoteContainer"><img src="/img/emotes/TriHard-small.png"></div></span><br><span title="Raw winrate: 66.72% (1917/2873)&lt;br&gt;&lt;br&gt;Weighted for odds: 62.59%&lt;br&gt;&lt;br&gt;Top Bettor rank: #33&lt;br&gt;&lt;br&gt;(The top bettor ranking algorithm grades the skill of top bettors based on several factors.  Rank is only shown for #999 and below.)" class="tooltip"><span class="move moveA">A</span><span class="amount">  ₱9,999</span><span class="username">  rudcwt</span><span class="rank">  #33 </span></span><br><span style="color: #777; font-style:italic; font-size:13px;">    Mouseover for stats</span></span>
+            <span class="topRightNotice redBets bets tooltip" id="js-redBets"><span title="Raw winrate: 45.2% (292/646)&lt;br&gt;&lt;br&gt;Weighted for odds: 42.73%" class="tooltip"><div class="emoteContainer"><img src="/img/emotes/TriHard-small.png"></div><span class="username">masterlightx  </span><span class="amount">₱40,000  </span><span class="move moveB">B</span></span><br><span title="Raw winrate: 62.2% (2684/4315)&lt;br&gt;&lt;br&gt;Weighted for odds: 61.9%&lt;br&gt;&lt;br&gt;Top Bettor rank: #2&lt;br&gt;&lt;br&gt;(The top bettor ranking algorithm grades the skill of top bettors based on several factors.  Rank is only shown for #999 and below.)" class="tooltip"><div class="emoteContainer"><img src="/img/emotes/Kreygasm-small.png"></div><span class="rank">#2  </span><span class="username">addarash1  </span><span class="amount">₱9,999  </span><span class="move moveB">B</span></span><br><span title="Raw winrate: 65% (13/20)&lt;br&gt;&lt;br&gt;Weighted for odds: 101.2%" class="tooltip"><div class="emoteContainer"><img src="/img/emotes/TriHard-small.png"></div><span class="username">cuthros  </span><span class="amount">₱5,222  </span><span class="move moveA">A</span></span><br><span title="Raw winrate: 73.87% (82/111)&lt;br&gt;&lt;br&gt;Weighted for odds: 76.7%" class="tooltip"><div class="emoteContainer"><img src="/img/emotes/TriHard-small.png"></div><span class="username">99bluefire  </span><span class="amount">₱2,500  </span><span class="move move-">-</span></span><br><span title="Raw winrate: 100% (1/1)&lt;br&gt;&lt;br&gt;Weighted for odds: 64.01%" class="tooltip"><div class="emoteContainer"><img src="/img/emotes/TriHard-small.png"></div><span class="username">themcflygon  </span><span class="amount">₱1,873  </span><span class="move move-">-</span></span><br><span style="color: #777; font-style:italic; font-size:13px;">Mouseover for stats    </span></span>
+            -->
+            
+            <span id="js-blueTotal" class="midLeftNotice total blueTotal"></span>
+            
+            <span id="js-redTotal" class="midRightNotice total redTotal"></span>
+            
+        <div id="js-helpDialog" title='Help' class="helpDialog">
+               <div id="js-helpDesc" class="helpDesc">
+
+
+
+            </div>
+         </div>
+
+            
+            
+            <div id="js-optionsDialog" title="Settings" class="optionsDialog">
+                <br>
+                <div class="onoffswitch">
+                    <input id="js-animated-sprites" type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" checked>
+                    <label class="onoffswitch-label" for="js-animated-sprites">
+                        <span class="onoffswitch-inner"></span>
+                        <span class="onoffswitch-switch"></span>
+                    </label>
+                </div>
+                <div class="options-text">&nbsp;&nbsp;Animated sprites</div>
+                
+                
+                <br>
+                <div class="onoffswitch">
+                    <input id="js-match-pkmn-update" type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" checked>
+                    <label class="onoffswitch-label" for="js-match-pkmn-update">
+                        <span class="onoffswitch-inner"></span>
+                        <span class="onoffswitch-switch"></span>
+                    </label>
+                </div>
+                <div class="options-text">&nbsp;&nbsp;Auto-update match Pokémon</div>
+                
+<!--                    
+                <br>
+                <div class="onoffswitch">
+                    <input id="js-smartReset" type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" checked>
+                    <label class="onoffswitch-label" for="js-smartReset">
+                        <span class="onoffswitch-inner"></span>
+                        <span class="onoffswitch-switch"></span>
+                    </label>
+                </div>
+                <div class="options-text">&nbsp;&nbsp;Smart stages</div>-->
+                
+<!--                <div class="onoffswitch">
+                    <input id="js-gray-move-hints" type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" checked>
+                    <label class="onoffswitch-label" for="js-gray-move-hints">
+                        <span class="onoffswitch-inner"></span>
+                        <span class="onoffswitch-switch"></span>
+                    </label>
+                </div>
+                <div class="options-text">&nbsp;&nbsp;Gray colored move hints</div>-->
+                
+                
+            </div>
+            
+    </div>
+</div>
+
+
+<nav id="context-menu" class="context-menu">
+<table class="noHighlight weatherMenu">
+	<tr>
+		<td class="weatherWrap leftClick" data-left-click="sun">
+                    <div class = "weatherImg sun-sprite"></div>Sun</td>
+		<td class="weatherWrap leftClick" data-left-click="rain">
+                    <div class = "weatherImg rain-sprite"></div>Rain</td>
+		<td class="weatherWrap leftClick" data-left-click="sandstorm">
+			<div class = "weatherImg sandstorm-sprite"></div>Sand</td>
+	<tr>
+		<td class="weatherWrap leftClick" data-left-click="hail">
+			<div class = "weatherImg hail-sprite"></div>Hail</td>
+		<td class="weatherWrap leftClick" data-left-click="none">
+			<div class = "weatherImg none-sprite"></div>None</td>
+		<td class="weatherWrap leftClick" data-left-click="fog">
+			<div class = "weatherImg fog-sprite"></div>Fog</td>
+        </tr>
+</table>
+</nav>
+	
+</div>
+<script type="text/javascript">
+    var require = {
+        urlArgs : "bust=1.0.0"
+}
+</script>
+<script data-main="/js/main-visualizer" src="/js/require.js"></script>
+
+</body>
+</html>

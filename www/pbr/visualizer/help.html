@@ -1,0 +1,64 @@
+<h2>Using the Visualizer - Basics</h2>
+<div>
+   <h3>What is shown?</h3>
+   <p>The visualizer auto loads the match currently playing on the stream, if one is available.</p>
+   <p>The blue and red squares are colored to indicate the faster Pokémon. If there is a speed tie, the square is colored purple.</p>
+   <p>In Pokémon, the damage caused by attacks is multiplied by a randomly generated number between 85% and 100%. Thus the visualizer shows the minimum and maximum HP damage that can be done for every attack. It also shows that damage as a percentage of the foe's total HP.</p>
+   <p>To learn about stats, see <a href="http://bulbapedia.bulbagarden.net/wiki/Stats#Stat_modifiers">http://bulbapedia.bulbagarden.net/wiki/Stats#Stat_modifiers</a></p>
+   <h3>Click around</h3>
+   <p>Click on attacks to do damage! You can click on many non-damaging attacks as well, such as Rain Dance, Swagger, and Thunder Wave. Moves with a side effect of 70% or more activate automatically- such as Icy Wind or Charge Beam.</p>
+   <p>Right-click on any attack to reset all match damage, stage changes, and weather.</p>
+   <p>Right-click on the speed indicator squares to open a weather menu for that particular duel.</p>
+   <p>Left-click on the large weather icons to set the weather for all nine duels.</p>
+   <p>Left-click on a Pokémon's sprite to deal 6.25% damage to it. Right-click instead to heal by 6.25%. Damage is rounded down. Useful for estimating sandstorm / hail damage (6.25%) or burn / poison (12.5%).</p>
+   <h3>Mouseover moves, abilities, and items</h3>
+   <p>You can also mouseover moves, abilities, and items to see their description.  The descriptions on this visualizer are specific to Generation 4 DPP Singles mechanics.  They are edited to be fairly comprehensive, but still easy to read.</p>
+   <p>Generally, these descriptions are very reliable and an excellent way to learn about how the game works.  Inevitably, there are occasional mistakes or omissions that arise under rare or unusual situations.</p>
+</div>
+<h2>Using the Visualizer - Advanced</h2>
+<div>
+   <h3>Shift to Different Team Members</h3>
+   <p>When a team has more than 3 Pokémon, you can press keys to shift the entire team up or down.</p>
+   <p>Press 1 and 2 to shift through the Blue team lineup.  (Alternately, press Home and End)</p>
+   <p>Press 3 and 4 to shift through the Red team lineup.  (Alternately, press PageUp and PageDown)</p>
+   <p>You must press the numbers above the QWERTY row.  Keypad numbers will not perform shifting.</p>
+   <h3>Attack Markings</h3>
+   <p>Some attacks are colored in dark gray; this is a "negative" mark.  You may be using Poison Powder on a Pokémon with the Quick Feet ability, or Hypnosis on an Early Bird Pokémon. Some are attacks are have this mark for very subtle reasons! You can mouseover the move and ability, and item names for Pokémon involved to try to figure out why an attack is negatively marked.</p>
+   <p>Other attacks are colored in off-white; this is a "positive" mark.  Moves such as Revenge or Rollout that might increase in power under certain circumstances are marked in this way.  Sometimes clicking around will double the damage for you, and sometimes it might not.  Other situations, such as Gust against Fly, can also trigger this mark.  Again, the mark can appear for very subtle reasons.</p>
+   <h3>Ability & Item Name Colorings</h3>
+   <p>Red: Effects are not accounted for- e.g. Shadow Tag or Damp Rock.</p>
+   <p>Yellow: Effects may not be obvious- e.g. Overgrow or a Petaya Berry only boosts damage if HP is low, and Dry Skin accounts for modified damage but will not indicate the advantage of switching in a Pokémon with Drizzle or Sunny Day.</p>
+   <p>Uncolored: Effects are fully accounted for- e.g. Technician or Silk Scarf. While you don't have to worry about this ability or item currently having an effect that isn't already shown, you should still worry about the possibility of it being copied/swapped/stolen/nullified/removed (Fling, Skill Swap, Trick, etc)</p>
+   <h3>Move Name Colorings</h3>
+   <p>Pink: Under 5 pp.</p>
+   <p>Red: Under 9 pp.</p>
+   <p>Uncolored: All other moves.</p>
+</div>
+<h2>Known Issues</h2>
+<div>
+    <p>These modes are unsupported: doubles, 80% hp, afflicted.  For doubles, this includes move/ability/item descriptions as well as moves with modified doubles damage.  All other modes should be handled correctly.</p>
+    <p>The list of available sets for you to type in is very much out of date.  Normally you can type setnames into the blue/red boxes and click Visualize to plan a token match.</p>
+    <p>The 3D animated sprites may slow your browser. Click the Pokedex to disable them if this occurs.</p>
+</div>
+<h2>Future Developments</h2>
+<div>
+    <p>I probably won't be doing too much more development on this site. Outside of the visualizer, I might look into running a tpp chatlogs site at some point one day, but no promises.</p>
+</div>
+<h2>About</h2>
+<div>
+   <h3>Bug Reporting / Contact</h3>
+   <p>I'm ferraro2 and I run this site on my own.</p>
+   <p>Feel free to <a href="https://www.discordapp.com/users/ferraro2#2257">contact me on Discord</a> or <a href="https://www.twitch.tv/ferraro2">Twitch</a>.</p>
+   <h3>Acknowledgement</h3>
+   <p>/u/FelkCraft for creating a visualizer which was the inspiration for the creation of this one.</p>
+   <p>Pokémon Showdown for damage calculation scripts and sprites.</p>
+   <p>/u/Droar for helping with previous versions of visualizebot and auto updating.</p>
+   <p><a href="http://veekun.com/">www.veekun.com</a> for all sorts of Pokémon data.</p>
+   <p>Smogon for the April Fools sprites.</p>
+   <h3>Code</h3>
+   <p>Currently not public but coming soon to Github.</p>
+   <p>All damage calculation is performed locally on your machine in Javascript, which makes the visualizer instantly responsive to your clicking around.</p>
+   <p>The currently live match data is downloaded and reformatted by a python script on the site server, and then sent to your browser via Socket.IO.</p>
+   <h3>Disclaimer</h3>
+   <p>This website is not affiliated with TwitchPlaysPokemon.</p>
+</div>

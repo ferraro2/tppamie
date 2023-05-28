@@ -1,0 +1,15 @@
+{
+  "name": "visualizer",
+  "version": "1.0.0",
+  "description": "Send real time data to browser visualizers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "dhason",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0",
+    "socket.io": "^1.4.8"
+  }
+}
