@@ -98,9 +98,7 @@ if ($user_date !== '') {
     }
 }
 /*
-* Sort order is determined by a radio button- earliest or latest
-* Latest is the default
-* 
+* Sort order is determined by a radio button- earliest or latest, or empty string if no button was selected
 */
 $sort_str = !isset($_GET['sort']) || gettype($_GET['sort']) !== 'string' ? '' : $_GET['sort'];
 
@@ -120,19 +118,20 @@ if(!$query_present) {
         list($from_date, $from_unix) = [$to_date, $to_unix];
         list($to_date, $to_unix) = [$temp_date, $temp_unix];
     }
-    
+
+    $outer_sort_asc = true;
     if ($from_date !== '') {
-        $trunc_sort = "";
+        $sort_nonredundant = "earliest";
         $inner_ordered_range = " WHERE tstamp >= '$from_date' ORDER BY tstamp asc ";
     } else if($to_date !== '') {
-        $trunc_sort = "";
+        $sort_nonredundant = "";
         $inner_ordered_range = " WHERE tstamp < '$to_date' ORDER BY tstamp desc ";
     } else {
         if ($sort_str === 'earliest') {
-            $trunc_sort = "earliest";
+            $sort_nonredundant = "earliest";
             $inner_ordered_range = " ORDER BY tstamp asc ";
         } else {
-            $trunc_sort = "";
+            $sort_nonredundant = "";
             $inner_ordered_range = " ORDER BY tstamp desc ";
         }
     }
@@ -145,21 +144,33 @@ if(!$query_present) {
         list($from_date, $from_unix) = [$to_date, $to_unix];
         list($to_date, $to_unix) = [$temp_date, $temp_unix];
     }
-    
-    $outer_sort_asc = $sort_str === "latest" ? false : true;
-    $outer_sort = $outer_sort_asc ? " asc " : " desc ";
-    
+
+    //$outer_sort_asc = $sort_str === "earliest" ? true : false;  /* set descending if none specified */
+    //$outer_sort = $outer_sort_asc ? " asc " : " desc ";
+
+    //var_dump($outer_sort);
+    //var_dump($sort_str);
+
     if($from_date !== '') {
-        $trunc_sort = "";
+        $outer_sort_asc = $sort_str === "latest" ? false : true;  /* set ascending if none specified */
+        $outer_sort = $outer_sort_asc ? " asc " : " desc ";
+        $sort_nonredundant = "";
         $inner_ordered_range = " AND tstamp >= $from_unix ORDER BY tstamp asc ";
     } else if ($to_date !== '') {
-        $trunc_sort = $sort_str === 'latest' ? "latest" : "";
+        $outer_sort_asc = $sort_str === "latest" ? false : true;  /* set ascending if none specified */
+        $outer_sort = $outer_sort_asc ? " asc " : " desc ";
+        $sort_nonredundant = $sort_str === 'latest' ? "latest" : "";
         $inner_ordered_range = " AND tstamp < $to_unix ORDER BY tstamp desc ";
     } else {
-        $trunc_sort = $sort_str === 'latest' ? "latest" : "";
+        $outer_sort_asc = $sort_str === "earliest" ? true : false;  /* set descending if none specified */
+        $outer_sort = $outer_sort_asc ? " asc " : " desc ";
+        $sort_nonredundant = $sort_str === 'latest' ? "latest" : "";
         $inner_ordered_range = " ORDER BY tstamp $outer_sort ";
     }
 
+    var_dump($outer_sort_asc);
+    echo "<br>";
+    //var_dump($sort_str);
 }
 
 
@@ -194,12 +205,13 @@ if (!$query_present && $from_date === '' && $to_date === '') {
  *  
  * If user_date (param 'date') is not empty, exactly one of ($from_date, $to_date) is empty.
  * Else, at least one of ($from_date, $to_date) is empty.
- * 
- * 
+ *
+ * During parsing, $user_date (if present) is assigned to $from_date as a guess.
+ * This may need to be corrected now, depending on the sort radio button value.
  * $from_date and $to_date may be swapped when:
  * ( $from_date !== '' && $sort_str === 'latest'
             || $to_date !== '' && $sort_str === 'earliest')
- * This swap always occurs when !$query_present, and sometimes occurs when $query_present
+ * This swap always occurs when !$query_present, and sometimes occurs when $query_present.  Details below.
  * 
  * 
  * Below we refer to $from_date as from (similarly with 'to'), for convenience.
@@ -288,8 +300,8 @@ if($user_date !== '') {
     unset($query_arr['from']);
     unset($query_arr['to']);
     unset($query_arr['sort']);
-    if($trunc_sort !== '') {
-        $query_arr['sort'] = $trunc_sort;
+    if($sort_nonredundant !== '') {
+        $query_arr['sort'] = $sort_nonredundant;
     }
     
     if ($from_date !== '') {
@@ -303,7 +315,5 @@ if($user_date !== '') {
     $new_link .= $trunc_query;
     header("Location: " . $new_link);
 }
-
-$display_reverse = ($query_present && $trunc_sort === 'latest');
 
 ?>

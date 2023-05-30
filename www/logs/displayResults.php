@@ -78,8 +78,9 @@ if($had_results) {
 //            $displayedTime = date("g\:i\:", $date)
 //                    . "<span style=\"font-size: 12px;\">" . date("s", $date) . "</span>"
 //                    . date(" a", $date);
+        $arrowTimeDirection = $outer_sort_asc ? "🠗" : "🠕";
         $displayedTime = date("g\:i\ a ", $date)
-                . "&nbsp|<span style=\"font-size: 13px;font-style:italic;\">&nbsp" . date("s", $date) . "s</span>";
+                . "" . $arrowTimeDirection . "<span style=\"font-size: 13px;font-style:italic;\">&nbsp" . date("s", $date) . "s</span>";
 
 
         echo '<td><a href="' . getLink($result->msg_id, "") .'">' . $displayedTime . '</a></td>';

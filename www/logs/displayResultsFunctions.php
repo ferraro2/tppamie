@@ -26,7 +26,8 @@ $endTable = "</table></div>";
 * Return html for a table row, that acts as a in-table divider
 */
 function newDivider($divider) {
-   return "<tr class='rowDivider'>"
+   return "<tr class='invisibleRow'></tr>"
+           . "<tr class='rowDivider'>"
            . "<td class='divider'>$divider</td>"
            . "<td class='divider'></td>"
            . "<td class='divider'></td>"

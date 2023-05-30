@@ -197,10 +197,9 @@
                     . "&nbsp&nbsp" . date("M jS Y\, g\:i a", $min_tstamp_unix) . " - <br>"
                     . date("M jS Y\, g\:i a", $max_tstamp_unix) . "   ";
                     
-            $meta_info .= $display_reverse 
-                    ? "<br><span class=\"alert\">"
-                    . "Results in descending order."
-                        ."</span>" : '';
+            $meta_info .= $outer_sort_asc
+                    ? ''
+                    : "<br><span class=\"alert\">Results in descending order.</span>";
 
         } else {
             //search did not have results

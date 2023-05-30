@@ -99,20 +99,18 @@ h2 {
 }
 .logTable {
 	text-align: center;
-        width: 100%;
-        margin: 0 auto;
+    width: 100%;
+    margin: 0 auto;
 	font-size:18px;
         
-        margin-top: 4px;
-        margin-bottom: 4px;
+    margin-top: 4px;
+    margin-bottom: 4px;
         
 	box-shadow: 8px 8px 5px #585858;
-        -webkit-box-shadow: 8px 8px 5px #585858;
+    -webkit-box-shadow: 8px 8px 5px #585858;
 	border:3px solid #000;
-	
-        background-color: #fcf0e0;
-        
-        background-color: #ece4dc;
+
+    background-color: #ece4dc;
         
 	-moz-border-radius-bottomleft:7px;
 	-webkit-border-bottom-left-radius:7px;
@@ -132,6 +130,11 @@ h2 {
         
         table-layout: fixed;
 }
+.logTable tr:nth-child(odd) {
+}
+.logTable tr:nth-child(even) {
+    background-color: #DDD8D2;
+}
 .logTable tr:first-child th {	
     padding: 5px 2px 5px 2px;
         
@@ -140,7 +143,7 @@ h2 {
     background: -moz-linear-gradient(180deg, #8cd48c, #4c8c4c);
     background: -ms-linear-gradient(180deg, #8cd48c, #4c8c4c);
     background: linear-gradient(180deg, #8cd48c, #4c8c4c);
-    background-color:#4c8c4c;
+    background-color: #4c8c4c;
     
     border:0px solid #000000;
     text-align:center;
@@ -215,6 +218,7 @@ h2 {
     border-color: #000;
     text-align: right;
     padding-left: 0px;
+    padding-right: 20px;
     height: 45px;
     line-height: 45px;
     
@@ -226,6 +230,8 @@ h2 {
     border-width: 2px 0px 2px 0px;
     border-style: solid;
     border-color: #000;
+}
+.logTable tr.invisibleRow {
 }
 a:link {
     color: #0000d0;
@@ -483,7 +489,7 @@ h3 {
 }
 .arrowUp {
     position: absolute;
-    right: 70px;
+    right: 50px;
     display: block;
     cursor: pointer;
     width: 51px;
