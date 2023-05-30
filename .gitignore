@@ -7,3 +7,5 @@
 /nbproject/
 /auth_socketIO
 /oauth.json
+gql_session_headers.json
+credentials.php
