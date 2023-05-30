@@ -1,12 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import division, print_function, unicode_literals
 
-import re, json
-import traceback
-
 #from common
 import utils
-from utils import uPrint
 
 import logging
 logging.basicConfig(level=logging.DEBUG)
@@ -17,7 +13,7 @@ logger = logging.getLogger(__name__)
 from socketIO_client import SocketIO
 
 sockets = []
-auth_socketIO = utils.readFile("../auth_socketIO")
+auth_socketIO = utils.readFile("../../auth_socketIO")
 
 def addSocket(port):
 	loc = 'localhost'
