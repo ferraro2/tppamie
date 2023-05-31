@@ -199,7 +199,7 @@
                     
             $meta_info .= $outer_sort_asc
                     ? ''
-                    : "<br><span class=\"alert\">Results in descending order.</span>";
+                    : "<br><span class=\"alert\">Reverse chronological order.</span>";
 
         } else {
             //search did not have results
