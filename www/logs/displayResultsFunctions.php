@@ -15,7 +15,7 @@ function newTable($header) {
    <div class='rightBar'></div>
    <table class='logTable'>
    <tr>
-   <th>Time</th>
+   <th>Time & &nbsp;<img class=\"iconVod\" width=\"16\" src=\"/img/icon_vod.png\"</img></th>
    <th>Username</th>
    <th>Message</th>
    </tr>";
