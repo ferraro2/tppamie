@@ -917,8 +917,8 @@ define(['gameData', 'logger', 'calcRoutines'],
             case "Seismic Toss":
             case "Night Shade":
                 attack.effective = effectiveMult !== 0 ? "normal" : "not";
-                attack.min = 100;
-                attack.max = 100;
+                attack.min = attacker.level;
+                attack.max = attacker.level;
                 return;
                 break;
             case "Sonic Boom":
