@@ -12,18 +12,26 @@
 
 </head>
 
+<?php
 
-<body>
-    <div class="leftBorder"> </div>
-    <div class="mainPage"> 
-    <!----------------------------------------------------------
-     ------------------------------------------------------------
-     --------    TOP BANNER
-     ------------------------------------------------------------
-     ------------------------------------------------------------>
-    
-    <div class="banner">
-<!--        <img alt = '' src='../img/chatBanner.png'/>-->
+    /*
+    * include constants, etc
+    */
+    include "siteDefinitions.php";
+
+
+    echo "
+    <body>
+        <div class=\"leftBorder\"> </div>
+        <div class=\"mainPage\">
+        <!----------------------------------------------------------
+         ------------------------------------------------------------
+         --------    TOP BANNER
+         ------------------------------------------------------------
+         ------------------------------------------------------------>
+
+        <a class=\"banner\" href=\"" . SITE . "\">
+        <!--        <img alt = '' src='../img/chatBanner.png'/>-->
         <img alt = '' src='/img/pokemon/xy/unown-t.gif'/>
         <img alt = '' src='/img/pokemon/xy/unown-p.gif'/>
         <img alt = '' src='/img/pokemon/xy/unown-p.gif'/>
@@ -32,23 +40,17 @@
         <img alt = '' src='/img/pokemon/xy/unown-o.gif'/>
         <img alt = '' src='/img/pokemon/xy/unown-g.gif'/>
         <img alt = '' src='/img/pokemon/xy/unown-s.gif'/>
-<!--        
-        <img style="margin:0px -29px;" alt = '' src='http://img.pokemondb.net/sprites/black-white/normal/unown-t.png'/>
-        <img style="margin:0px -29px;" alt = '' src='http://img.pokemondb.net/sprites/black-white/normal/unown-p.png'/>
-        <img style="margin:0px -29px;" alt = '' src='http://img.pokemondb.net/sprites/black-white/normal/unown-p.png'/>
-        <img style="margin:0px -20px;" alt = '' class='xflip' src='http://img.pokemondb.net/sprites/black-white/normal/chatot.png'/>
-        <img style="margin:0px -29px;" alt = '' src='http://img.pokemondb.net/sprites/black-white/normal/unown-l.png'/>
-        <img style="margin:0px -29px;" alt = '' src='http://img.pokemondb.net/sprites/black-white/normal/unown-o.png'/>
-        <img style="margin:0px -29px;" alt = '' src='http://img.pokemondb.net/sprites/black-white/normal/unown-g.png'/>
-        <img style="margin:0px -29px;" alt = '' src='http://img.pokemondb.net/sprites/black-white/normal/unown-s.png'/> -->
-    </div>
-
-<?php 
-   
-    /*
-    * include constants, etc
-    */
-    include "siteDefinitions.php";
+    <!--
+        <img style=\"margin:0px -29px;\" alt = '' src='http://img.pokemondb.net/sprites/black-white/normal/unown-t.png'/>
+        <img style=\"margin:0px -29px;\" alt = '' src='http://img.pokemondb.net/sprites/black-white/normal/unown-p.png'/>
+        <img style=\"margin:0px -29px;\" alt = '' src='http://img.pokemondb.net/sprites/black-white/normal/unown-p.png'/>
+        <img style=\"margin:0px -20px;\" alt = '' class='xflip' src='http://img.pokemondb.net/sprites/black-white/normal/chatot.png'/>
+        <img style=\"margin:0px -29px;\" alt = '' src='http://img.pokemondb.net/sprites/black-white/normal/unown-l.png'/>
+        <img style=\"margin:0px -29px;\" alt = '' src='http://img.pokemondb.net/sprites/black-white/normal/unown-o.png'/>
+        <img style=\"margin:0px -29px;\" alt = '' src='http://img.pokemondb.net/sprites/black-white/normal/unown-g.png'/>
+        <img style=\"margin:0px -29px;\" alt = '' src='http://img.pokemondb.net/sprites/black-white/normal/unown-s.png'/> -->
+    </a>
+    ";
 
     /*
      * Parse user input
@@ -79,29 +81,32 @@
      */
     include 'displayResults.php';
 
+    echo "
+        </div>
+        <div id=\"bottom\"></div>
+
+        <!----------------------------------------------------------
+        ------------------------------------------------------------
+        --------    PAGE FOOTER
+        ------------------------------------------------------------
+        ------------------------------------------------------------>
+        <a class=\"banner\" href=\"" . SITE . "\" >
+            <img src='/img/pokemon/xy/magikarp.gif'/>
+            <img src='/img/pokemon/xy/magikarp.gif'/>
+            <img src='/img/pokemon/xy-shiny/magikarp.gif'/>
+            <img src='/img/pokemon/xy/magikarp.gif'/>
+            <img src='/img/pokemon/xy/magikarp.gif'/>
+            <img src='/img/pokemon/xy/magikarp.gif'/>
+            <img src='/img/pokemon/xy/magikarp.gif'/>
+        </a>
+
+    </div>
+    <div class=\"leftBorder\"> </div>
+    <script data-main=\"/js/logs_main_1.2.0\" src=\"/js/require.js\"></script>
+    \"
+    "
+    
 ?>
         
-    </div>
-    <div id="bottom"></div>
-
-    <!----------------------------------------------------------
-    ------------------------------------------------------------
-    --------    PAGE FOOTER
-    ------------------------------------------------------------
-    ------------------------------------------------------------>
-    <div class="banner">
-        <img src='/img/pokemon/xy/magikarp.gif'/>
-        <img src='/img/pokemon/xy/magikarp.gif'/>
-        <img src='/img/pokemon/xy-shiny/magikarp.gif'/>
-        <img src='/img/pokemon/xy/magikarp.gif'/>
-        <img src='/img/pokemon/xy/magikarp.gif'/>
-        <img src='/img/pokemon/xy/magikarp.gif'/>
-        <img src='/img/pokemon/xy/magikarp.gif'/>
-    </div>
-
-    </div>
-    <div class="leftBorder"> </div>
-    <script data-main="/js/logs_main_1.2.0" src="/js/require.js"></script>
-
 </body>
 </html>

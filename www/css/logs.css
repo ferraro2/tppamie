@@ -80,9 +80,14 @@ table {
         margin: 0;
 }
 .banner {
+    display: block;
     margin: 0 auto;
     position: relative;
     text-align: center;
+    cursor: pointer;
+}
+.banner:hover {
+    text-decoration: none;
 }
 .xflip {
 	-ms-transform:scaleX(-1);
