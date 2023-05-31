@@ -168,8 +168,8 @@ if(!$query_present) {
         $inner_ordered_range = " ORDER BY tstamp $outer_sort ";
     }
 
-    var_dump($outer_sort_asc);
-    echo "<br>";
+    //var_dump($outer_sort_asc);
+    //echo "<br>";
     //var_dump($sort_str);
 }
 
