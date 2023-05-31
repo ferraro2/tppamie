@@ -19,8 +19,12 @@ if ($had_results || True) {
            $meta_info
        </div>
    </div>
-   <a class=\"arrowDown\" href=\"#bottom\"></a>
+   ";
+}
 
+if ($had_results) {
+   echo "
+        <a class=\"arrowDown\" href=\"#bottom\"></a>
    ";
 }
 ?>
