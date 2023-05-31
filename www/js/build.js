@@ -17,6 +17,9 @@
     modules: [
         {
             name: "main-visualizer"
+        },
+        {
+            name: "logs_main_1.2.0"
         }
     ]
 });

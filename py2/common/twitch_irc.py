@@ -5,7 +5,7 @@ import re, socket, time, datetime, ssl
 from irc import Irc
 
 #from common
-import utils, patterns
+import patterns
 
 import logging
 logger = logging.getLogger(__name__)
