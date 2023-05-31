@@ -103,7 +103,6 @@
     </div>
     <div class=\"leftBorder\"> </div>
     <script data-main=\"/js/logs_main_1.2.0\" src=\"/js/require.js\"></script>
-    \"
     "
     
 ?>
