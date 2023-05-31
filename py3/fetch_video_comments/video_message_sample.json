@@ -1,0 +1,2204 @@
+[
+    {
+        "data": {
+            "video": {
+                "id": "1830977252",
+                "creator": {
+                    "id": "56648155",
+                    "channel": {
+                        "id": "56648155",
+                        "__typename": "Channel"
+                    },
+                    "__typename": "User"
+                },
+                "comments": {
+                    "edges": [
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "b5f196ef-b48a-461c-a3ed-1a7a384470eb",
+                                "commenter": {
+                                    "id": "548283330",
+                                    "login": "si_gh",
+                                    "displayName": "si_gh",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 1,
+                                "createdAt": "2023-05-27T21:27:06.508Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "cant believe that was the final season of pbr",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "c3Vic2NyaWJlcjsyOw==",
+                                            "setID": "subscriber",
+                                            "version": "2",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#1E90FF",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "c18a85f1-773e-4fba-9f12-dcda52facfd0",
+                                "commenter": {
+                                    "id": "18245476",
+                                    "login": "raylias",
+                                    "displayName": "raylias",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 2,
+                                "createdAt": "2023-05-27T21:27:07.618Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "3D Yugioh monster battles.",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [],
+                                    "userColor": "#0000FF",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "716b105e-857c-45e5-a7c3-6e0b366751f6",
+                                "commenter": {
+                                    "id": "87903155",
+                                    "login": "seriouslyintense",
+                                    "displayName": "SeriouslyIntense",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 4,
+                                "createdAt": "2023-05-27T21:27:09.688Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "!gambling",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "Yml0czsxOw==",
+                                            "setID": "bits",
+                                            "version": "1",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#FF69B4",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "6ad68246-73a6-401b-81e7-ccec4519cc4f",
+                                "commenter": {
+                                    "id": "57604599",
+                                    "login": "tpp",
+                                    "displayName": "tpp",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 5,
+                                "createdAt": "2023-05-27T21:27:09.859Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "@SeriouslyIntense Gambling addiction can be a real problem. https://www.helpguide.org/articles/addictions/gambling-addiction-and-problem-gambling.htm",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "bW9kZXJhdG9yOzE7",
+                                            "setID": "moderator",
+                                            "version": "1",
+                                            "__typename": "Badge"
+                                        },
+                                        {
+                                            "id": "Ozs=",
+                                            "setID": "",
+                                            "version": "",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#9ACD32",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "354a350d-72e0-45cd-98f9-a49b990effde",
+                                "commenter": {
+                                    "id": "154340454",
+                                    "login": "potteromer",
+                                    "displayName": "potteromer",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 5,
+                                "createdAt": "2023-05-27T21:27:10.081Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "OOOOOH",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "c3Vic2NyaWJlcjszOw==",
+                                            "setID": "subscriber",
+                                            "version": "3",
+                                            "__typename": "Badge"
+                                        },
+                                        {
+                                            "id": "Z2xoZi1wbGVkZ2U7MTs=",
+                                            "setID": "glhf-pledge",
+                                            "version": "1",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#0000FF",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "906e3832-2fb8-4dc5-8032-0a81aee483bf",
+                                "commenter": {
+                                    "id": "102988851",
+                                    "login": "theworstgiratina",
+                                    "displayName": "TheWorstGiratina",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 6,
+                                "createdAt": "2023-05-27T21:27:11.286Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "catJAM",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "c3Vic2NyaWJlcjs2Ow==",
+                                            "setID": "subscriber",
+                                            "version": "6",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#8A2BE2",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "3140dacb-e018-45a9-be8a-8fa624d20124",
+                                "commenter": {
+                                    "id": "466943098",
+                                    "login": "dracoceros",
+                                    "displayName": "Dracoceros",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 8,
+                                "createdAt": "2023-05-27T21:27:13.435Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "nah",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "c3Vic2NyaWJlcjswOw==",
+                                            "setID": "subscriber",
+                                            "version": "0",
+                                            "__typename": "Badge"
+                                        },
+                                        {
+                                            "id": "cHJlbWl1bTsxOw==",
+                                            "setID": "premium",
+                                            "version": "1",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#FF69B4",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "072be92d-2633-4956-a62a-c282407535f3",
+                                "commenter": {
+                                    "id": "154340454",
+                                    "login": "potteromer",
+                                    "displayName": "potteromer",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 9,
+                                "createdAt": "2023-05-27T21:27:14.192Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "caTJAM",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "c3Vic2NyaWJlcjszOw==",
+                                            "setID": "subscriber",
+                                            "version": "3",
+                                            "__typename": "Badge"
+                                        },
+                                        {
+                                            "id": "Z2xoZi1wbGVkZ2U7MTs=",
+                                            "setID": "glhf-pledge",
+                                            "version": "1",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#0000FF",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "d7d0a4e1-f7e9-49cc-b3a2-7ef16b753d22",
+                                "commenter": {
+                                    "id": "148393166",
+                                    "login": "ruinsofalph",
+                                    "displayName": "RuinsOfAlph",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 9,
+                                "createdAt": "2023-05-27T21:27:14.248Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "~ ",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        },
+                                        {
+                                            "emote": {
+                                                "id": "114870;2;11",
+                                                "emoteID": "114870",
+                                                "from": 2,
+                                                "__typename": "EmbeddedEmote"
+                                            },
+                                            "text": "RaccAttack",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        },
+                                        {
+                                            "emote": null,
+                                            "text": " ~",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "bW9kZXJhdG9yOzE7",
+                                            "setID": "moderator",
+                                            "version": "1",
+                                            "__typename": "Badge"
+                                        },
+                                        {
+                                            "id": "Ozs=",
+                                            "setID": "",
+                                            "version": "",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#FF0000",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "133da503-221d-47ac-939b-7ac66ac27ca3",
+                                "commenter": {
+                                    "id": "466943098",
+                                    "login": "dracoceros",
+                                    "displayName": "Dracoceros",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 11,
+                                "createdAt": "2023-05-27T21:27:15.836Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "it wasn't",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "c3Vic2NyaWJlcjswOw==",
+                                            "setID": "subscriber",
+                                            "version": "0",
+                                            "__typename": "Badge"
+                                        },
+                                        {
+                                            "id": "cHJlbWl1bTsxOw==",
+                                            "setID": "premium",
+                                            "version": "1",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#FF69B4",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "30b8be44-cbb8-47cd-a7a3-9f67d092bc80",
+                                "commenter": {
+                                    "id": "154340454",
+                                    "login": "potteromer",
+                                    "displayName": "potteromer",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 11,
+                                "createdAt": "2023-05-27T21:27:15.895Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "catJAM",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "c3Vic2NyaWJlcjszOw==",
+                                            "setID": "subscriber",
+                                            "version": "3",
+                                            "__typename": "Badge"
+                                        },
+                                        {
+                                            "id": "Z2xoZi1wbGVkZ2U7MTs=",
+                                            "setID": "glhf-pledge",
+                                            "version": "1",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#0000FF",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "0777b69d-0479-40ec-8391-91a5a903ce74",
+                                "commenter": {
+                                    "id": "548283330",
+                                    "login": "si_gh",
+                                    "displayName": "si_gh",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 13,
+                                "createdAt": "2023-05-27T21:27:18.103Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "catJAM",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "c3Vic2NyaWJlcjsyOw==",
+                                            "setID": "subscriber",
+                                            "version": "2",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#1E90FF",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "19df7feb-53ea-4ad6-863e-0a63ba9e61d3",
+                                "commenter": {
+                                    "id": "457181343",
+                                    "login": "lizbandicoot",
+                                    "displayName": "lizbandicoot",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 15,
+                                "createdAt": "2023-05-27T21:27:19.754Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "now loading PBR 2 BORT",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "c3Vic2NyaWJlcjs2Ow==",
+                                            "setID": "subscriber",
+                                            "version": "6",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#FF69B4",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "50d6aedf-d4f1-478b-8c19-129131144d7d",
+                                "commenter": {
+                                    "id": "185741046",
+                                    "login": "absoluteinksanity",
+                                    "displayName": "AbsoluteInksanity",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 16,
+                                "createdAt": "2023-05-27T21:27:21.058Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": {
+                                                "id": "emotesv2_ebacb19935ca45c5b15a9aa2e0663080;0;10",
+                                                "emoteID": "emotesv2_ebacb19935ca45c5b15a9aa2e0663080",
+                                                "from": 0,
+                                                "__typename": "EmbeddedEmote"
+                                            },
+                                            "text": "charboCheer",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "Ozs=",
+                                            "setID": "",
+                                            "version": "",
+                                            "__typename": "Badge"
+                                        },
+                                        {
+                                            "id": "Yml0cy1jaGFyaXR5OzE7",
+                                            "setID": "bits-charity",
+                                            "version": "1",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#1E90FF",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "85b86581-e934-4521-b4fc-3237c4ff8bde",
+                                "commenter": {
+                                    "id": "87903155",
+                                    "login": "seriouslyintense",
+                                    "displayName": "SeriouslyIntense",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 16,
+                                "createdAt": "2023-05-27T21:27:21.094Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "load faster",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "Yml0czsxOw==",
+                                            "setID": "bits",
+                                            "version": "1",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#FF69B4",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "c7645220-5cc6-43da-9829-6975c3879070",
+                                "commenter": {
+                                    "id": "30002875",
+                                    "login": "yugnatzero",
+                                    "displayName": "YugnatZero",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 16,
+                                "createdAt": "2023-05-27T21:27:21.622Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "PBR or intermission?",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "Ozs=",
+                                            "setID": "",
+                                            "version": "",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#00FF7F",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "34d461c5-50ec-49b9-8abf-5aa1467648f7",
+                                "commenter": {
+                                    "id": "77092549",
+                                    "login": "bleekkitten",
+                                    "displayName": "BleekKitten",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 16,
+                                "createdAt": "2023-05-27T21:27:21.684Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "catJAM",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [],
+                                    "userColor": "#8A2BE2",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "f13398a0-5bac-418b-9f2e-4ca229c71eca",
+                                "commenter": {
+                                    "id": "73629889",
+                                    "login": "karlie__",
+                                    "displayName": "Karlie__",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 18,
+                                "createdAt": "2023-05-27T21:27:23.678Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "Why an ad now...",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [],
+                                    "userColor": "#B22222",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "de0d01c0-5e66-4879-9548-63daab260f46",
+                                "commenter": {
+                                    "id": "466943098",
+                                    "login": "dracoceros",
+                                    "displayName": "Dracoceros",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 19,
+                                "createdAt": "2023-05-27T21:27:23.731Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "SEASON 90 is HERE",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "c3Vic2NyaWJlcjswOw==",
+                                            "setID": "subscriber",
+                                            "version": "0",
+                                            "__typename": "Badge"
+                                        },
+                                        {
+                                            "id": "cHJlbWl1bTsxOw==",
+                                            "setID": "premium",
+                                            "version": "1",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#FF69B4",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "89c9be5e-de74-4cf0-9bdf-d8185867dae2",
+                                "commenter": {
+                                    "id": "548283330",
+                                    "login": "si_gh",
+                                    "displayName": "si_gh",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 20,
+                                "createdAt": "2023-05-27T21:27:25.202Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "We are loading.",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "c3Vic2NyaWJlcjsyOw==",
+                                            "setID": "subscriber",
+                                            "version": "2",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#1E90FF",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "1d051fcf-c37d-4351-ada2-4b7f0bcdb0c9",
+                                "commenter": {
+                                    "id": "791479504",
+                                    "login": "mostlynewblood",
+                                    "displayName": "mostlynewblood",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 20,
+                                "createdAt": "2023-05-27T21:27:25.603Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "pbr",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "Ozs=",
+                                            "setID": "",
+                                            "version": "",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#FF69B4",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "fd79f470-8c91-41fe-849c-5f1e6bdd9aaf",
+                                "commenter": {
+                                    "id": "87903155",
+                                    "login": "seriouslyintense",
+                                    "displayName": "SeriouslyIntense",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 21,
+                                "createdAt": "2023-05-27T21:27:26.451Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "pbr now",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "Yml0czsxOw==",
+                                            "setID": "bits",
+                                            "version": "1",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#FF69B4",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "c3c84468-80a0-4f57-a889-297290580e4f",
+                                "commenter": {
+                                    "id": "154340454",
+                                    "login": "potteromer",
+                                    "displayName": "potteromer",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 24,
+                                "createdAt": "2023-05-27T21:27:29.241Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "PBR",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "c3Vic2NyaWJlcjszOw==",
+                                            "setID": "subscriber",
+                                            "version": "3",
+                                            "__typename": "Badge"
+                                        },
+                                        {
+                                            "id": "Z2xoZi1wbGVkZ2U7MTs=",
+                                            "setID": "glhf-pledge",
+                                            "version": "1",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#0000FF",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "aa34fb24-db2e-4d80-b4fd-d9aff008eca4",
+                                "commenter": {
+                                    "id": "185741046",
+                                    "login": "absoluteinksanity",
+                                    "displayName": "AbsoluteInksanity",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 27,
+                                "createdAt": "2023-05-27T21:27:32.645Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": {
+                                                "id": "emotesv2_ebacb19935ca45c5b15a9aa2e0663080;0;10",
+                                                "emoteID": "emotesv2_ebacb19935ca45c5b15a9aa2e0663080",
+                                                "from": 0,
+                                                "__typename": "EmbeddedEmote"
+                                            },
+                                            "text": "charboCheer",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        },
+                                        {
+                                            "emote": null,
+                                            "text": " ",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        },
+                                        {
+                                            "emote": {
+                                                "id": "emotesv2_ebacb19935ca45c5b15a9aa2e0663080;12;22",
+                                                "emoteID": "emotesv2_ebacb19935ca45c5b15a9aa2e0663080",
+                                                "from": 12,
+                                                "__typename": "EmbeddedEmote"
+                                            },
+                                            "text": "charboCheer",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        },
+                                        {
+                                            "emote": null,
+                                            "text": " ",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        },
+                                        {
+                                            "emote": {
+                                                "id": "emotesv2_ebacb19935ca45c5b15a9aa2e0663080;24;34",
+                                                "emoteID": "emotesv2_ebacb19935ca45c5b15a9aa2e0663080",
+                                                "from": 24,
+                                                "__typename": "EmbeddedEmote"
+                                            },
+                                            "text": "charboCheer",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "Ozs=",
+                                            "setID": "",
+                                            "version": "",
+                                            "__typename": "Badge"
+                                        },
+                                        {
+                                            "id": "Yml0cy1jaGFyaXR5OzE7",
+                                            "setID": "bits-charity",
+                                            "version": "1",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#1E90FF",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "5f30019f-6315-4fa0-84c7-4077c854f59e",
+                                "commenter": {
+                                    "id": "57604599",
+                                    "login": "tpp",
+                                    "displayName": "tpp",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 28,
+                                "createdAt": "2023-05-27T21:27:32.775Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "A new match is about to begin! It will start in 2m30s",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "bW9kZXJhdG9yOzE7",
+                                            "setID": "moderator",
+                                            "version": "1",
+                                            "__typename": "Badge"
+                                        },
+                                        {
+                                            "id": "Ozs=",
+                                            "setID": "",
+                                            "version": "",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#9ACD32",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "e30e2e48-4662-4c79-8bfb-2b0b4a3d18bd",
+                                "commenter": {
+                                    "id": "57604599",
+                                    "login": "tpp",
+                                    "displayName": "tpp",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 28,
+                                "createdAt": "2023-05-27T21:27:32.976Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "Metagame: standard \ud83e\udde2  Gimmick: sync5050 \ud83d\udd03",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "bW9kZXJhdG9yOzE7",
+                                            "setID": "moderator",
+                                            "version": "1",
+                                            "__typename": "Badge"
+                                        },
+                                        {
+                                            "id": "Ozs=",
+                                            "setID": "",
+                                            "version": "",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#9ACD32",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "5c4a4b85-7948-471f-89e4-63f818a45259",
+                                "commenter": {
+                                    "id": "457181343",
+                                    "login": "lizbandicoot",
+                                    "displayName": "lizbandicoot",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 28,
+                                "createdAt": "2023-05-27T21:27:33.042Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "!pbrwhen",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "c3Vic2NyaWJlcjs2Ow==",
+                                            "setID": "subscriber",
+                                            "version": "6",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#FF69B4",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "9020f3b0-d154-4a36-b5de-9eaf5539f142",
+                                "commenter": {
+                                    "id": "57604599",
+                                    "login": "tpp",
+                                    "displayName": "tpp",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 28,
+                                "createdAt": "2023-05-27T21:27:33.273Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "@lizbandicoot ",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        },
+                                        {
+                                            "emote": {
+                                                "id": "25;14;18",
+                                                "emoteID": "25",
+                                                "from": 14,
+                                                "__typename": "EmbeddedEmote"
+                                            },
+                                            "text": "Kappa",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "bW9kZXJhdG9yOzE7",
+                                            "setID": "moderator",
+                                            "version": "1",
+                                            "__typename": "Badge"
+                                        },
+                                        {
+                                            "id": "Ozs=",
+                                            "setID": "",
+                                            "version": "",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#9ACD32",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "b747d894-f2ad-45ff-93e6-ca4809ffdd48",
+                                "commenter": {
+                                    "id": "87903155",
+                                    "login": "seriouslyintense",
+                                    "displayName": "SeriouslyIntense",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 29,
+                                "createdAt": "2023-05-27T21:27:33.776Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "look everyone",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "Yml0czsxOw==",
+                                            "setID": "bits",
+                                            "version": "1",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#FF69B4",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "4fa459f3-41d4-4616-b9ae-d82813b23042",
+                                "commenter": {
+                                    "id": "77092549",
+                                    "login": "bleekkitten",
+                                    "displayName": "BleekKitten",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 29,
+                                "createdAt": "2023-05-27T21:27:34.367Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "Pog",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [],
+                                    "userColor": "#8A2BE2",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "b39eb8fb-4dd4-4edf-a2fd-6e2ce578869f",
+                                "commenter": {
+                                    "id": "548283330",
+                                    "login": "si_gh",
+                                    "displayName": "si_gh",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 30,
+                                "createdAt": "2023-05-27T21:27:35.674Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": {
+                                                "id": "emotesv2_39d8d3545d8e42d1a2cd1b195d2a3d6b;0;5",
+                                                "emoteID": "emotesv2_39d8d3545d8e42d1a2cd1b195d2a3d6b",
+                                                "from": 0,
+                                                "__typename": "EmbeddedEmote"
+                                            },
+                                            "text": "tppPog",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "c3Vic2NyaWJlcjsyOw==",
+                                            "setID": "subscriber",
+                                            "version": "2",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#1E90FF",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "3baf78c3-e7b7-4ca6-8001-b97324c6562b",
+                                "commenter": {
+                                    "id": "57604599",
+                                    "login": "tpp",
+                                    "displayName": "tpp",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 30,
+                                "createdAt": "2023-05-27T21:27:35.692Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "The early bet bonus is 50% with a cap of P20000.",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "bW9kZXJhdG9yOzE7",
+                                            "setID": "moderator",
+                                            "version": "1",
+                                            "__typename": "Badge"
+                                        },
+                                        {
+                                            "id": "Ozs=",
+                                            "setID": "",
+                                            "version": "",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#9ACD32",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "ccf77a36-6e5a-4e8f-94f1-aeaa50b1c7e6",
+                                "commenter": {
+                                    "id": "87903155",
+                                    "login": "seriouslyintense",
+                                    "displayName": "SeriouslyIntense",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 31,
+                                "createdAt": "2023-05-27T21:27:35.888Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "behold",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "Yml0czsxOw==",
+                                            "setID": "bits",
+                                            "version": "1",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#FF69B4",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "ee320543-f367-4fb9-ad10-179606503e53",
+                                "commenter": {
+                                    "id": "57604599",
+                                    "login": "tpp",
+                                    "displayName": "tpp",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 32,
+                                "createdAt": "2023-05-27T21:27:36.781Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "https://chfoo.github.io/fogchamp/",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "bW9kZXJhdG9yOzE7",
+                                            "setID": "moderator",
+                                            "version": "1",
+                                            "__typename": "Badge"
+                                        },
+                                        {
+                                            "id": "Ozs=",
+                                            "setID": "",
+                                            "version": "",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#9ACD32",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "4cda0cda-e461-4ab0-bfa6-3c1b7312c0f8",
+                                "commenter": {
+                                    "id": "69458505",
+                                    "login": "hyperiusthedefeated",
+                                    "displayName": "HyperiusTheDefeated",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 33,
+                                "createdAt": "2023-05-27T21:27:38.551Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": {
+                                                "id": "114870;0;9",
+                                                "emoteID": "114870",
+                                                "from": 0,
+                                                "__typename": "EmbeddedEmote"
+                                            },
+                                            "text": "RaccAttack",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        },
+                                        {
+                                            "emote": null,
+                                            "text": " TPP should play Master Duel, I wanna see chat play Tearlaments",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "Ozs=",
+                                            "setID": "",
+                                            "version": "",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#FF0000",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "2473a47a-27a2-43b4-ac86-89a9b49032e5",
+                                "commenter": {
+                                    "id": "30002875",
+                                    "login": "yugnatzero",
+                                    "displayName": "YugnatZero",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 34,
+                                "createdAt": "2023-05-27T21:27:38.848Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "!bet all green",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "Ozs=",
+                                            "setID": "",
+                                            "version": "",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#00FF7F",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "debb45a2-9081-4788-9204-8eb9d956d1ad",
+                                "commenter": {
+                                    "id": "57604599",
+                                    "login": "tpp",
+                                    "displayName": "tpp",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 34,
+                                "createdAt": "2023-05-27T21:27:39.185Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "@YugnatZero failed to make bet: team not specified",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "bW9kZXJhdG9yOzE7",
+                                            "setID": "moderator",
+                                            "version": "1",
+                                            "__typename": "Badge"
+                                        },
+                                        {
+                                            "id": "Ozs=",
+                                            "setID": "",
+                                            "version": "",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#9ACD32",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "c3d96fa3-c318-4585-ac1d-9bfb6d833858",
+                                "commenter": {
+                                    "id": "889147592",
+                                    "login": "wblue96",
+                                    "displayName": "WBlue96",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 35,
+                                "createdAt": "2023-05-27T21:27:40.345Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "PBR",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [],
+                                    "userColor": "#1E90FF",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "7dba643e-1039-4bbe-90c6-dc2f4e345fc6",
+                                "commenter": {
+                                    "id": "57604599",
+                                    "login": "tpp",
+                                    "displayName": "tpp",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 37,
+                                "createdAt": "2023-05-27T21:27:41.776Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "The Pok\u00e9mon for the next match are Rampardos (Rock), Dunsparce (Physical), Swablu (Elemental) and Linoone (Rain Dance), Shaymin (Special), Unown ! (!!!!!)!",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "bW9kZXJhdG9yOzE7",
+                                            "setID": "moderator",
+                                            "version": "1",
+                                            "__typename": "Badge"
+                                        },
+                                        {
+                                            "id": "Ozs=",
+                                            "setID": "",
+                                            "version": "",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#9ACD32",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "32ff5f3b-6a78-4075-8ea8-b7264cc210b8",
+                                "commenter": {
+                                    "id": "563672832",
+                                    "login": "fourteenflash",
+                                    "displayName": "fourteenflash",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 37,
+                                "createdAt": "2023-05-27T21:27:42.236Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "!season",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [],
+                                    "userColor": null,
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "362adcb0-af8e-4492-92bb-e9cf2eeaa808",
+                                "commenter": {
+                                    "id": "57604599",
+                                    "login": "tpp",
+                                    "displayName": "tpp",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 37,
+                                "createdAt": "2023-05-27T21:27:42.481Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "@fourteenflash This is season 89 of Pok\u00e9mon Battle Revolution match betting. This season is defiance only and highscore leaderboard. Enjoy! ",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        },
+                                        {
+                                            "emote": {
+                                                "id": "81274;141;146",
+                                                "emoteID": "81274",
+                                                "from": 141,
+                                                "__typename": "EmbeddedEmote"
+                                            },
+                                            "text": "VoHiYo",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "bW9kZXJhdG9yOzE7",
+                                            "setID": "moderator",
+                                            "version": "1",
+                                            "__typename": "Badge"
+                                        },
+                                        {
+                                            "id": "Ozs=",
+                                            "setID": "",
+                                            "version": "",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#9ACD32",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "6c984bec-28e7-495c-9c72-c725a7fad7e6",
+                                "commenter": {
+                                    "id": "457181343",
+                                    "login": "lizbandicoot",
+                                    "displayName": "lizbandicoot",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 38,
+                                "createdAt": "2023-05-27T21:27:43.084Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "!bet all red",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "c3Vic2NyaWJlcjs2Ow==",
+                                            "setID": "subscriber",
+                                            "version": "6",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#FF69B4",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "5d84710c-8a7d-4df5-aca9-799e65ae2710",
+                                "commenter": {
+                                    "id": "57604599",
+                                    "login": "tpp",
+                                    "displayName": "tpp",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 38,
+                                "createdAt": "2023-05-27T21:27:43.384Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "@lizbandicoot placed a P1,000 bet on red.",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "bW9kZXJhdG9yOzE7",
+                                            "setID": "moderator",
+                                            "version": "1",
+                                            "__typename": "Badge"
+                                        },
+                                        {
+                                            "id": "Ozs=",
+                                            "setID": "",
+                                            "version": "",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#9ACD32",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "ac85e789-334b-4da5-85f6-4ce8fc966dac",
+                                "commenter": {
+                                    "id": "102988851",
+                                    "login": "theworstgiratina",
+                                    "displayName": "TheWorstGiratina",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 39,
+                                "createdAt": "2023-05-27T21:27:44.37Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "catJAM \udb40\udc00",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "c3Vic2NyaWJlcjs2Ow==",
+                                            "setID": "subscriber",
+                                            "version": "6",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#8A2BE2",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "f65b1564-000e-4f60-90ef-79e19716762c",
+                                "commenter": {
+                                    "id": "77092549",
+                                    "login": "bleekkitten",
+                                    "displayName": "BleekKitten",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 41,
+                                "createdAt": "2023-05-27T21:27:45.863Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "!bet all red",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [],
+                                    "userColor": "#8A2BE2",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "dc00e4c1-c341-42f7-b5e4-d245d4850360",
+                                "commenter": {
+                                    "id": "791479504",
+                                    "login": "mostlynewblood",
+                                    "displayName": "mostlynewblood",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 41,
+                                "createdAt": "2023-05-27T21:27:46.179Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "!bet all red",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "Ozs=",
+                                            "setID": "",
+                                            "version": "",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#FF69B4",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "9d734c1f-ef0b-4647-b339-2b10134b1d80",
+                                "commenter": {
+                                    "id": "57604599",
+                                    "login": "tpp",
+                                    "displayName": "tpp",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 41,
+                                "createdAt": "2023-05-27T21:27:46.179Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "@BleekKitten placed a P1,000 bet on red.",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "bW9kZXJhdG9yOzE7",
+                                            "setID": "moderator",
+                                            "version": "1",
+                                            "__typename": "Badge"
+                                        },
+                                        {
+                                            "id": "Ozs=",
+                                            "setID": "",
+                                            "version": "",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#9ACD32",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "fa502ceb-cf05-42a8-a4da-68888afeb8a3",
+                                "commenter": {
+                                    "id": "35067727",
+                                    "login": "dimensionfour",
+                                    "displayName": "DimensionFour",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 41,
+                                "createdAt": "2023-05-27T21:27:46.287Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "choices again ",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        },
+                                        {
+                                            "emote": {
+                                                "id": "28087;14;20",
+                                                "emoteID": "28087",
+                                                "from": 14,
+                                                "__typename": "EmbeddedEmote"
+                                            },
+                                            "text": "WutFace",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "c3Vic2NyaWJlcjszOw==",
+                                            "setID": "subscriber",
+                                            "version": "3",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#1E90FF",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "70209c32-565e-4b3c-b13b-398d30f70723",
+                                "commenter": {
+                                    "id": "457181343",
+                                    "login": "lizbandicoot",
+                                    "displayName": "lizbandicoot",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 41,
+                                "createdAt": "2023-05-27T21:27:46.405Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "all in cowards",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "c3Vic2NyaWJlcjs2Ow==",
+                                            "setID": "subscriber",
+                                            "version": "6",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#FF69B4",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "aa339241-30f3-46d5-8dfb-c91becdab48f",
+                                "commenter": {
+                                    "id": "57604599",
+                                    "login": "tpp",
+                                    "displayName": "tpp",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 41,
+                                "createdAt": "2023-05-27T21:27:46.481Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "@mostlynewblood placed a P1,000 bet on red.",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "bW9kZXJhdG9yOzE7",
+                                            "setID": "moderator",
+                                            "version": "1",
+                                            "__typename": "Badge"
+                                        },
+                                        {
+                                            "id": "Ozs=",
+                                            "setID": "",
+                                            "version": "",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#9ACD32",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "71c9d87d-a10f-4446-a0a4-e5897203e121",
+                                "commenter": {
+                                    "id": "30002875",
+                                    "login": "yugnatzero",
+                                    "displayName": "YugnatZero",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 42,
+                                "createdAt": "2023-05-27T21:27:47.691Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "!bet all red",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "Ozs=",
+                                            "setID": "",
+                                            "version": "",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#00FF7F",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "d2e731e8-9b91-4800-922f-406657674d16",
+                                "commenter": {
+                                    "id": "57604599",
+                                    "login": "tpp",
+                                    "displayName": "tpp",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 43,
+                                "createdAt": "2023-05-27T21:27:47.981Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "@YugnatZero placed a P1,000 bet on red.",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "bW9kZXJhdG9yOzE7",
+                                            "setID": "moderator",
+                                            "version": "1",
+                                            "__typename": "Badge"
+                                        },
+                                        {
+                                            "id": "Ozs=",
+                                            "setID": "",
+                                            "version": "",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#9ACD32",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "0163b0c2-7cae-45f9-9441-2280cb921bb2",
+                                "commenter": {
+                                    "id": "255572098",
+                                    "login": "aeropandablast",
+                                    "displayName": "aeropandablast",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 44,
+                                "createdAt": "2023-05-27T21:27:48.734Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "!bet all red",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "c3Vic2NyaWJlcjs2Ow==",
+                                            "setID": "subscriber",
+                                            "version": "6",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": null,
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "bf43e9e5-7474-4e7f-a635-02da07b14443",
+                                "commenter": {
+                                    "id": "148393166",
+                                    "login": "ruinsofalph",
+                                    "displayName": "RuinsOfAlph",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 44,
+                                "createdAt": "2023-05-27T21:27:48.917Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "Unown ! ",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        },
+                                        {
+                                            "emote": {
+                                                "id": "300027453;8;14",
+                                                "emoteID": "300027453",
+                                                "from": 8,
+                                                "__typename": "EmbeddedEmote"
+                                            },
+                                            "text": "tppPika",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "bW9kZXJhdG9yOzE7",
+                                            "setID": "moderator",
+                                            "version": "1",
+                                            "__typename": "Badge"
+                                        },
+                                        {
+                                            "id": "Ozs=",
+                                            "setID": "",
+                                            "version": "",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#FF0000",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "51322ebc-19cd-4a0e-9178-6be3fee3b58b",
+                                "commenter": {
+                                    "id": "57604599",
+                                    "login": "tpp",
+                                    "displayName": "tpp",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 44,
+                                "createdAt": "2023-05-27T21:27:49.082Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "@aeropandablast placed a P1,000 bet on red.",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "bW9kZXJhdG9yOzE7",
+                                            "setID": "moderator",
+                                            "version": "1",
+                                            "__typename": "Badge"
+                                        },
+                                        {
+                                            "id": "Ozs=",
+                                            "setID": "",
+                                            "version": "",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#9ACD32",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        },
+                        {
+                            "cursor": "eyJpZCI6IjU3YWY5MWI3LTI1OTItNDhjYS04NjllLWE0Y2I3YThiM2Q3YyIsImhrIjoiYnJvYWRjYXN0OjQ4NTYwOTMxMzg5Iiwic2siOiJBQUFBQ3BQSGgwQVhZeDFGaldjLVFBIn0",
+                            "node": {
+                                "id": "57af91b7-2592-48ca-869e-a4cb7a8b3d7c",
+                                "commenter": {
+                                    "id": "791479504",
+                                    "login": "mostlynewblood",
+                                    "displayName": "mostlynewblood",
+                                    "__typename": "User"
+                                },
+                                "contentOffsetSeconds": 45,
+                                "createdAt": "2023-05-27T21:27:50.129Z",
+                                "message": {
+                                    "fragments": [
+                                        {
+                                            "emote": null,
+                                            "text": "oh god",
+                                            "__typename": "VideoCommentMessageFragment"
+                                        }
+                                    ],
+                                    "userBadges": [
+                                        {
+                                            "id": "Ozs=",
+                                            "setID": "",
+                                            "version": "",
+                                            "__typename": "Badge"
+                                        }
+                                    ],
+                                    "userColor": "#FF69B4",
+                                    "__typename": "VideoCommentMessage"
+                                },
+                                "__typename": "VideoComment"
+                            },
+                            "__typename": "VideoCommentEdge"
+                        }
+                    ],
+                    "pageInfo": {
+                        "hasNextPage": true,
+                        "hasPreviousPage": false,
+                        "__typename": "PageInfo"
+                    },
+                    "__typename": "VideoCommentConnection"
+                },
+                "__typename": "Video"
+            }
+        },
+        "extensions": {
+            "durationMilliseconds": 70,
+            "operationName": "VideoCommentsByOffsetOrCursor",
+            "requestID": "01H1MJ9FW7MZZWG0MV2TNKY32Y"
+        }
+    }
+]
