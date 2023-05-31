@@ -36,7 +36,14 @@ include 'displayResultsFunctions.php';
  ***********************************************************/
 if($had_results) {
     $firstTable = true;
-    
+
+    /*
+    $tstampFirst = reset($results)->tstamp;
+    $tstampLast = end($results)->tstamp;
+    $tstampEarliest = $tstampFirst < $tstampLast ? $tstampFirst : $tstampLast;
+    */
+    //echo "<br>";
+
     foreach ($results AS $result) {
 
         if (!$non_wlist && !$result->whitelisted) {
@@ -79,16 +86,18 @@ if($had_results) {
 //                    . "<span style=\"font-size: 12px;\">" . date("s", $date) . "</span>"
 //                    . date(" a", $date);
         $arrowTimeDirection = $outer_sort_asc ? "🠗" : "🠕";
-        $displayedTime = date("g\:i\ a ", $date)
-                . "" . $arrowTimeDirection . "<span style=\"font-size: 13px;font-style:italic;\">&nbsp" . date("s", $date) . "s</span>";
+        $displayedTimeMin = date("g\:i\ a ", $date);
+        $displayedTimeSec = "<span class=\"littleSeconds\">&nbsp" . date("s", $date) . "s</span>";
 
-
-        echo '<td><a href="' . getLink($result->msg_id, "") .'">' . $displayedTime . '</a></td>';
+        echo '<td><a href="' . getLink($result->msg_id, "") .'">'
+        . $displayedTimeMin . '</a>' . $arrowTimeDirection
+        . '<a>' . $displayedTimeSec . '</a></td>';
 
         #$user_emote = getImage($result->emote);
 
+        $user_href = SITE . "from/" . date("Y-m-d+H:i:s", $date - 60 * 3) . "/?u1=$result->username#$result->msg_id";
         $user_color = adjustColor($result->color, $ADJUST_COLOR);
-        echo userHtml($result->username, $user_color, $moder, $sub, $turbo);
+        echo userHtml($result->username, $user_href, $user_color, $moder, $sub, $turbo);
 
         
         $displayed_msg = msgHtml($result->msg, $result->emote_locs);
@@ -174,14 +183,16 @@ if($had_results) {
      --------    PREV / NEXT AND META
      ------------------------------------------------------------
      ------------------------------------------------------------>
+
 <?php
+
 if ($had_results) {
     echo "
     <br>
     <a class=\"arrowUp\" href=\"#top\"></a>
     <div class=\"linkAndMetaBar\">
         <div class=\"leftLink\">
-            <a type=\"button\" class=\"$PREV_BUTTON_CLASS\" href=\"$PREV_LINK\">Previous</a>       
+            <a type=\"button\" class=\"$PREV_BUTTON_CLASS\" href=\"$PREV_LINK\">Previous</a>
         </div>
         <div class=\"rightLink\">
            <a type=\"button\" class=\"$NEXT_BUTTON_CLASS\" href=\"$NEXT_LINK\">Next</a>

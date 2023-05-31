@@ -89,16 +89,16 @@ function getImg($src, $name) {
     return "<img src=\"$src\" title=\"$escaped_name\" alt=\"$escaped_name\"/>";
 }
 
-function userHtml($name, $color, $mod, $sub, $turbo) {
+function userHtml($name, $href, $color, $mod, $sub, $turbo) {
     $ret = '<td>';
     if ($mod)
-        $ret .= ' ' . getImg("https://static-cdn.jtvnw.net/chat-badges/mod.png", 'Moderator');
+        $ret .= ' ' . getImg("https://static-cdn.jtvnw.net/badges/v1/3267646d-33f0-4b17-b3df-f923a41db1d0/1", 'Moderator');
     if ($sub)
         $ret .= ' ' . getImg("https://static-cdn.jtvnw.net/jtv_user_pictures/badges/1591/18x18.png", 'Subscriber');
-    if ($turbo)
-        $ret .= ' ' . getImg("https://static-cdn.jtvnw.net/chat-badges/turbo.png", 'Turbo');
+    //if ($turbo)
+      //  $ret .= ' ' . getImg("https://static-cdn.jtvnw.net/chat-badges/turbo.png", 'Turbo');
    
-    $ret.= " <span style=\"color:#$color\">$name</span>";
+    $ret .= " <a href=\"$href\" style=\"color:#$color\">$name</a>";
     $ret .= "</td>";
     return $ret;
 }

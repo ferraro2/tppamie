@@ -238,6 +238,13 @@ h2 {
 }
 .logTable tr.invisibleRow {
 }
+
+.littleSeconds {
+    font-size: 13px;
+    font-style: italic;
+}
+
+
 a:link {
     color: #0000d0;
 }
