@@ -164,8 +164,9 @@
                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 
                 /* Here, we are using a MySQL IN clause to pull the movie_id, title, and synopsis from the DB for display. */
-                $all_msg_query = "SELECT username, color, moder, sub, turbo, "
-                        . "m.msg_id, tstamp, whitelisted, me, emote_locs, msg "
+                $all_msg_query = "SELECT username, md.color as color, moder, sub, turbo, "
+                        . "m.msg_id, tstamp, whitelisted, me, emote_locs, msg, video_id, "
+                        . "video_offset_seconds "
                         . "FROM users as u, messages as m, msg_data as md "
                         . "WHERE u.user_id = m.user_id AND m.msg_id = md.msg_id "
                         . "AND m.msg_id IN ($BLANK_IN_PARAMS) "

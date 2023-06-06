@@ -103,8 +103,9 @@ function getMysqlJumpRange($pdo, $jump_id) {
  * Get Mysql results in the tstamp range
  */
 function getMysqlResults($pdo, $tstamp_range) {
-    $mysql_query = "SELECT username, color, moder, sub, turbo, "
-            . " m.msg_id, tstamp, whitelisted, me, emote_locs, msg "
+    $mysql_query = "SELECT username, md.color as color, moder, sub, turbo, "
+            . " m.msg_id, tstamp, whitelisted, me, emote_locs, msg, video_id, "
+            .  "video_offset_seconds "
             . " FROM users as u, messages as m, msg_data as md "
             . " WHERE u.user_id = m.user_id AND m.msg_id = md.msg_id "
             . $tstamp_range

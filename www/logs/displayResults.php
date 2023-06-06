@@ -93,9 +93,12 @@ if($had_results) {
         $displayedTimeMin = date("g\:i\ a ", $date);
         $displayedTimeSec = "<span class=\"littleSeconds\">&nbsp" . date("s", $date) . "s</span>";
 
-        echo '<td><a href="' . getLink($result->msg_id, "") .'">'
-        . $displayedTimeMin . '</a>' . $arrowTimeDirection
-        . '<a>' . $displayedTimeSec . '</a></td>';
+        echo '<td><a href="' . getIdLink($result->msg_id, "") .'">'
+        . $displayedTimeMin . '</a>' . $arrowTimeDirection;
+
+        $vodLink = getVodLink($result->video_id, $result->video_offset_seconds);
+        echo $vodLink ? '<a href="' . $vodLink . '">' . $displayedTimeSec . '</a>' : $displayedTimeSec;
+        echo '</td>';
 
         #$user_emote = getImage($result->emote);
 
@@ -105,7 +108,8 @@ if($had_results) {
 
         
         $displayed_msg = msgHtml($result->msg, $result->emote_locs);
-        if ($highlight_me === 1 && $result->me === '1') {
+        //if ($highlight_me === 1 && $result->me === '1') {
+        if ($result->me === '1') {  // just always highlight it
             $displayed_msg = "<span style=\"color:#$user_color;\">$displayed_msg</span>";
         }
         

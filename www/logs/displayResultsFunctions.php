@@ -73,15 +73,19 @@ function blist_url($str) {
 }
 
 function getEmoteImg($image_id, $emote_name) {
+    return getImg("https://static-cdn.jtvnw.net/emoticons/v2/$image_id/default/light/1.0", $emote_name);
+    /*
     if ($image_id === 0 or gettype($image_id) !== 'integer') {
         return '';
     } 
-    
+
+    /*
     if ($image_id >= 2000000) {
         return getImg("/img/emotes-numbered/1.0/$image_id.png", $emote_name);
     } else {
         return getImg("https://static-cdn.jtvnw.net/emoticons/v1/$image_id/1.0", $emote_name);
     }
+    */
 }
 
 function getImg($src, $name) {
@@ -127,10 +131,10 @@ function linkEscape($msg) {
 
 function msgHtml($msg, $emote_locs) {
    $replace = [];
-   preg_match_all('/(\d+):([^\/]+)/', $emote_locs, $emotes_list, PREG_SET_ORDER);
+   preg_match_all('/([^:]+):([^\/]+)/', $emote_locs, $emotes_list, PREG_SET_ORDER);
    foreach ($emotes_list as $emote_info) {
        #$msg =  "Matched: <" . $emote_info[0] . ">\n" . $msg;
-       $emote_id = intval($emote_info[1]);
+       $emote_id = $emote_info[1];
        $emote_data = $emote_info[2];
        preg_match_all('/(\d+)-(\d+)/', $emote_data, $occur_list, PREG_SET_ORDER);
        foreach ($occur_list as $occur) {
@@ -175,8 +179,12 @@ function msgHtml($msg, $emote_locs) {
    return trim($msgHtml);# . "<br>" . $emote_locs;
 }
     
-function getLink($id, $options_only_query) {
+function getIdLink($id, $options_only_query) {
     return SITE . "id/" . ($id) . "/$options_only_query#$id";
+}
+
+function getVodLink($id, $offset) {
+    return $id? "https://www.twitch.tv/videos/$id?t={$offset}s" : null;
 }
 
 ?>
