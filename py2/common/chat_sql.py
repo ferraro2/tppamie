@@ -217,10 +217,11 @@ class ChatSql(SqlLoader):
 			dispName = ''
 
 		# message fields
-		ignore = filters.isCommand(text) or filters.isInput2(text) or filters.isMisty(text)
+		ignore = filters.isCommand(text) or filters.isMatchCommand(text) or filters\
+			.isInput2(text) or filters.isMisty(text) or filters.isUserBot(username)
 		# userId will be set properly
 		# mysqlDate was passed in
-		isWhitelisted = filters.passesWhitelist(text)
+		isWhitelisted = filters.passesCharacterWhitelist(text)
 
 		# UPDATE USER
 

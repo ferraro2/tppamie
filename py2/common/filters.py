@@ -2,21 +2,24 @@
 from __future__ import division, print_function, unicode_literals
 import re, time, io
 
-PBR_INPUTS = "(?:a|b|c|d|u|l|s|p|k|-)"
+PBR_INPUTS = "(?:a|b|c|d|u|l|s|p|k|-)+"
+
 
 commandPat = re.compile(r"""
-^
+^!.*
+""", re.VERBOSE | re.IGNORECASE)
+
+matchCommandPat = re.compile(r"""
+^\s*
 (
-	!bet \s+ p?\d* \s+ \w* |
-	!bet \s+ \w* \s+ p?\d* |
-	\#bet\w+ \s+ p?\d* |
-	\#.* |
-	!balance |
-	!""" + PBR_INPUTS + r"""+ |
-	\#""" + PBR_INPUTS + r"""+ |
-	!move \s """ + PBR_INPUTS + r"""+ |
+	!bet\s+.* |
+	\#bet\s+.* |
+	!balance\s?.* |
+	!""" + PBR_INPUTS + r""" |
+	\#""" + PBR_INPUTS + r""" |
+	!move \s """ + PBR_INPUTS + r""" |
 )
-$
+\s*$
 """, re.VERBOSE | re.IGNORECASE)
 
 WHITELIST = """!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~Ééヽ༼ຈل͜༽ﾉ♫ ┌┘ ♪─≡Σ✿◕‿◉͟͡°͜ʖつಠᕙᕗᕦᕤ♀♂"""
@@ -31,31 +34,29 @@ INPUT_WORDS = [
 
 INPUT_WORDS2 = (
     r"""
+    (?:r|l|<|>|left|right)?
     (?:
-        (?:r|l|<|>|left|right)?
-        (?:
-            (?:  # match cpad/dpad/lstick/rstick/analogstick etc
-                (?:c|d|l|r|a)?
-                (?:
-                    (?:left)|(?:right)|(?:up)|(?:down)|
-                    (?:e)|(?:s)|(?:w)|(?:n)|
-                    (?:stick)|(?:spinl)|(?:spinr)
-                )
-            )|
-            (?:a)|(?:b)|(?:x)|(?:y)|(?:l)|(?:r)|(?:z)|
-            (?:zl)|(?:zr)|(?:sl)|(?:sr)|
-            (?:start)|(?:select)|
-            (?:cross)|(?:circle)|(?:triangle)|(?:square)|
-            (?:democracy)|(?:anarchy)|(?:wait)|
-            (?:move)|(?:switch)|(?:run)|(?:item)|
-            (?:plus)|(?:minus)|(?:home)|(?:anarchy)|(?:democracy)|
-            (?:with)|(?:catch)|(?:throw)|(?:bag)|(?:wait)|
-            (?:lsb)|(?:rsb)|(?:status)|(?:items)|(?:poke)|
-            (?:reuse)|(?:heal)|(?:mega)|(?:quit)|(?:back)|
-            (?:cancel)|(?:exp)|(?:experience)|(?:p)|
-            (?:\d+)
+        # match cpad/dpad/lstick/rstick/analogstick etc
+        (?:c|d|l|r|a)? (?:
+            left|right|up|down|
+            e|s|w|n|
+            stick|spinl|spinr
         )
-    )"""
+        |
+        a|b|x|y|l|r|z|
+        zl|zr|sl|sr|
+        start|select|
+        cross|circle|triangle|square|
+        democracy|anarchy|wait|
+        move|switch|run|item|
+        plus|minus|home|
+        with|catch|throw|bag|
+        lsb|rsb|status|items|poke|
+        reuse|heal|mega|quit|back|
+        cancel|exp|experience|p|
+        \d+
+    )
+    """
 )
 
 INPUT_WORDS_REGEX = r"({})".format("|".join(INPUT_WORDS))
@@ -80,8 +81,11 @@ MISTY_WORDS_PAT = re.compile("""
 
 
 def isCommand(msg):
-    commandMatch = commandPat.match(msg)
-    return commandMatch is not None
+    return commandPat.match(msg) is not None
+
+
+def isMatchCommand(msg):
+    return matchCommandPat.match(msg) is not None
 
 
 def isInput(msg):
@@ -95,19 +99,22 @@ def isInput(msg):
 ALL_INPUT_CHARS_PAT2 = re.compile(r"""
 ^
     \s*
+    """ + INPUT_WORDS2 + r"""
+    \d*  # match the 9 in start9
     (?:
+        [+,\-><~]+
         """ + INPUT_WORDS2 + r"""
-        \d*  # match the 9 in start9
-    )
-    (?:
-        [\s+,\->]
-        (?:
-            """ + INPUT_WORDS2 + r"""
-            \d*
-        )
+        \d*
     )*
-    [-]?
+    [+-~><]?
     \s*
+$
+""", re.IGNORECASE | re.VERBOSE)
+
+
+BOT_USERNAMENAMES = re.compile(r"""
+^
+    tpp|tppinfobot|tppbankbot|tppbalancebot|visualizebot|tpphelpbot
 $
 """, re.IGNORECASE | re.VERBOSE)
 
@@ -126,11 +133,15 @@ def isMisty(msg):
     return score >= 2
 
 
-def passesWhitelist(msg):
+def passesCharacterWhitelist(msg):
     for c in msg:
         if c not in WHITELIST:
             return False
     return True
+
+
+def isUserBot(username):
+    return BOT_USERNAMENAMES.match(username) is not None
 
 
 # def isSpammy(msg):
@@ -150,7 +161,7 @@ def passesWhitelist(msg):
 # return spamScore > 5
 
 def passesAllFilters(msg):
-    return not (isInput2(msg) or isCommand(msg) or isMisty(msg) or not passesWhitelist(msg))
+    return not (isInput2(msg) or isCommand(msg) or isMisty(msg) or not passesCharacterWhitelist(msg))
 
 
 # expects a condensed message: ' '.join(msg.split()
@@ -162,7 +173,7 @@ def filterMsg(msg, field):
     elif field == 'misty':
         return isMisty(msg)
     elif field == 'whitelist':
-        return passesWhitelist(msg)
+        return passesCharacterWhitelist(msg)
 
 
 def main():
@@ -194,6 +205,7 @@ def test1():
     negatives += ['i like anarchy', 'anarchy is great', 'anarchy!', 'anarchy+anarchy+',
                   '+anarchy+anarchy+anarchy', '   anarchy+ ', 'anarchy, anarchy+,']
     negatives += ['select sect', 'a +left', '  a + left + b +   ']
+    negatives += ['select a']
     negatives += ['!a move a', '!- just stop', '!balance deky', '!babyrage']
 
     negatives += ['!bet 19246 red PogChamp']
