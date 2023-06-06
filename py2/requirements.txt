@@ -1,0 +1,5 @@
+socketio-client
+mysql-connector
+pyyaml
+pymongo
+pytimeparse

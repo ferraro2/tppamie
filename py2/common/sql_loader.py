@@ -29,14 +29,14 @@ class SqlLoader:
 			print("\tDatabase does not exist")
 			exit(1)
 		  else:
-			print("SqlLoader.py: " + err)
+			print("SqlLoader.py: " + str(err))
 			exit(1)
 		
 		#use database
 		try:
 			cnx.database = config['database']
 		except mysql.connector.Error as err:
-			print("SqlLoader.py: " + err)
+			print("SqlLoader.py: " + str(err))
 			exit(1)
 		else:
 			#print("database {} loaded".format(config['database']))

@@ -90,6 +90,8 @@ ircLoggerPrivPat = re.compile(r"""
 	(?P<text> .* )				#msg
 	$""", re.IGNORECASE | re.VERBOSE)
 
+#Twitch API
+badgeUrlPat = re.compile('https://static-cdn.jtvnw.net/badges/v1/(?P<url>[^/].+)/', re.IGNORECASE)
 
 #@color=#0D4200;display-name=TWITCH_UserNaME;emotes=25:0-4,12-16/1902:6-10;mod=0;subscriber=0;turbo=1;user-id=1337;
 #:twitch_username!twitch_username@twitch_username.tmi.twitch.tv PRIVMSG #channel :message here

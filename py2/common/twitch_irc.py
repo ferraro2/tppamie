@@ -296,7 +296,7 @@ class TwitchConfig:
 			self.turbo = 1 if self.turbo == '1' else 0
 			
 		if not hasattr(self, 'user_id'):
-			self.user_id = -1
+			self.user_id = 0
 	
 	@staticmethod
 	def unescapeIrcTag(str):
