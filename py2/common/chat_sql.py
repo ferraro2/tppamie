@@ -56,6 +56,7 @@ class ChatSql(SqlLoader):
 
 	# ----------------------------------------- Table Insertion ---------------------------------------------------------------
 
+
 	def insertBadges(self, values):
 		self.cursor.execute( ("REPLACE INTO badges "
 		"(badge_id, url_id, title, description) "
@@ -91,6 +92,24 @@ class ChatSql(SqlLoader):
 		self.cursor.execute(command, items.values())
 
 	# ----------------------------------------- Table Query ---------------------------------------------------------------
+	def queryPartitions(self, values):
+		text = ("""with msg as (select tstamp, ROW_NUMBER()OVER() as rn 
+				from messages where %s <= tstamp and tstamp < %s)
+			select tstamp from msg
+				where rn % ceil((select count(*) from msg) / %s) = 1
+			union select(%s);""")
+		self.cursor.execute(text, values)
+
+	def queryPartitionsOfSize(self, values):
+		text = ("""with msg as (select tstamp, ROW_NUMBER()OVER() as rn 
+				from messages where %s <= tstamp and tstamp < %s)
+			select tstamp from msg
+				where rn % %s = 1
+			union select(%s);""")
+		self.cursor.execute(text, values)
+
+
+
 	def queryUserIdByUsername(self, values):
 		text = ('SELECT users.user_id FROM users WHERE users.username = %s')
 		self.cursor.execute(text, values)
@@ -208,6 +227,19 @@ class ChatSql(SqlLoader):
 		"`emote_locs` TEXT NOT NULL,"
 		"`msg` TEXT NOT NULL"
 		")")
+
+
+	def getPartitionRanges(self, num_partitions, min_date=None, max_date=None):
+		self.queryPartitions((min_date, max_date, num_partitions, max_date))
+		tstamps = [row[0] for row in self.cursor.fetchall()]
+		return [(tstamps[i], tstamps[i+1]) for i in range(len(tstamps) - 1)]
+
+
+	def getPartitionRangesOfSize(self, partition_size, min_date=None, max_date=None):
+		self.queryPartitionsOfSize((min_date, max_date, partition_size, max_date))
+		tstamps = [row[0] for row in self.cursor.fetchall()]
+		return [(tstamps[i], tstamps[i+1]) for i in range(len(tstamps) - 1)]
+
 
 	def processNewMessage(self, username, twitchId, color, dispName, mod, sub, turbo, me,
 				  emotes, mysqlDate, text, videoId, videoOffsetSeconds, badges):
