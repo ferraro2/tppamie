@@ -1,28 +1,45 @@
 # -*- coding: utf-8 -*-
 from __future__ import division, print_function, unicode_literals
 import re, time, io
+from emojilist import EMOJI
 
-PBR_INPUTS = "(?:a|b|c|d|u|l|s|p|k|-)+"
-
+PBR_INPUTS = r"[\dabcdulspk-]{0,4}"
+HASH_INPUTS = r"[\dabcdulspk-]{0,2}"
 
 commandPat = re.compile(r"""
 ^!.*
 """, re.VERBOSE | re.IGNORECASE)
 
 matchCommandPat = re.compile(r"""
-^\s*
-(
-	!bet\s+.* |
-	\#bet\s+.* |
-	!balance\s?.* |
-	!""" + PBR_INPUTS + r""" |
-	\#""" + PBR_INPUTS + r""" |
-	!move \s """ + PBR_INPUTS + r""" |
-)
-\s*$
+^
+    \s*
+    (?:
+        !bet\s+.* |
+        \#bet\s*(?:red|blue).* |
+        !balance\s?.* |
+        !""" + PBR_INPUTS + r""" |
+        \#""" + HASH_INPUTS + r""" |
+        \#""" + HASH_INPUTS + r""" |
+        !move \s """ + PBR_INPUTS + r""" |
+    )
+    \s*
+$
 """, re.VERBOSE | re.IGNORECASE)
 
+
 WHITELIST = """!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~Ééヽ༼ຈل͜༽ﾉ♫ ┌┘ ♪─≡Σ✿◕‿◉͟͡°͜ʖつಠᕙᕗᕦᕤ♀♂"""
+
+CHAR_WHITELIST = u"""€♤□♢■♧•♡°☆¤》▪♂µノè¡¿༼ つ ◕‿◕✿ ༽つ…ヽ༼ຈل͜ຈ༽ﾉ ༼ ºل͟º ༽୧
+    ༼ ͡◉ل͜ ͡◉༽୨ (ง ͠° ل͜ °)ง ヽ༼ʘ̚ل͜ʘ̚༽ﾉ୧༼ಠ益ಠ༽୨乁( ◔ ౪◔)ㄏ─=≡Σ((( つ◕ل͜◕)つ (ง •̀_•
+    )ง┌(° ͜ʖ͡°)┘(ง ͠ ͠° ل͜ °)งᕙ༼◕ل͜◕༽ᕗ.༼ຈل͜ຈ༽ﾉ༼ ºل͟º ༽ ୧༼ ͡◉ل͜ ͡◉༽୨ (ง ͠° ل͜ °)ง ヽ
+    ༼ʘ̚ل͜ʘ̚༽ﾉ୧༼ಠ益ಠ༽୨乁( ◔ ౪◔)ㄏ─=≡Σ((( つ◕ل͜◕)つ (ง •̀_•́)ง┌(° ͜ʖ͡°)┘(ง ͠ ͠° ل͜°)งᕙ
+    ༼◕ل͜◕༽ᕗ└┐(﻿ ͡° ͜ʖ ͡°)└༼ - ل͜ - ༽┐ヽ༼.ل͜.༽ﾉヽ༼ຈل͜ຈ༽ノ♀ᕦຈلﾉ༼ຈ༽لᕤ¢[̲$̲(̲ ͡° ͜ʖ ͡°̲)̲$̲]
+    卅ù?ß×└┐☐☑( ͡° ͜ʖ ͡°)ヽ༼ຈل͜ರೃ༽ﾉヽ༼ຈل͜ຈ༽ﾉ༼ つ ◕_◕ ༽つヽ༼ຈل͜ຈ༽ﾉ༼ຈل͜ຈ༽♫┌༼ຈل͜ຈ༽ʕ ·ᴥ·ʔ¯\_(ツ)_/¯ジッ
+ᕕ(ᐛ)ᕗ 
+    ┘♪♪’“”£!¨§æø´áéíóúçüäåñöéÉÑÇ abcdefghijklmnopqrstuvwxyz
+    1234567890`~!@#$%^&*()_+-=[]{};':\",.<>/?\\|¥·₽
+àáaäèéêëìíîïòóôöæùúûüçñß¡¿€¢£Ōō⨕""" + "".join(EMOJI)
+CHARS_NOT_IN_WHITELIST_PAT = re.compile(r"[^" + re.escape("".join(set(CHAR_WHITELIST))) + "]", re.IGNORECASE)
 
 INPUT_WORDS = [
     "left", "right", "up", "down",
@@ -37,7 +54,7 @@ INPUT_WORDS2 = (
     (?:r|l|<|>|left|right)?
     (?:
         # match cpad/dpad/lstick/rstick/analogstick etc
-        (?:c|d|l|r|a)? (?:
+        [cdlra]? (?:
             left|right|up|down|
             e|s|w|n|
             stick|spinl|spinr
@@ -114,7 +131,7 @@ $
 
 BOT_USERNAMENAMES = re.compile(r"""
 ^
-    tpp|tppinfobot|tppbankbot|tppbalancebot|visualizebot|tpphelpbot
+    tpp|tppinfobot|tppbankbot|tppbalancebot|visualizebot|tpphelpbot|tppsimulator
 $
 """, re.IGNORECASE | re.VERBOSE)
 
@@ -140,28 +157,16 @@ def passesCharacterWhitelist(msg):
     return True
 
 
+def passesCharacterWhitelist2(msg):
+    return not any(True for _ in CHARS_NOT_IN_WHITELIST_PAT.finditer(msg))
+
+
 def isUserBot(username):
     return BOT_USERNAMENAMES.match(username) is not None
 
 
-# def isSpammy(msg):
-# spamScore = 0
-# for c in msg:
-# if c in WHITELIST:
-# continue
-# val = ord(c)
-# print(val)
-# cyrillic and spilled drinks
-# if 0x0400 <= val and val <= 0x04FF:
-# spamScore += 1
-# if 0x0300 <= val and val <= 0x036F:
-# spamScore += 1
-# if 9600 <= val and val <= 9632:
-# spamScore += 1
-# return spamScore > 5
-
 def passesAllFilters(msg):
-    return not (isInput2(msg) or isCommand(msg) or isMisty(msg) or not passesCharacterWhitelist(msg))
+    return not (isInput2(msg) or isMatchCommand(msg) or isMisty(msg) or not passesCharacterWhitelist2(msg))
 
 
 # expects a condensed message: ' '.join(msg.split()
@@ -185,10 +190,10 @@ def test1():
     positives = ['anarchy', 'AnarCHy', 'ANARCHY', '  anarchy', 'anarchy  ', 'anarchy+anarchy']
     positives += ['a+left', 'a,left', 'a+left+a']
     positives += ['start9', 'a+120,100', 'e+s-', 'lstick+e', 'RLEFT', '<left', 'lstart', 'lstart9']
-    positives += ['']
+    positives += ['a', 'b', 'start', 'l', 'zl', '>l']
 
     positives += ['!balance', '!bet 100 red', '!bet 514 tgqr']
-    positives += ['!a', '!move a', '!-', '!c', '!move c', '!baba']
+    positives += ['!a', '!move a', '!-', '!c', '!3', '!move c', '!baba']
     positives += ['!aucl', '!ap', '!l']
 
     positives += ['beat misty']
@@ -197,18 +202,19 @@ def test1():
         'ỏ̷͖͈̞̩͎̻̫̫̜͉̠̫͕̭̭̫̫̹̗̹͈̼̠̖͍͚̥͈̮̼͕̠̤̯̻̥̬̗̼̳̤̳̬̪̹͚̞̼̠͕̼̠̦͚̫͔̯̹͉͉̘͎͕̼̣̝͙̱̟̹̩̟̳̦̭͉̮̖̭̣̣̞̙̗̜̺̭̻̥͚͙̝̦̲̱͉͖͉̰̦͎̫̣̼͎͍̠̮͓̹̹͉̤̰̗̙͕͇͔̱͕̭͈̳̗̭͔̘̖̺̮̜̠͖̘͓̳͕̟̠̱̫̤͓͔̘̰̲͙͍͇̙͎̣̼̗̖͙̯͉̠̟͈͍͕̪͓̝̩ ỏ̷͖͈̞̩͎̻̫̫̜͉̠̫͕̭̭̫̫̹̗̹͈̼̠̖͍͚̥͈̮̼͕̠̤̯̻̥̬̗̼̳̤̳̬̪̹͚̞̼̠͕̼̠̦͚̫͔̯̹͉͉̘͎͕̼̣̝͙̱̟̹̩̟̳̦̭͉̮̖̭̣̣̞̙̗̜̺̭̻̥͚͙̝̦̲̱͉͖͉̰̦͎̫̣̼͎͍̠̮͓̹̹͉̤̰̗̙͕͇͔̱͕̭͈̳̗̭͔̘̖̺̮̜̠͖̘͓̳͕̟̠̱̫̤͓͔̘̰̲͙͍͇̙͎̣̼̗̖͙̯͉̠̟͈͍͕̪͓̝̩']
 
     positives += ['░░░░░▀▀▓▓▓▓▓▓ ▓▓▓▀░░░░░▄██▄░░░░░▀▓▓▓ ▓▓░░░░░▄▄██▀░░░░░░░░▓▓ ▓░░░░░▄██▀░░░▄█▄░░░░░▓ ▌░░░░░▀██▄▄▄████']
+    positives += ['!bet 19246 red PogChamp', '!balance deky', '   anarchy+ ', 'anarchy+anarchy+']
+
 
     positives += ['!bet p100 red', '!bet blue p20', '!bet P100 red', '!bet blue P20',
                   '#1', '#a', '#-', '#betred 200', '#betBLUE 105']
 
     negatives = ['badge from misty', 'ヽ༼ຈل͜ຈ༽ﾉ', '༼ つ ◕_◕ ༽つ']
-    negatives += ['i like anarchy', 'anarchy is great', 'anarchy!', 'anarchy+anarchy+',
-                  '+anarchy+anarchy+anarchy', '   anarchy+ ', 'anarchy, anarchy+,']
+    negatives += ['i like anarchy', 'anarchy is great', 'anarchy!', 'anarchy, anarchy+,',
+                  '+anarchy+anarchy+anarchy']
     negatives += ['select sect', 'a +left', '  a + left + b +   ']
     negatives += ['select a']
-    negatives += ['!a move a', '!- just stop', '!balance deky', '!babyrage']
+    negatives += ['!a move a', '!- just stop', '!babyrage']
 
-    negatives += ['!bet 19246 red PogChamp']
     negatives += ['   left4baba anarchy105812 +1035,3  ', ' lara baba wait4baba1234 ']
 
     # condense
@@ -245,3 +251,4 @@ def test1():
 
 if __name__ == "__main__":
     main()
+

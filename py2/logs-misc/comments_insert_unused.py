@@ -30,13 +30,14 @@ def insertComments():
 
     # "$gt": "2016-12-06T05:23:08.425Z" = where tppvisuals left off
     comments = comments_table \
-        .find({"node.createdAt": {"$gt": "2021-04-21T08:44:11.000Z"}}) \
+        .find({"node.createdAt": {"$gt": "2016-12-06T05:23:08.425Z"}}) \
         .sort("node.createdAt")\
-        # .limit(3)
+        # .limit(100)
 
     auth = json.load(open('../../oauth.json'))
     sql = ChatSql('tpp_chat', auth['mysql']['user'], auth['mysql']['pass'])
     for comment in comments:
+        node = None
         try:
             node = comment['node']
             commenter = node['commenter']
@@ -88,14 +89,14 @@ def insertComments():
                 return
             msgTimeStr = createdAt.strftime("%Y-%m-%d %H:%M:%S")
 
+            # print(("[%s] %s: %s" % (createdAt, dispName, text)).encode('utf-8'))
             sql.processNewMessage(username, twitchId, color, dispName,
                                   mod, sub, turbo, me, emotesStr, msgTimeStr,
                                   text, videoId, videoOffsetSeconds, msgBadges)
 
-            sql.commit()
+            # sql.commit()
             # print(node)
-            #print(("[%s] %s: %s" % (createdAt, dispName, text)).encode('utf-8'))
-            # print(("[%s] [%s] %s: %s" % (node['createdAt'], createdAt, dispName, text)).encode('utf-8'))
+            # print(("[%s] %s: %s" % (createdAt, dispName, text)).encode('utf-8'))
         except Exception:
             print(node)
             raise
