@@ -131,6 +131,7 @@
    </ul>
        <h2>Other</h2>
    <ul>
+       <li>All times are in UTC.</li>
        <li>Use | for a high-precedence <b>OR</b> operator. 
            You can use parenthesis with this style as well.<br>
            Parenthesis are <b>not</b> compatible with the low-precedence <b>OR</b>.</li>

@@ -166,20 +166,20 @@ if(!$query_present) {
     $display_tstamp_sort = " ORDER BY tstamp " . 
             ($flag_display_sort_asc ? " asc " : " desc ");
     if ($from_date !== '') {
-        $sort_nonredundant = "earliest";
+//        $sort_nonredundant = "earliest";
         $fetch_tstamp_range_filter = " tstamp >= '$from_date' ";
         $fetch_tstamp_sort = " ORDER BY tstamp asc ";
     } else if($to_date !== '') {
-        $sort_nonredundant = "";
+//        $sort_nonredundant = "";
         $fetch_tstamp_range_filter = " tstamp < '$to_date' ";
         $fetch_tstamp_sort = " ORDER BY tstamp desc ";
     } else {
         if ($sort_str === 'earliest') {
-            $sort_nonredundant = "earliest";
+//            $sort_nonredundant = "earliest";
             $fetch_tstamp_range_filter = " 1 ";
             $fetch_tstamp_sort = " ORDER BY tstamp asc ";
         } else {
-            $sort_nonredundant = "";
+//            $sort_nonredundant = "";
             $fetch_tstamp_range_filter = " 1 ";
             $fetch_tstamp_sort = " ORDER BY tstamp desc ";
         }
@@ -203,19 +203,19 @@ if(!$query_present) {
     if($from_date !== '') {
 //        $flag_display_sort_asc = $sort_str === "latest" ? false : true;  /* set ascending if none specified */
         $str_display_sort_asc = $flag_display_sort_asc ? " asc " : " desc ";
-        $sort_nonredundant = "";
+//        $sort_nonredundant = "";
         $fetch_tstamp_range_filter = " tstamp >= $from_unix ";
         $fetch_tstamp_sort = " ORDER BY tstamp asc ";
     } else if ($to_date !== '') {
 //        $flag_display_sort_asc = $sort_str === "latest" ? false : true;  /* set ascending if none specified */
         $str_display_sort_asc = $flag_display_sort_asc ? " asc " : " desc ";
-        $sort_nonredundant = $sort_str === 'latest' ? "latest" : "";
+//        $sort_nonredundant = $sort_str === 'latest' ? "latest" : "";
         $fetch_tstamp_range_filter = " tstamp < $to_unix ";
         $fetch_tstamp_sort = " ORDER BY tstamp desc ";
     } else {
 //        $flag_display_sort_asc = $sort_str === "earliest" ? true : false;  /* set descending if none specified */
         $str_display_sort_asc = $flag_display_sort_asc ? " asc " : " desc ";
-        $sort_nonredundant = $sort_str === 'latest' ? "latest" : "";
+//        $sort_nonredundant = $sort_str === 'latest' ? "latest" : "";
         $fetch_tstamp_range_filter = " 1 ";
         $fetch_tstamp_sort = $display_tstamp_sort;
     }

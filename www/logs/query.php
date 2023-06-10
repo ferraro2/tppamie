@@ -58,13 +58,14 @@
          * Write in meta info
          */
         if($had_results) {
-            $min_tstamp_unix = strtotime($min_tstamp);
-            $max_tstamp_unix = strtotime($max_tstamp);
-            $max_tstamp_inc = date("Y-m-d H\:i\:s", $max_tstamp_unix + 1);
+            $min_tstamp_DTI = new DateTimeImmutable($min_tstamp);
+            $max_tstamp_DTI = new DateTimeImmutable($max_tstamp);
+            $max_tstamp_inc = $max_tstamp_DTI->modify("+1 microsecond")
+                    ->format("Y-m-d H\:i\:s.u");
             
             $meta_info = "Browsing All Logs<br>&nbsp&nbsp"
-                    . date("M jS Y\, g\:i a", $min_tstamp_unix) . " - <br>"
-                    . date("M jS Y\, g\:i a", $max_tstamp_unix) . "   ";
+                    . $min_tstamp_DTI->format("M jS Y\, g\:i a") . " - <br>"
+                    . $max_tstamp_DTI->format("M jS Y\, g\:i a") . "   ";
 //            $meta_info .= $flag_display_sort_asc
 //                    ? "<br><span class=\"alert\">Chronological order.</span>"
 //                    : "<br><span class=\"alert\">Reverse chronological order.</span>";
@@ -140,7 +141,7 @@
         * sphinx doesn't take a username or password, just the hostname
         */
         $hostname = "localhost"; 
-        list($had_results, $query_was_valid, $min_tstamp_unix, $max_tstamp_unix,
+        list($had_results, $query_was_valid, $min_tstamp, $max_tstamp,
                 $msg_ids, $meta, $prev_results_exist, $next_results_exist)
                 = sphinxQuery($hostname, $sphinx_match_query, $fetch_tstamp_sort);
         
@@ -149,9 +150,13 @@
          ***********************************************************/
 
         if ( $had_results ) {
-            $min_tstamp = date("Y-m-d H\:i\:s", $min_tstamp_unix);
-            $max_tstamp = date("Y-m-d H\:i\:s", $max_tstamp_unix);
-            $max_tstamp_inc = date("Y-m-d H\:i\:s", $max_tstamp_unix + 1);
+            $min_tstamp_DTI = new DateTimeImmutable($min_tstamp);
+            $max_tstamp_DTI = new DateTimeImmutable($max_tstamp);
+            $max_tstamp_inc = $max_tstamp_DTI->modify("+1 microsecond")
+                    ->format("Y-m-d H\:i\:s.u");
+//            $min_tstamp = date("Y-m-d H\:i\:s", $min_tstamp_DTI);
+//            $max_tstamp = date("Y-m-d H\:i\:s", $max_tstamp_DTI);
+//            $max_tstamp_inc = date("Y-m-d H\:i\:s", $max_tstamp_DTI + 1);
             
             // extract and cast some meta fields
             $search_duration = floatval($meta['time']);
@@ -222,8 +227,8 @@
             $total_found_str = number_format($total_found);
             
             $meta_info = "$total_found_str hits ($search_duration seconds)<br>"
-                    . "&nbsp&nbsp" . date("M jS Y\, g\:i a", $min_tstamp_unix) . " - <br>"
-                    . date("M jS Y\, g\:i a", $max_tstamp_unix) . "   ";
+                    . "&nbsp&nbsp" . $min_tstamp_DTI.format("M jS Y\, g\:i a") 
+                    . " - <br>". $max_tstamp_DTI.format("M jS Y\, g\:i a") . "   ";
                     
 //            $meta_info .= $flag_display_sort_asc
 //                    ? "<br><span class=\"alert\">Chronological order.</span>"
