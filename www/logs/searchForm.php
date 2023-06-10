@@ -98,10 +98,10 @@
    <h2>Example</h2>
    <p>The sample query above returns:</p>
    <p><b><i>Messages with: </b></i>(<i>exactly</i> <u>thisWord</u> <i>and not</i> <u>thatWord</u>)
-       <i>or</i> (</u>"Exact phrase"</u>) </p>
+       <i>or</i> (<u>"Exact phrase"</u>) </p>
    <p><b><i>Sent by users: </b></i><u>name1</u> <i>or</i> <u>name2</u></p>
    <p><b><i>Starting from Date: </b></i><u>2014-04-06 00:00:00 UTC</u> (Type your date in any way- "June 6 2015", etc.)</p>
-   <p><b><i>or from:</b></i> A quick way to see earliest/latest messages without typing a date.</p>
+   <p><b><i>&nbsp;&nbsp;&nbsp;or from:</b></i> Quick way to pick earliest/latest messages without typing a date.</p>
    <h2>Page Links</h2>
    <ul>
        <li>Click the <b><u>hour:minutes AM/PM</b></u> time to the left of a message to see all chatlogs
@@ -120,10 +120,13 @@
    <ul>
        <li><u>TPP bot messages</u> filters messages from: tpp, tppinfobot,
            tppbankbot, and tppbalancebot.</li>
-       <li><u>Game inputs</u> does not filter !-prefixed commands beyond:
-           !bet, !balance, !a, and !move a. <br>
-           It also does not filter game inputs containing additional text after 
-           the input.</li>
+       <li><u>Game inputs</u> doesn't filter !-prefixed commands beyond those
+           similar to: <i>!bet</i>, <i>!balance</i>, <i>!aubl</i>, and <i>!move a</i>.<br>
+           It also doesn't filter most democracy inputs because they overlap
+           heavily with real words.<br>
+           It also doesn't filter game inputs containing additional text after 
+           the input.
+       </li>
        
    </ul>
        <h2>Other</h2>
@@ -144,7 +147,7 @@
        or <a href="https://www.twitch.tv/ferraro2">Twitch</a>.</p>
    <p>This website is not affiliated with TwitchPlaysPokémon.</p>
    <h2>Privacy</h2>
-   <p>To have all your messages removed from this site, whisper me from the 
+   <p>To have all your messages removed from this site, just whisper me from the 
        Twitch account in question. Then let me know on Discord, and I will 
        remove them promptly, no questions asked.</p>
    <p>This site provides an identical experience for all its visitors.  
