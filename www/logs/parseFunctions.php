@@ -80,7 +80,47 @@
     function urlDateFromMysqlDate($date) {
         return preg_replace("/ /", "+", $date);
     }
-
+    
+    function getReverseDisplaySortUrl($query_flags) {
+       $url = SITE;
+       $query = $_SERVER['QUERY_STRING'];
+       parse_str($query, $query_arr);
+//       echo var_dump($query);
+//       echo "<br>";
+//       echo $url;
+       
+        foreach(array("from", "to", "id") as $param_name) {
+            if (isset($query_arr[$param_name])) {
+                $url .= "$param_name/" . 
+                        urlDateFromMysqlDate($query_arr[$param_name]). "/";
+            } 
+            unset($query_arr[$param_name]);
+        }
+       unset($query_arr['date']);
+       
+       // unset all flags, 
+       // and set them again for those not equal to their default value
+       foreach (get_object_vars($query_flags) as $query_flag) {
+           // flip sort flag
+           if($query_flag->name == 'sort') {
+               $val = !$query_flag->val;  
+           } else {
+               $val = $query_flag->val;
+           }
+           
+           if ($val === $query_flag->default) {
+               unset($query_arr[$query_flag->name]);
+           } else {
+            $query_arr[$query_flag->name] = $val;
+           }
+       }
+       
+       $result_query = http_build_query($query_arr);
+       return $url . ($result_query !== '' ? "?$result_query" : "");
+        
+    }
+    
+    
     /*
      * Return url query stripped of date params
      * 
@@ -91,7 +131,45 @@
      * checkbox flags.
      * Used for jump/header links
      */
-    function getReplacementQuery($query_flags, $flagsOnly=False) {
+    function getReplacementQuery($query_flags, $flags_only=False,
+            $reverse_sort=False) {
+       $query = $_SERVER['QUERY_STRING'];
+       parse_str($query, $query_arr);
+       //var_dump($query_arr);
+       unset($query_arr['date']);
+       unset($query_arr['from']);
+       unset($query_arr['to']);
+       unset($query_arr['id']);
+       unset($query_arr['dir']);
+       
+       // unset all flags, 
+       // and set them again for those not equal to their default value
+       foreach (get_object_vars($query_flags) as $query_flag) {
+           // reverse sort if requested
+           if($reverse_sort && $query_flag->name == 'sort') {
+               $val = !$query_flag->val;  
+           } else {
+               $val = $query_flag->val;
+           }
+           
+           if ($val === $query_flag->default) {
+               unset($query_arr[$query_flag->name]);
+           } else {
+            $query_arr[$query_flag->name] = $val;
+           }
+       }
+       
+       if ($flags_only) {
+           unset($query_arr['q1']);
+           unset($query_arr['q2']);
+           unset($query_arr['q3']);
+           unset($query_arr['u1']);
+           unset($query_arr['u2']);
+           unset($query_arr['u3']);
+       }
+       $result_query = http_build_query($query_arr);
+       return $result_query !== '' ? "?$result_query" : "";
+    } 
     //        $parsed_url = getParsedUrl();
     //        echo "<br>";
     //        var_dump($parsed_url);
@@ -109,33 +187,4 @@
     //        
     //        var_dump($query);
     //        echo "<br>";
-       $query = $_SERVER['QUERY_STRING'];
-       parse_str($query, $query_arr);
-       //var_dump($query_arr);
-       unset($query_arr['date']);
-       unset($query_arr['from']);
-       unset($query_arr['to']);
-       unset($query_arr['dateRadio']);
-       
-       // unset all flags, 
-       // and set them again for those not equal to their default value
-       foreach (get_object_vars($query_flags) as $query_flag) {
-           if ($query_flag->val === $query_flag->default) {
-               unset($query_arr[$query_flag->name]);
-           } else {
-               $query_arr[$query_flag->name] = $query_flag->val;
-           }
-       }
-       
-       if ($flagsOnly) {
-           unset($query_arr['q1']);
-           unset($query_arr['q2']);
-           unset($query_arr['q3']);
-           unset($query_arr['u1']);
-           unset($query_arr['u2']);
-           unset($query_arr['u3']);
-       }
-       $result_query = http_build_query($query_arr);
-       return $result_query !== '' ? "?$result_query" : "";
-    } 
 ?>

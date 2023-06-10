@@ -7,14 +7,16 @@
 <div id="top"></div>
 <form id="js-searchForm" class="searchForm" method="get">
     <h2>Search For:</h2>
-   <input id="js-q1" type="text" name="q1" value="<?php echo h($q1) ?>" class="logTextField form-query tooltip"/>
+   <input id="js-q1" type="text" name="q1" value="<?php echo h($q1) ?>" 
+          class="logTextField form-query tooltip"/>
 
-   <button type="button" id="js-helpButton" class="helpButton" tabindex ="-1" onclick="toggle_help();">Help</button>
+   <button type="button" id="js-helpButton" class="helpButton" tabindex ="-1">Help</button>
 
    <br>
 
    <h2>By Users:</h2>
-   <input type="text" id="js-u1" name = "u1" value="<?php echo h($u1) ?>" class="logTextField form-user tooltip"/>
+   <input type="text" id="js-u1" name = "u1" value="<?php echo h($u1) ?>" 
+          class="logTextField form-user tooltip"/>
 
    <!--<button type="button" id="js-extraFieldsButton" class="extraFieldsButton" tabindex ="-1" ><?php echo $EXTRA_FIELDS_BUTTON_VALUE ?></button>-->
 
@@ -67,12 +69,11 @@
    <div style="float:left;">
        <h2> 
        <span id="js-jumpRadio" class="sortBy">
-           <input type="radio" name="dateRadio" value="from" 
-                  class="dateRadioFrom"><span class="dateFromTo">From Date:</span>
+           <input id="js-dateDirectionFrom" type="radio" name="dir" value="from">
+           <span class="dateDirection">From Date:</span>
            
-           <input type="radio" name="dateRadio" value="to" 
-                  class="dateRadioTo"><span class="dateFromTo">To</span>
-           Date:
+           <input id="js-dateDirectionTo" type="radio" name="dir" value="to">
+           <span class="dateDirection">To Date:</span>
        </span>
        </h2>
        <div style="float: left;">
@@ -105,17 +106,22 @@
    <p><b><i>Messages with: </b></i>(<i>exactly</i> <u>thisWord</u> <i>and not</i> <u>thatWord</u>)
        <i>or</i> (<u>"Exact phrase"</u>) </p>
    <p><b><i>Sent by users: </b></i><u>name1</u> <i>or</i> <u>name2</u></p>
-   <p><b><i>From Date: </b></i><u>2014-04-06 00:00:00 UTC</u> (Type your date in any way- "June 6 2015", etc.)</p>
-   <p>&nbsp;&nbsp;&nbsp;If you leave the date blank:</p>
+   <p><b><i>Starting from date: </b></i><u>2014-04-06 00:00:00 UTC</u> 
+   (Type your date in any way- "June 6 2015", etc.)</p>
+   <p>&nbsp;&nbsp;&nbsp;When you type in a date:</p>
+   <p>&nbsp;&nbsp;&nbsp;- selecting <b><i>From Date</b></i> (or not making a selection) shows messages starting from that date</p>
+   <p>&nbsp;&nbsp;&nbsp;- selecting <b><i>To Date</b></i> shows messages up until that date</p>
+   <p>&nbsp;&nbsp;&nbsp;When you leave the date blank:</p>
    <p>&nbsp;&nbsp;&nbsp;- selecting <b><i>From Date</b></i> shows messages from the <u>beginning of time</u></p>
-   <p>&nbsp;&nbsp;&nbsp;- selecting <b><i>To Date</b></i> shows messages to the <u>end of time</u></p>
-   <p>&nbsp;&nbsp;&nbsp;- selecting neither shows messages to the <u>end of time</u></p>
+   <p>&nbsp;&nbsp;&nbsp;- selecting <b><i>To Date</b></i> (or not making a selection) shows messages to the <u>end of time</u></p>
    <h2>Page Links</h2>
    <ul>
        <li>Click the <b><u>hour:minutes AM/PM</b></u> time to the left of a message to see all chatlogs
            at the time of that message, with the search criteria removed.</li>
        <li>Click the <b><u>seconds</b></u> time to the left of a message to see the video at 
            the time of that message.  Not all messages have video available.</li>
+       <li>Click the <b><u>🠕</b></u> or <b><u>🠗</b></u> arrow between the above two to reload the page at this message with the 
+           chronological order of messages reversed.
        <li>Click any <b><u>username</b></u> to see that user's chatlogs at the time of 
            that message, with the search criteria removed.</li>
        <li>The <i><u>Previous</i></u> button always links to messages 
@@ -137,8 +143,8 @@
        </li>
        <li><u>Display in chronological order</u> determines the order in which
            the results of current page are displayed. <br>
-           The little arrow between <b><u>11:00 pm 🠕 00s</b></u> 
-            reflects this order. <br>
+           Clicking the little arrow between <b><u>11:00 pm 🠕 00s</b></u> 
+            inverts this selection.<br>
            Set this to the desired value before clicking <b>Search</b> for it 
            to affect your results.
        </li>

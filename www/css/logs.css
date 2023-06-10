@@ -62,12 +62,23 @@ body {
 }
 .rightBar {
 }
+
+a:link {
+    color: #0000d0;
+}
+a:visited {
+    color: #c00000;
+}
+a:hover {
+    /*color: #6080ff;*/
+    text-decoration: underline;
+}
 a, a:visited {
 	color: #0000aa;
 	text-decoration: none;
 }
-a:hover {
-	text-decoration: underline;
+a.uncoloredLink, a.uncoloredLink:link, a.uncoloredLink:hover, a.uncoloredLink:visited {
+	color: #000;
 }
 .tooltipClass {
 	font-weight: lighter;
@@ -97,7 +108,6 @@ table {
 h2 {
     font-size:24px;
     font-style: italic;
-    color: #fff;
     text-align: left;
     margin-top: 15px;
     margin-bottom: 11px;
@@ -194,13 +204,6 @@ h2 {
 .logTable tr:last-child td{
     padding-bottom: 9px;
 }
-.logTable tr:target {
-    background: #aea none repeat scroll 0 0;
-}
-.logTable tr:target td{
-    border-top: 2px solid black;
-    border-bottom: 2px solid black;
-}
 .logTable td {
     border: none;
     padding: 4px 4px;
@@ -244,6 +247,13 @@ h2 {
 }
 .logTable tr.invisibleRow {
 }
+.logTable tr:target {
+    background: #aea none repeat scroll 0 0;
+}
+.logTable tr:target td{
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+}
 
 .littleSeconds {
     font-size: 13px;
@@ -252,16 +262,6 @@ h2 {
 
 .iconVod {
     vertical-align: middle;
-}
-
-a:link {
-    color: #0000d0;
-}
-a:visited {
-    color: #c00000;
-}
-a:hover {
-    color: #6080ff;
 }
 .searchButton {
     display: block;
@@ -511,7 +511,7 @@ input[type='radio'] {
     text-align:center;*/
     /*float: left;*/
 }
-.dateFromTo {
+.dateDirection {
 /*    font-weight: 600;*/
 }
 .dateRadioFrom {
@@ -536,7 +536,7 @@ h3 {
 .meta {
     margin: 0 auto;
     width: 280px;
-    color: #fff;
+    /*color: #fff;*/
     font-style: italic;
     vertical-align: bottom;
     text-align: center;

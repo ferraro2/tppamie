@@ -49,14 +49,13 @@ class QueryFlags {
         $this->show_tpp_bot = new QueryFlag("bot", True);
         $this->show_unwhitelisted_chars = new QueryFlag("chars", False);
         $this->display_sort_asc = new QueryFlag("sort", False);
-        $this->user_date_sort = new QueryFlag("sort", False);
     }
 }
 
 $query_flags = new QueryFlags();
-$user_date_radio_str = filter_input(INPUT_GET, "dateRadio");
-if(!preg_match("/^from|to$/", $user_date_radio_str)) {
-    $user_date_radio_str = "";
+$user_date_direction = filter_input(INPUT_GET, "dir");
+if(!preg_match("/^from|to$/", $user_date_direction)) {
+    $user_date_direction = "";
 }
 
 
@@ -117,7 +116,7 @@ if ($user_date) {
      * set from_date to the user date and $to_date to empty string.
      * 
      */
-    if ($user_date_radio_str == 'to') {
+    if ($user_date_direction == 'to') {
         $to_date = $user_date;
         $from_date = null;
     } else {
@@ -170,7 +169,7 @@ if(!$query_present) {
         $fetch_tstamp_range_filter = " tstamp <= '$to_date_mysql' ";
         $fetch_tstamp_sort = " ORDER BY tstamp desc ";
     } else {
-        if ($user_date_radio_str === 'from') {
+        if ($user_date_direction === 'from') {
 //            $sort_nonredundant = "earliest";
             $fetch_tstamp_range_filter = " 1 ";
             $fetch_tstamp_sort = " ORDER BY tstamp asc ";
@@ -181,6 +180,7 @@ if(!$query_present) {
         }
     }
 } else { /* query present */
+    $flag_display_sort_asc = $query_flags->display_sort_asc->val;
     $str_display_sort_asc = $flag_display_sort_asc ? " asc " : " desc ";
     if($from_date) {
         $fetch_tstamp_range_filter = " tstamp >= '$from_date_sphinx' ";
@@ -190,7 +190,7 @@ if(!$query_present) {
         $fetch_tstamp_range_filter = " tstamp <= '$to_date_sphinx' ";
         $fetch_tstamp_sort = " ORDER BY tstamp desc ";
     } else {
-        if ($user_date_radio_str === 'from') {
+        if ($user_date_direction === 'from') {
             $fetch_tstamp_range_filter = " 1 ";
             $fetch_tstamp_sort = " ORDER BY tstamp asc ";
         } else {
@@ -211,7 +211,8 @@ if(!$query_present) {
  * 
  * set id to 0 if none provided, or invalid
 */
-if (!$query_present && $from_date_mysql === '' && $to_date === '') {
+
+if (!$query_present && !$from_date && !$to_date) {
     $jump_str = !isset($_GET['id']) || gettype($_GET['id']) !== 'string'
            ? ''
            : preg_replace(ID_SANITIZE, " ", $_GET['id']);
@@ -338,6 +339,7 @@ if($user_date) {
 
 //$trimmed_query = getTrimmedQuery($query_flags);
 $flags_only_query = getReplacementQuery($query_flags, True);
+$reverse_display_sort_url = getReverseDisplaySortUrl($query_flags);
 //echo $trimmed_query;
 //echo $flags_only_query;
 ?>

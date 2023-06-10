@@ -88,11 +88,15 @@ if($had_results) {
 //                    . "<span style=\"font-size: 12px;\">" . date("s", $date) . "</span>"
 //                    . date(" a", $date);
         $arrowTimeDirection = $flag_display_sort_asc ? "🠗" : "🠕";
+        $arrowTimeHtml = '<a href="' . $reverse_display_sort_url
+                 . '#' . $result->msg_id 
+                . '" class="uncoloredLink">' . $arrowTimeDirection . '</a>';
+        
         $displayedTimeMin = date("g\:i\ a ", $date);
         $displayedTimeSec = "<span class=\"littleSeconds\">&nbsp" . date("s", $date) . "s</span>";
 
         echo '<td><a href="' . getJumpToIdLink($result->msg_id, $flags_only_query) .'">'
-        . $displayedTimeMin . '</a>' . $arrowTimeDirection;
+        . $displayedTimeMin . '</a>' . $arrowTimeHtml;
 
         $vodLink = getVodLink($result->video_id, $result->video_offset_seconds);
         echo $vodLink ? '<a href="' . $vodLink . '">' . $displayedTimeSec . '</a>' : $displayedTimeSec;
