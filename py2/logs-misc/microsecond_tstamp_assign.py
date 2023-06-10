@@ -38,7 +38,7 @@ def mongo_comments_insert():
 
     # min_date = datetime.strptime('2016-12-06T05:23:08.426', '%Y-%m-%dT%H:%M:%S.%f')
     # max_date = datetime.strptime('2016-12-16T15:25:42.425', '%Y-%m-%dT%H:%M:%S.%f')
-    min_date = datetime.strptime('2016-12-31T15:25:42.425', '%Y-%m-%dT%H:%M:%S.%f')
+    min_date = datetime.strptime('2019-02-13T15:25:42.425', '%Y-%m-%dT%H:%M:%S.%f')
     # max_date = datetime.strptime('2016-12-16T15:25:42.425', '%Y-%m-%dT%H:%M:%S.%f')
     interval_size = timedelta(minutes=20)
     partition_ranges = get_partition_ranges_of_time_interval(interval_size, min_date, max_date)
@@ -73,7 +73,7 @@ def mongo_comments_insert_consumer(i, q):
                 insert_one_comment_node(sql, comment)
 
     except KeyboardInterrupt:
-        return "Ctrl-c, goodbye"
+        return "%d Ctrl-c, goodbye" % i
     except Empty:
         sql.close()
         mongodb_client.close()
@@ -81,7 +81,7 @@ def mongo_comments_insert_consumer(i, q):
         # return "\n\t".join(results)
         # return
     except Exception:
-        result = traceback.format_exc()
+        result = str(i) + traceback.format_exc()
         try:
             if lastitem:
                 q.put(lastitem)
@@ -312,8 +312,6 @@ def perform_partitions_work(partition_ranges, num_processes, consumer):
         pool.terminate()
 
     print('done. took %s' % (time.time() - start))
-    if q.qsize() > 0:
-        print("%s items still in the queue. First item: %s" % (q.qsize(), q.get(timeout=5)))
 
 
 def callback(data):
