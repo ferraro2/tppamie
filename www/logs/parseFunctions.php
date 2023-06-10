@@ -5,15 +5,9 @@
      ***********************************************************
      ***********************************************************/
 
-//    function parseFlagStrParamAndAppendToQueryStr(
-//            $param_name, $default, & $query_list) {
-//        list($value, $query) = parseFlagStrParam($param_name, $default);
-//        array_push($query_list, $query);
-//        return $value;
-//    }
-
-
-    
+    define("DATE_SANITIZE", "/[^a-zA-Z0-9\-:\s\\/,\+\.]/");
+    define("USER_SANITIZE", "/[^a-zA-Z0-9_ ]/");
+    define("ID_SANITIZE", "/[^0-9]/");
 
     /*
      * Returns the value of the parameter, as a lightly sanitized string.
@@ -24,39 +18,54 @@
 //        var_dump($_GET);
 //        echo "<br>param '$param_name' set:" . isset($_GET[$param_name]). "<br>";
 //        echo "<br>param '$param_name' type:" . gettype($_GET[$param_name]) . "<br>";
-        $date = !isset($_GET[$param_name]) || gettype($_GET[$param_name]) !== 'string'
+        $date_html = !isset($_GET[$param_name]) || gettype($_GET[$param_name]) !== 'string'
                ? ''
                : preg_replace(DATE_SANITIZE, " ", $_GET[$param_name]);
         
 //        echo "<br>param '$param_name':$date<br>";
-        $decoded_date = htmlDecodeDate($date);
+        $date_mysql = mysqlDateFromUrlDate($date_html);
 //        echo "<br>param '$param_name':$date<br>";
 //        exit();
-        return $decoded_date;
+        return $date_mysql;
      }
-
-    function getMysqlDate($param_name) {
-        $date = getDateParam($param_name);
-        return getMysqlFormattedDate($date);
-    }
-
-    function getMysqlFormattedDate($date) {
-       return getFormattedDate("Y-m-d H\:i\:s", $date);
-    }
 
     /*
      * If the date contains a string parsable as a valid date, 
-     *  returns (mysql-formatted string, corresponding unix time, date)
+     *  returns (mysql-formatted string, sphinx-formatted string, html-formatted string)
      * 
      * Otherwise returns ("", 0, date)
      */
-    function getFormattedDate($format, $date) {
-       $date_unix = strtotime($date);
-       if ($date_unix !== false && $date_unix !== -1) {
-           return [date($format, $date_unix), $date_unix, $date];
-       } else {
-           return ["", 0, $date];
-       }
+    function getNullableDTIFromDateParam($param_name) {
+        $date_mysql = getDateParam($param_name);
+        if ($date_mysql == "") {
+            return null;
+        }
+        try {
+            return new DateTimeImmutable($date_mysql);
+        }catch(Exception $e) {
+            return null;
+        }
+    } 
+    
+    function getUrlDateFromNullableDTI($dti) {
+        if ($dti == null) {
+            return "";
+        }
+        return $dti->format("Y-m-d+H\:i\:s.u");
+    }
+    
+    function getMysqlDateFromNullableDTI($dti) {
+        if ($dti == null) {
+            return "";
+        }
+        return $dti->format("Y-m-d H\:i\:s.u");
+    }
+    
+    function getSphinxDateFromNullableDTI($dti) {
+        if ($dti == null) {
+            return "";
+        }
+        return $dti->format("Y-m-d H\:i\:s.u");
     }
 
     function getParsedUrl() {
@@ -64,23 +73,25 @@
        return parse_url($url);
     }
 
-    function htmlDecodeDate($date) {
+    function mysqlDateFromUrlDate($date) {
         return preg_replace("/\+/", " ", $date);
     }
     
-    function htmlEncodeMysqlDate($date) {
+    function urlDateFromMysqlDate($date) {
         return preg_replace("/ /", "+", $date);
     }
 
     /*
-     * Return url query stripped of date params, for prev / next links
+     * Return url query stripped of date params
+     * 
+     * used in redirecting *.com/?to=2014-....&... to *.com/to/2014-../?...
      * 
      * If $flagsOnly:
-     * Further trim the query of msg/user/id params, leaving only the 
+     * Further trim the query of msg/user search params, leaving only the 
      * checkbox flags.
      * Used for jump/header links
      */
-    function getTrimmedQuery($query_flags, $flagsOnly=False) {
+    function getReplacementQuery($query_flags, $flagsOnly=False) {
     //        $parsed_url = getParsedUrl();
     //        echo "<br>";
     //        var_dump($parsed_url);
@@ -104,6 +115,7 @@
        unset($query_arr['date']);
        unset($query_arr['from']);
        unset($query_arr['to']);
+       unset($query_arr['dateRadio']);
        
        // unset all flags, 
        // and set them again for those not equal to their default value
@@ -122,9 +134,8 @@
            unset($query_arr['u1']);
            unset($query_arr['u2']);
            unset($query_arr['u3']);
-           unset($query_arr['id']);
        }
-       
-       return http_build_query($query_arr);
+       $result_query = http_build_query($query_arr);
+       return $result_query !== '' ? "?$result_query" : "";
     } 
 ?>

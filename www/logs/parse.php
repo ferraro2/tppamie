@@ -14,10 +14,6 @@ include 'parseFunctions.php';
 ***********************************************************/
 
 
-define("DATE_SANITIZE", "/[^a-zA-Z0-9\-:\s\\/,\+\.]/");
-define("USER_SANITIZE", "/[^a-zA-Z0-9_ ]/");
-define("ID_SANITIZE", "/[^0-9]/");
-
 class QueryFlag {
     public $name;
     public $default;
@@ -29,11 +25,7 @@ class QueryFlag {
         $this->default = $default;
         
         // set val from GET
-        $param_as_string = (
-                isset($_GET[$name]) && 
-                    gettype($_GET[$name]) === 'string' ) 
-                ? $_GET[$name] 
-                : '';
+        $param_as_string = filter_input(INPUT_GET, $name);
 //        echo "<br>param '$param_name' as string:" . $param_as_string. "<br>";
         if($default === True) {
 //            $query = "";
@@ -57,10 +49,16 @@ class QueryFlags {
         $this->show_tpp_bot = new QueryFlag("bot", True);
         $this->show_unwhitelisted_chars = new QueryFlag("chars", False);
         $this->display_sort_asc = new QueryFlag("sort", False);
+        $this->user_date_sort = new QueryFlag("sort", False);
     }
 }
 
 $query_flags = new QueryFlags();
+$user_date_radio_str = filter_input(INPUT_GET, "dateRadio");
+if(!preg_match("/^from|to$/", $user_date_radio_str)) {
+    $user_date_radio_str = "";
+}
+
 
 $msg_flags_filter = " 1 ";
 $msg_flags_filter .= $query_flags->show_game_inputs->val
@@ -111,37 +109,45 @@ if ($extra_fields_set) {
  * 
  * Where param is the parameter, as a lightly sanitized string.
  */
-list($user_date, $user_date_unix, $user) = getMysqlDate('date');
-if ($user_date !== '') {
+
+$user_date = getNullableDTIFromDateParam('date');
+if ($user_date) {
     /*
      * if $user_date was a valid date,
      * set from_date to the user date and $to_date to empty string.
      * 
-     * If the sphinx logic below decides to interpret $user_date as the $to_date,
-     * it will swap the variables $from_date and $to_date to do so.
      */
-    list($from_date, $from_unix, $from) = [$user_date, $user_date_unix, getDateParam("from")];
-    list($to_date, $to_unix, $to) = ["", 0, getDateParam("to")];
+    if ($user_date_radio_str == 'to') {
+        $to_date = $user_date;
+        $from_date = null;
+    } else {
+        $from_date = $user_date;
+        $to_date = null;
+    }
 } else {
-    list($from_date, $from_unix, $from) = getMysqlDate('from');
-    if ($from_date !== '') {
+    $from_date = getNullableDTIFromDateParam('from');
+    if ($from_date) {
         /* if from_date was a valid date, 
          * force to_date to be the empty string
          * 
          * Setting both from and to is entirely meaningless for these searches
          */
-        list($to_date, $to_unix, $to) = ["", 0, getDateParam("to")];
+        $to_date = null;
     } else {
-        list($to_date, $to_unix, $to) = getMysqlDate('to');
+        // might be null if user didn't specify a date
+        $to_date = getNullableDTIFromDateParam('to');
 //        echo "<br>to_date: :$to_date<br>";
 //        echo "<br>to_unix: :$to_unix<br>";
 //        echo "<br>to: :$to<br>";
     }
 }
-/*
-* Sort order is determined by a radio button- earliest or latest, or empty string if no button was selected
-*/
-$sort_str = !isset($_GET['sort']) || gettype($_GET['sort']) !== 'string' ? '' : $_GET['sort'];
+$from_date_url = getUrlDateFromNullableDTI($from_date);
+$from_date_mysql = getMysqlDateFromNullableDTI($from_date);
+$from_date_sphinx = getSphinxDateFromNullableDTI($from_date);
+
+$to_date_url = getUrlDateFromNullableDTI($to_date);
+$to_date_mysql = getMysqlDateFromNullableDTI($to_date);
+$to_date_sphinx = getSphinxDateFromNullableDTI($to_date);
 
 //var_dump($user_date);
 //echo "<br>";
@@ -152,29 +158,19 @@ $sort_str = !isset($_GET['sort']) || gettype($_GET['sort']) !== 'string' ? '' : 
 
 
 if(!$query_present) {
-    /* May swap $from_date and $to_date to better match the request */
-    if ($from_date !== '' && $sort_str === 'latest' ||
-       $to_date !== '' && $sort_str === 'earliest') {
-        list($temp_date, $temp_unix) = [$from_date, $from_unix];
-        list($from_date, $from_unix) = [$to_date, $to_unix];
-        list($to_date, $to_unix) = [$temp_date, $temp_unix];
-    }
-
-    
-
     $flag_display_sort_asc = $query_flags->display_sort_asc->val;
     $display_tstamp_sort = " ORDER BY tstamp " . 
             ($flag_display_sort_asc ? " asc " : " desc ");
-    if ($from_date !== '') {
+    if ($from_date) {
 //        $sort_nonredundant = "earliest";
-        $fetch_tstamp_range_filter = " tstamp >= '$from_date' ";
+        $fetch_tstamp_range_filter = " tstamp >= '$from_date_mysql' ";
         $fetch_tstamp_sort = " ORDER BY tstamp asc ";
-    } else if($to_date !== '') {
+    } else if($to_date) {
 //        $sort_nonredundant = "";
-        $fetch_tstamp_range_filter = " tstamp < '$to_date' ";
+        $fetch_tstamp_range_filter = " tstamp <= '$to_date_mysql' ";
         $fetch_tstamp_sort = " ORDER BY tstamp desc ";
     } else {
-        if ($sort_str === 'earliest') {
+        if ($user_date_radio_str === 'from') {
 //            $sort_nonredundant = "earliest";
             $fetch_tstamp_range_filter = " 1 ";
             $fetch_tstamp_sort = " ORDER BY tstamp asc ";
@@ -185,46 +181,28 @@ if(!$query_present) {
         }
     }
 } else { /* query present */
-    /* May swap $from_date and $to_date to better match the user date request */
-    if ($user_date !== '' &&
-            ( $from_date !== '' && $sort_str === 'latest'
-            || $to_date !== '' && $sort_str === 'earliest') ) {
-        list($temp_date, $temp_unix) = [$from_date, $from_unix];
-        list($from_date, $from_unix) = [$to_date, $to_unix];
-        list($to_date, $to_unix) = [$temp_date, $temp_unix];
-    }
-
-    //$outer_sort_asc = $sort_str === "earliest" ? true : false;  /* set descending if none specified */
-    //$outer_sort = $outer_sort_asc ? " asc " : " desc ";
-
-    //var_dump($outer_sort);
-    //var_dump($sort_str);
-
-    if($from_date !== '') {
-//        $flag_display_sort_asc = $sort_str === "latest" ? false : true;  /* set ascending if none specified */
-        $str_display_sort_asc = $flag_display_sort_asc ? " asc " : " desc ";
-//        $sort_nonredundant = "";
-        $fetch_tstamp_range_filter = " tstamp >= $from_unix ";
+    $str_display_sort_asc = $flag_display_sort_asc ? " asc " : " desc ";
+    if($from_date) {
+        $fetch_tstamp_range_filter = " tstamp >= '$from_date_sphinx' ";
         $fetch_tstamp_sort = " ORDER BY tstamp asc ";
-    } else if ($to_date !== '') {
-//        $flag_display_sort_asc = $sort_str === "latest" ? false : true;  /* set ascending if none specified */
+    } else if ($to_date) {
         $str_display_sort_asc = $flag_display_sort_asc ? " asc " : " desc ";
-//        $sort_nonredundant = $sort_str === 'latest' ? "latest" : "";
-        $fetch_tstamp_range_filter = " tstamp < $to_unix ";
+        $fetch_tstamp_range_filter = " tstamp <= '$to_date_sphinx' ";
         $fetch_tstamp_sort = " ORDER BY tstamp desc ";
     } else {
-//        $flag_display_sort_asc = $sort_str === "earliest" ? true : false;  /* set descending if none specified */
-        $str_display_sort_asc = $flag_display_sort_asc ? " asc " : " desc ";
-//        $sort_nonredundant = $sort_str === 'latest' ? "latest" : "";
-        $fetch_tstamp_range_filter = " 1 ";
-        $fetch_tstamp_sort = $display_tstamp_sort;
+        if ($user_date_radio_str === 'from') {
+            $fetch_tstamp_range_filter = " 1 ";
+            $fetch_tstamp_sort = " ORDER BY tstamp asc ";
+        } else {
+            $fetch_tstamp_range_filter = " 1 ";
+            $fetch_tstamp_sort = " ORDER BY tstamp desc ";
+        }
     }
 
     //var_dump($outer_sort_asc);
     //echo "<br>";
     //var_dump($sort_str);
 }
-
 
 /*
  * get jump ID if provided
@@ -233,7 +211,7 @@ if(!$query_present) {
  * 
  * set id to 0 if none provided, or invalid
 */
-if (!$query_present && $from_date === '' && $to_date === '') {
+if (!$query_present && $from_date_mysql === '' && $to_date === '') {
     $jump_str = !isset($_GET['id']) || gettype($_GET['id']) !== 'string'
            ? ''
            : preg_replace(ID_SANITIZE, " ", $_GET['id']);
@@ -335,51 +313,31 @@ if (!$query_present && $from_date === '' && $to_date === '') {
 
 /*
  * URL redirecting
+ * redirect *.com/?to=2014-....&... to *.com/to/2014-../?...
  * 
  * The variables $q1-3, $u1-3, and $jump_id do not cause redirection
  * 
- * If $user_date is not empty, form submission occurred.  
- * When $user_date is not empty, exactly one of $from_date and $to_date is not empty.
+ * If $user_date_DIO is not null, search form submission occurred.
+ * When $user_date is not empty, we have set exactly one of $from_date 
+ * and $to_date is not empty.
  * We'll redirect the user to a pretty url.
  */
-if($user_date !== '') {
+if($user_date) {
     $new_link = SITE;
-
-    $temp_query_part = $_SERVER['QUERY_STRING'];
-    parse_str($temp_query_part, $query_arr);
-//    var_dump($query_arr);
-    unset($query_arr['date']);
-    unset($query_arr['from']);
-    unset($query_arr['to']);
-    unset($query_arr['sort']);
     
-    foreach (get_object_vars($query_flags) as $query_flag) {
-        if ($query_flag->val === $query_flag->default) {
-            unset($query_arr[$query_flag->name]);
-        } else {
-            $query_arr[$query_flag->name] = $query_flag->val;
-        }
-    }
-//    if($sort_nonredundant !== '') {
-//        $query_arr['sort'] = $sort_nonredundant;
-    //    
-    //    var_dump($query_arr);
-    if ($from_date !== '') {
-        $new_link .= "from/" . htmlEncodeMysqlDate($from_date) . "/";
-    } else if ($to_date !== '') {
-        $new_link .= "to/" . htmlEncodeMysqlDate($to_date) . "/";
+    if ($from_date) {
+        $new_link .= "from/" . $from_date_url . "/";
+    } else if ($to_date) {
+        $new_link .= "to/" . $to_date_url . "/";
     } 
 
-    $trunc_query = http_build_query($query_arr);
-    $new_link .= $trunc_query !== '' ? "?" : "";  # add `?` if query exists
-    $new_link .= $trunc_query;
+    $new_link .= getReplacementQuery($query_flags);
     header("Location: " . $new_link);
 }
 
 
 //$trimmed_query = getTrimmedQuery($query_flags);
-$flags_only_query = getTrimmedQuery($query_flags, True);
-$flags_only_query = $flags_only_query !== '' ? "?$flags_only_query" : "";
+$flags_only_query = getReplacementQuery($query_flags, True);
 //echo $trimmed_query;
 //echo $flags_only_query;
 ?>

@@ -101,7 +101,7 @@ if($had_results) {
         #$user_emote = getImage($result->emote);
 
         $user_href = SITE . "from/" . date("Y-m-d+H:i:s", $date - 60 * 3) 
-                . "/?u1=$result->username;"
+                . "/?u1=$result->username"
                 . ""
                 . "#$result->msg_id";
         $user_color = adjustColor($result->color, $ADJUST_COLOR);

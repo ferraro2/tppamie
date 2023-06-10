@@ -48,7 +48,7 @@
             "database" => "tpp_chat", 
         ];
         
-        list($had_results, $query_was_valid, $min_tstamp, $max_tstamp, 
+        list($had_results, $query_was_valid, $min_tstamp_mysql, $max_tstamp_mysql, 
                 $results, $prev_results_exist, $next_results_exist) = 
                 mysqlQuery($mysql_config, $jump_id, $fetch_tstamp_range_filter,
                         $fetch_tstamp_sort, $msg_flags_filter, 
@@ -58,10 +58,12 @@
          * Write in meta info
          */
         if($had_results) {
-            $min_tstamp_DTI = new DateTimeImmutable($min_tstamp);
-            $max_tstamp_DTI = new DateTimeImmutable($max_tstamp);
-            $max_tstamp_inc = $max_tstamp_DTI->modify("+1 microsecond")
-                    ->format("Y-m-d H\:i\:s.u");
+            $min_tstamp_DTI = new DateTimeImmutable($min_tstamp_mysql);
+            $max_tstamp_DTI = new DateTimeImmutable($max_tstamp_mysql);
+            $min_tstamp_url_sub1us = getUrlDateFromNullableDTI(
+                    $min_tstamp_DTI->modify("-1 microsecond"));
+            $max_tstamp_url_plus1us = getUrlDateFromNullableDTI(
+                    $max_tstamp_DTI->modify("+1 microsecond"));
             
             $meta_info = "Browsing All Logs<br>&nbsp&nbsp"
                     . $min_tstamp_DTI->format("M jS Y\, g\:i a") . " - <br>"
@@ -71,10 +73,10 @@
 //                    : "<br><span class=\"alert\">Reverse chronological order.</span>";
         } else {
             $meta_info = "";
-            if($from_date !== '') {
-                $meta_info .= "Browsing logs after:<br> $from_date";
-            } else if($to_date !== '') {
-                $meta_info .= "Browsing logs before $to_date";
+            if($from_date) {
+                $meta_info .= "Browsing logs after:<br> $from_date_mysql";
+            } else if($to_date) {
+                $meta_info .= "Browsing logs before $to_date_mysql";
             }
         }
         
@@ -84,7 +86,7 @@
         if ($prev_results_exist) {
             $PREV_BUTTON_CLASS = "resultsLink";
             $PREV_LINK = SITE . "to/"
-                    . htmlEncodeMysqlDate($min_tstamp)
+                    . $min_tstamp_url_sub1us
                     . "/$flags_only_query#";
             if ($flag_display_sort_asc) {
                 $PREV_LINK_TOP = $PREV_LINK . "bottom";
@@ -104,7 +106,7 @@
         if ($next_results_exist) {
             $NEXT_BUTTON_CLASS = "resultsLink";
             $NEXT_LINK = SITE . "from/"
-                    . htmlEncodeMysqlDate($max_tstamp_inc) 
+                    . $max_tstamp_url_plus1us
                     . "/$flags_only_query#";
             if ($flag_display_sort_asc) {
                 $NEXT_LINK_TOP = $NEXT_LINK . "top";
@@ -141,7 +143,7 @@
         * sphinx doesn't take a username or password, just the hostname
         */
         $hostname = "localhost"; 
-        list($had_results, $query_was_valid, $min_tstamp, $max_tstamp,
+        list($had_results, $query_was_valid, $min_tstamp_mysql, $max_tstamp_mysql,
                 $msg_ids, $meta, $prev_results_exist, $next_results_exist)
                 = sphinxQuery($hostname, $sphinx_match_query, $fetch_tstamp_sort);
         
@@ -150,13 +152,12 @@
          ***********************************************************/
 
         if ( $had_results ) {
-            $min_tstamp_DTI = new DateTimeImmutable($min_tstamp);
-            $max_tstamp_DTI = new DateTimeImmutable($max_tstamp);
-            $max_tstamp_inc = $max_tstamp_DTI->modify("+1 microsecond")
-                    ->format("Y-m-d H\:i\:s.u");
-//            $min_tstamp = date("Y-m-d H\:i\:s", $min_tstamp_DTI);
-//            $max_tstamp = date("Y-m-d H\:i\:s", $max_tstamp_DTI);
-//            $max_tstamp_inc = date("Y-m-d H\:i\:s", $max_tstamp_DTI + 1);
+            $min_tstamp_DTI = new DateTimeImmutable($min_tstamp_mysql);
+            $max_tstamp_DTI = new DateTimeImmutable($max_tstamp_mysql);
+            $min_tstamp_url_sub1us = getUrlDateFromNullableDTI(
+                    $min_tstamp_DTI->modify("-1 microsecond"));
+            $max_tstamp_url_plus1us = getUrlDateFromNullableDTI(
+                    $max_tstamp_DTI->modify("+1 microsecond"));
             
             // extract and cast some meta fields
             $search_duration = floatval($meta['time']);
@@ -183,7 +184,8 @@
            $hostname = "localhost"; 
 
            try {
-               $pdo = new PDO("mysql:host=$hostname;dbname=tpp_chat;charset=utf8mb4", MYSQL_USER, MYSQL_PASS);
+               $pdo = new PDO("mysql:host=$hostname;dbname=tpp_chat;charset=utf8mb4", 
+                       MYSQL_USER, MYSQL_PASS);
                // set the PDO error mode to exception
                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 
@@ -239,8 +241,8 @@
             $meta_info = "";
             if ($query_was_valid) {
                 /* print some meta info about the query */
-                if($from_date !== '') {
-                    $meta_info .= "Searched after:<br> $from_date";
+                if($from_date_mysql !== '') {
+                    $meta_info .= "Searched after:<br> $from_date_mysql";
                 } else if($to_date !== '') {
                     $meta_info .= "Searched before $to_date";
                 }
@@ -255,7 +257,7 @@
         if ($prev_results_exist) {
             $PREV_BUTTON_CLASS = "resultsLink";
             $PREV_LINK = SITE . "to/"
-                    . htmlEncodeMysqlDate($min_tstamp) 
+                    . $min_tstamp_url_sub1us
                     . "/$flags_only_query";
             if ($flag_display_sort_asc) {
                 $PREV_LINK_TOP = $PREV_LINK . "bottom";
@@ -273,7 +275,7 @@
         
         if($next_results_exist) {
             $NEXT_LINK = SITE . "from/"
-                    . htmlEncodeMysqlDate($max_tstamp_inc) 
+                    . $max_tstamp_url_plus1us
                     . "/$flags_only_query";
 //            $NEXT_LINK .= $flag_display_sort_asc ? "#top" : "&sort=latest#bottom";
             

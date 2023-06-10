@@ -64,22 +64,27 @@
        
        
    </div>
-   <h2>Starting from Date:</h2>
    <div style="float:left;">
+       <h2> 
+       <span id="js-jumpRadio" class="sortBy">
+           <input type="radio" name="dateRadio" value="from" 
+                  class="dateRadioFrom"><span class="dateFromTo">From Date:</span>
+           
+           <input type="radio" name="dateRadio" value="to" 
+                  class="dateRadioTo"><span class="dateFromTo">To</span>
+           Date:
+       </span>
+       </h2>
        <div style="float: left;">
-           <input type="text" id="js-date" name="date" value="" class="logTextField form-date tooltip"/>
+           <input type="text" id="js-date" name="date" value="" 
+                  class="logTextField form-date tooltip"/>
        </div>
-       <div style="clear:left;" id="js-jumpRadio" class="sortBy">
-       <h3>or from:</h3>
-           <input type="radio" name="sort" value="earliest"> Earliest
-           <input type="radio" name="sort" value="latest"> Latest
-       </div>
+       
        
    </div>
 
-   <div style="float:left;">
-       <input id="js-searchButton" type="submit" name="search" class="searchButton" value="Search"/>
-   </div>
+    <input id="js-searchButton" type="submit" name="search" 
+        class="searchButton" value="Search"/>
    
    
    
@@ -96,12 +101,15 @@
 <div id="js-examples" class="examples" style="display:none;">
    <h1>How to Search</h1>
    <h2>Example</h2>
-   <p>The sample query above returns:</p>
+   <p>The query above returns:</p>
    <p><b><i>Messages with: </b></i>(<i>exactly</i> <u>thisWord</u> <i>and not</i> <u>thatWord</u>)
        <i>or</i> (<u>"Exact phrase"</u>) </p>
    <p><b><i>Sent by users: </b></i><u>name1</u> <i>or</i> <u>name2</u></p>
-   <p><b><i>Starting from Date: </b></i><u>2014-04-06 00:00:00 UTC</u> (Type your date in any way- "June 6 2015", etc.)</p>
-   <p><b><i>&nbsp;&nbsp;&nbsp;or from:</b></i> Quick way to pick earliest/latest messages without typing a date.</p>
+   <p><b><i>From Date: </b></i><u>2014-04-06 00:00:00 UTC</u> (Type your date in any way- "June 6 2015", etc.)</p>
+   <p>&nbsp;&nbsp;&nbsp;If you leave the date blank:</p>
+   <p>&nbsp;&nbsp;&nbsp;- selecting <b><i>From Date</b></i> shows messages from the <u>beginning of time</u></p>
+   <p>&nbsp;&nbsp;&nbsp;- selecting <b><i>To Date</b></i> shows messages to the <u>end of time</u></p>
+   <p>&nbsp;&nbsp;&nbsp;- selecting neither shows messages to the <u>end of time</u></p>
    <h2>Page Links</h2>
    <ul>
        <li>Click the <b><u>hour:minutes AM/PM</b></u> time to the left of a message to see all chatlogs
@@ -127,7 +135,13 @@
            It also doesn't filter game inputs containing additional text after 
            the input.
        </li>
-       
+       <li><u>Display in chronological order</u> determines the order in which
+           the results of current page are displayed. <br>
+           The little arrow between <b><u>11:00 pm 🠕 00s</b></u> 
+            reflects this order. <br>
+           Set this to the desired value before clicking <b>Search</b> for it 
+           to affect your results.
+       </li>
    </ul>
        <h2>Other</h2>
    <ul>
