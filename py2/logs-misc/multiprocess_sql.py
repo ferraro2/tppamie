@@ -38,7 +38,7 @@ def mongo_comments_insert():
 
     # min_date = datetime.strptime('2016-12-06T05:23:08.426', '%Y-%m-%dT%H:%M:%S.%f')
     # max_date = datetime.strptime('2016-12-16T15:25:42.425', '%Y-%m-%dT%H:%M:%S.%f')
-    min_date = datetime.strptime('2019-02-13T15:25:42.425', '%Y-%m-%dT%H:%M:%S.%f')
+    min_date = datetime.strptime('2020-02-26T15:25:42.425', '%Y-%m-%dT%H:%M:%S.%f')
     # max_date = datetime.strptime('2016-12-16T15:25:42.425', '%Y-%m-%dT%H:%M:%S.%f')
     interval_size = timedelta(minutes=20)
     partition_ranges = get_partition_ranges_of_time_interval(interval_size, min_date, max_date)
@@ -81,6 +81,8 @@ def mongo_comments_insert_consumer(i, q):
         # return "\n\t".join(results)
         # return
     except Exception:
+        print('exception')
+        print(traceback.format_exc())
         result = str(i) + traceback.format_exc()
         try:
             if lastitem:
