@@ -180,7 +180,7 @@ function msgHtml($msg, $emote_locs) {
 }
 
 function getJumpLink($options_only_query) {
-    return SITE . "/$options_only_query";
+    return SITE . "$options_only_query";
 }
     
 function getJumpToIdLink($id, $options_only_query) {
