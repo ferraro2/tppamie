@@ -39,7 +39,7 @@
          ------------------------------------------------------------
          ------------------------------------------------------------>
 
-        <a class=\"banner\" href=\"" . getJumpLink($options_only_query) . "\">
+        <a class=\"banner\" href=\"" . getJumpLink($flags_only_query) . "\">
         <!--        <img alt = '' src='../img/chatBanner.png'/>-->
         <img alt = '' src='/img/pokemon/xy/unown-t.gif'/>
         <img alt = '' src='/img/pokemon/xy/unown-p.gif'/>
@@ -92,7 +92,7 @@
         --------    PAGE FOOTER
         ------------------------------------------------------------
         ------------------------------------------------------------>
-        <a class=\"banner\" href=\"" . getJumpLink($options_only_query) . "\" >
+        <a class=\"banner\" href=\"" . getJumpLink($flags_only_query) . "\" >
             <img src='/img/pokemon/xy/magikarp.gif'/>
             <img src='/img/pokemon/xy/magikarp.gif'/>
             <img src='/img/pokemon/xy-shiny/magikarp.gif'/>

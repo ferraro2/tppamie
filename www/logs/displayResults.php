@@ -91,7 +91,7 @@ if($had_results) {
         $displayedTimeMin = date("g\:i\ a ", $date);
         $displayedTimeSec = "<span class=\"littleSeconds\">&nbsp" . date("s", $date) . "s</span>";
 
-        echo '<td><a href="' . getJumpToIdLink($result->msg_id, $options_only_query) .'">'
+        echo '<td><a href="' . getJumpToIdLink($result->msg_id, $flags_only_query) .'">'
         . $displayedTimeMin . '</a>' . $arrowTimeDirection;
 
         $vodLink = getVodLink($result->video_id, $result->video_offset_seconds);

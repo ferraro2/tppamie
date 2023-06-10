@@ -48,10 +48,10 @@
             "database" => "tpp_chat", 
         ];
         
-        list($had_results, $valid_query, $min_tstamp, $max_tstamp, 
+        list($had_results, $query_was_valid, $min_tstamp, $max_tstamp, 
                 $results, $prev_results_exist, $next_results_exist) = 
-                mysqlQuery($mysql_config, $jump_id, $inner_tstamp_range_filter,
-                        $inner_tstamp_sort, $msg_flags_filter, 
+                mysqlQuery($mysql_config, $jump_id, $fetch_tstamp_range_filter,
+                        $fetch_tstamp_sort, $msg_flags_filter, 
                         $display_tstamp_sort);
         
         /*
@@ -84,7 +84,7 @@
             $PREV_BUTTON_CLASS = "resultsLink";
             $PREV_LINK = SITE . "to/"
                     . htmlEncodeMysqlDate($min_tstamp)
-                    . "/$options_only_query#";
+                    . "/$flags_only_query#";
             if ($flag_display_sort_asc) {
                 $PREV_LINK_TOP = $PREV_LINK . "bottom";
                 $PREV_LINK_BOTTOM = $PREV_LINK . "bottom";
@@ -104,7 +104,7 @@
             $NEXT_BUTTON_CLASS = "resultsLink";
             $NEXT_LINK = SITE . "from/"
                     . htmlEncodeMysqlDate($max_tstamp_inc) 
-                    . "/$options_only_query#";
+                    . "/$flags_only_query#";
             if ($flag_display_sort_asc) {
                 $NEXT_LINK_TOP = $NEXT_LINK . "top";
                 $NEXT_LINK_BOTTOM = $NEXT_LINK . "top";
@@ -140,16 +140,14 @@
         * sphinx doesn't take a username or password, just the hostname
         */
         $hostname = "localhost"; 
-        list($had_results, $valid_query, $min_tstamp_unix, $max_tstamp_unix,
+        list($had_results, $query_was_valid, $min_tstamp_unix, $max_tstamp_unix,
                 $msg_ids, $meta, $prev_results_exist, $next_results_exist)
-                = sphinxQuery($hostname, $sphinx_match_query, $inner_tstamp_sort);
+                = sphinxQuery($hostname, $sphinx_match_query, $fetch_tstamp_sort);
         
         /***********************************************************
          *   DUMP RESULTS, PREPARE MYSQL QUERY
          ***********************************************************/
 
-        
-        
         if ( $had_results ) {
             $min_tstamp = date("Y-m-d H\:i\:s", $min_tstamp_unix);
             $max_tstamp = date("Y-m-d H\:i\:s", $max_tstamp_unix);
@@ -184,15 +182,22 @@
                // set the PDO error mode to exception
                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 
-                /* Here, we are using a MySQL IN clause to pull the movie_id, title, and synopsis from the DB for display. */
                 $all_msg_query = "SELECT username, md.color as color, moder, sub, turbo, "
-                        . "m.msg_id, tstamp, has_unwhitelisted_chars, is_action, emote_locs, msg, video_id, "
-                        . "video_offset_seconds "
-                        . "FROM users as u, messages as m, msg_data as md "
-                        . "WHERE u.user_id = m.user_id AND m.msg_id = md.msg_id "
-                        . "AND has_unwhitelisted_chars = 1 "
-                        . "AND m.msg_id IN ($BLANK_IN_PARAMS) "
-                        . "ORDER BY tstamp $str_display_sort_asc ";
+                        . " m.msg_id, tstamp, is_action, emote_locs, msg, video_id, "
+                        . " video_offset_seconds, md.display_name as display_name, "
+                        . " GROUP_CONCAT(badge_id ORDER BY pos asc) as badge_ids,"
+                        . " GROUP_CONCAT(title ORDER BY pos asc) as badge_titles, "
+                        . " GROUP_CONCAT(url_id ORDER BY pos asc) as badge_url_ids "
+                        . " FROM users u join messages m using(user_id) "
+                        . " join msg_data md using(msg_id) "
+                        . " left join msg_badges using(msg_id) "
+                        . " left join badges using(badge_id)"
+                        . " WHERE m.msg_id IN ($BLANK_IN_PARAMS) "
+                        . " GROUP BY username, md.color, moder, sub, turbo, md.msg_id, "
+                        . " tstamp, is_action, emote_locs, msg, video_id, "
+                        . " video_offset_seconds, md.display_name "
+                        . " $display_tstamp_sort ";
+//                echo "<br>$all_msg_query<br>";
                 $all_msg_result = $pdo->prepare($all_msg_query);
                 $all_msg_result->execute( $msg_ids );
 
@@ -227,7 +232,7 @@
         } else {
             //search did not have results
             $meta_info = "";
-            if ($valid_query) {
+            if ($query_was_valid) {
                 /* print some meta info about the query */
                 if($from_date !== '') {
                     $meta_info .= "Searched after:<br> $from_date";
@@ -243,25 +248,42 @@
         
         
         if ($prev_results_exist) {
-            $PREV_LINK = SITE . "to/"
-                    . htmlEncodeMysqlDate($min_tstamp) . "/?$trimmed_query";
-            $PREV_LINK .= $flag_display_sort_asc ? "#bottom" : "&sort=latest#top";
-            
             $PREV_BUTTON_CLASS = "resultsLink";
+            $PREV_LINK = SITE . "to/"
+                    . htmlEncodeMysqlDate($min_tstamp) 
+                    . "/$flags_only_query";
+            if ($flag_display_sort_asc) {
+                $PREV_LINK_TOP = $PREV_LINK . "bottom";
+                $PREV_LINK_BOTTOM = $PREV_LINK . "bottom";
+            } else {
+                $PREV_LINK_TOP = $PREV_LINK . "top";
+                $PREV_LINK_BOTTOM = $PREV_LINK . "top";
+            }
+            
         } else {
-            $PREV_LINK = "";
             $PREV_BUTTON_CLASS = "noResultsLink";
+            $PREV_LINK_TOP = "";
+            $PREV_LINK_BOTTOM = "";
         }
         
         if($next_results_exist) {
             $NEXT_LINK = SITE . "from/"
-                    . htmlEncodeMysqlDate($max_tstamp_inc) . "/?$trimmed_query";
-            $NEXT_LINK .= $flag_display_sort_asc ? "#top" : "&sort=latest#bottom";
+                    . htmlEncodeMysqlDate($max_tstamp_inc) 
+                    . "/$flags_only_query";
+//            $NEXT_LINK .= $flag_display_sort_asc ? "#top" : "&sort=latest#bottom";
             
             $NEXT_BUTTON_CLASS = "resultsLink";
+            if ($flag_display_sort_asc) {
+                $NEXT_LINK_TOP = $NEXT_LINK . "top";
+                $NEXT_LINK_BOTTOM = $NEXT_LINK . "top";
+            } else {
+                $NEXT_LINK_TOP = $NEXT_LINK . "bottom";
+                $NEXT_LINK_BOTTOM = $NEXT_LINK . "bottom";
+            }
         } else {
-            $NEXT_LINK = "";
             $NEXT_BUTTON_CLASS = "noResultsLink";
+            $NEXT_LINK_TOP = "";
+            $NEXT_LINK_BOTTOM = "";
         }
     }
 ?>

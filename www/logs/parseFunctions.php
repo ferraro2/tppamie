@@ -75,8 +75,10 @@
     /*
      * Return url query stripped of date params, for prev / next links
      * 
-     * Further trim the query of msg/user params for jump/header links, 
-     * leaving only the checkbox flags
+     * If $flagsOnly:
+     * Further trim the query of msg/user/id params, leaving only the 
+     * checkbox flags.
+     * Used for jump/header links
      */
     function getTrimmedQuery($query_flags, $flagsOnly=False) {
     //        $parsed_url = getParsedUrl();

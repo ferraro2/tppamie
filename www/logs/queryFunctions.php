@@ -24,14 +24,14 @@ function h($str) {
  * Get the time range for the query: min_tstamp and max_tstamp
  * (no jump id)
  */
-function getMysqlRange($pdo, $tstamp_range, $tstamp_sort, $msg_flags_filter) {
+function getMysqlRange($pdo, $tstamp_range_filter, $tstamp_sort, $msg_flags_filter) {
     /*
         * get min and max timestamps for the query
         */
        $tstamp_query = "SELECT MIN(tstamp) as min_t, MAX(tstamp) as max_t "
                ."FROM (SELECT tstamp FROM messages WHERE "
                . $msg_flags_filter . " AND "
-               . $tstamp_range 
+               . $tstamp_range_filter 
                . $tstamp_sort
                . " LIMIT " . LIMIT . ") t";
 
@@ -122,7 +122,7 @@ function getMysqlResults($pdo, $tstamp_range_filter, $msg_flags_filter,
             . " WHERE "
             . $msg_flags_filter . " AND "
             . $tstamp_range_filter
-            . "group by username, md.color, moder, sub, turbo, md.msg_id, "
+            . "GROUP BY username, md.color, moder, sub, turbo, md.msg_id, "
             . "tstamp, is_action, emote_locs, msg, video_id, "
             . "video_offset_seconds, md.display_name "
             . $display_tstamp_sort;
@@ -176,8 +176,8 @@ function mysqlNextResultsExist($pdo, $tstamp, $msg_flags_filter) {
  ***********************************************************
  ***********************************************************/
 
-function mysqlQuery($config, $jump_id, $inner_tstamp_range_filter, 
-        $inner_tstamp_sort, $msg_flags_filter, $display_tstamp_sort) {
+function mysqlQuery($config, $jump_id, $fetch_tstamp_range_filter, 
+        $fetch_tstamp_sort, $msg_flags_filter, $display_tstamp_sort) {
     try {
         $pdo_command = sprintf("mysql:host=%s;dbname=%s;charset=utf8mb4", $config['hostname'], $config['database']);
         $pdo = new PDO($pdo_command, $config['username'], $config['password']);
@@ -204,8 +204,8 @@ function mysqlQuery($config, $jump_id, $inner_tstamp_range_filter,
              */
             $time_pre = microtime(true);
             list($had_results, $min_tstamp, $max_tstamp) = 
-                    getMysqlRange($pdo, $inner_tstamp_range_filter, 
-                            $inner_tstamp_sort, $msg_flags_filter);
+                    getMysqlRange($pdo, $fetch_tstamp_range_filter, 
+                            $fetch_tstamp_sort, $msg_flags_filter);
             $time_post = microtime(true);
             #echo "<br>getTimeRange took " . ($time_post - $time_pre) * 1000 . " ms<br>";
         }
@@ -260,7 +260,7 @@ function mysqlQuery($config, $jump_id, $inner_tstamp_range_filter,
  *      PRIMARY SPHINX ROUTINE
  ***********************************************************
  ***********************************************************/
-function sphinxQuery($hostname, $sphinx_match_query, $inner_ordered_range) {
+function sphinxQuery($hostname, $sphinx_match_query, $inner_tstamp_sort) {
 
     /*
      * only one prepared parameter here- unfortunately, Sphinx doesn't like 
@@ -274,20 +274,22 @@ function sphinxQuery($hostname, $sphinx_match_query, $inner_ordered_range) {
        echo "setting attribute<br>";
        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
        echo "running subroutine<br>";
-        list($had_results, $msg_ids, $min_tstamp_unix, $max_tstamp_unix) =
-           getSphinxRange($pdo, $sphinx_match_query, $inner_ordered_range);
+        list($had_results, $msg_ids, $min_tstamp, $max_tstamp) =
+           getSphinxIdsAndRange($pdo, $sphinx_match_query, $inner_tstamp_sort);
         
         if ($had_results) {
             $meta = sphinxGetMeta($pdo);
             /*
              * get flags indicating whether previous / next results exist
              */
-            $prev_results_exist = sphinxPrevResultsExist($pdo, $sphinx_match_query, $min_tstamp_unix);
-            $next_results_exist = sphinxNextResultsExist($pdo, $sphinx_match_query, $max_tstamp_unix);
+            $prev_results_exist = sphinxPrevResultsExist(
+                    $pdo, $sphinx_match_query, $min_tstamp);
+            $next_results_exist = sphinxNextResultsExist(
+                    $pdo, $sphinx_match_query, $max_tstamp);
             
             /* close the sphinx connection */
             $pdo = null;
-            return [$had_results, true, $min_tstamp_unix, $max_tstamp_unix,
+            return [$had_results, true, $min_tstamp, $max_tstamp,
                  $msg_ids, $meta, $prev_results_exist, $next_results_exist];
         } else {
             /* close the sphinx connection */
@@ -394,15 +396,17 @@ function getMatchQuery($q1, $q2, $q3, $u1, $u2, $u3) {
 /*
  * Get the time range for the query: min_tstamp and max_tstamp
  */
-function getSphinxRange($pdo, $sphx_match_string, $tstamp_ordered_range) {
+function getSphinxIdsAndRange($pdo, $sphx_match_string, $tstamp_ordered_range) {
     /*
     * Execute the search
     */
     $sphx_match_query = "SELECT id, tstamp FROM"
-           . " tppMain, tppDelta1, tppDelta2, tppDelta3, tppDelta4, tppDelta5"
+           . " tppMain, tppDelta1, tppDelta2, tppDelta3, tppDelta4, "
+           . " tppDelta5, tppDelta6 "
            . " WHERE MATCH(?)"
            . $tstamp_ordered_range
            . " LIMIT " . LIMIT;
+    echo $sphx_match_query . "<br>";
     $sphx_match_result = $pdo->prepare($sphx_match_query);
     $sphx_match_result->execute( [$sphx_match_string] );
     
@@ -414,16 +418,16 @@ function getSphinxRange($pdo, $sphx_match_string, $tstamp_ordered_range) {
     while ($sphx_match_obj = $sphx_match_result->fetchObject()) {
        array_push($msg_ids, $sphx_match_obj->id);
        if ($c++ === 0) {
-           $first_tstamp_unix = $sphx_match_obj->tstamp;
+           $first_tstamp = $sphx_match_obj->tstamp;
        }
-       $last_tstamp_unix = $sphx_match_obj->tstamp;
+       $last_tstamp = $sphx_match_obj->tstamp;
     }
     if ($c !== 0) {
-        $normal = $first_tstamp_unix <= $last_tstamp_unix;
-        $min_tstamp_unix = $normal ? $first_tstamp_unix : $last_tstamp_unix;
-        $max_tstamp_unix = $normal ? $last_tstamp_unix : $first_tstamp_unix;
+        $is_asc = $first_tstamp <= $last_tstamp;
+        $min_tstamp = $is_asc ? $first_tstamp : $last_tstamp;
+        $max_tstamp = $is_asc ? $last_tstamp : $first_tstamp;
            
-        return [True, $msg_ids, $min_tstamp_unix, $max_tstamp_unix];
+        return [True, $msg_ids, $min_tstamp, $max_tstamp];
     } else {
         return [False, null, null, null];
     }

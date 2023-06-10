@@ -167,21 +167,21 @@ if(!$query_present) {
             ($flag_display_sort_asc ? " asc " : " desc ");
     if ($from_date !== '') {
         $sort_nonredundant = "earliest";
-        $inner_tstamp_range_filter = " tstamp >= '$from_date' ";
-        $inner_tstamp_sort = " ORDER BY tstamp asc ";
+        $fetch_tstamp_range_filter = " tstamp >= '$from_date' ";
+        $fetch_tstamp_sort = " ORDER BY tstamp asc ";
     } else if($to_date !== '') {
         $sort_nonredundant = "";
-        $inner_tstamp_range_filter = " tstamp < '$to_date' ";
-        $inner_tstamp_sort = " ORDER BY tstamp desc ";
+        $fetch_tstamp_range_filter = " tstamp < '$to_date' ";
+        $fetch_tstamp_sort = " ORDER BY tstamp desc ";
     } else {
         if ($sort_str === 'earliest') {
             $sort_nonredundant = "earliest";
-            $inner_tstamp_range_filter = " 1 ";
-            $inner_tstamp_sort = " ORDER BY tstamp asc ";
+            $fetch_tstamp_range_filter = " 1 ";
+            $fetch_tstamp_sort = " ORDER BY tstamp asc ";
         } else {
             $sort_nonredundant = "";
-            $inner_tstamp_range_filter = " 1 ";
-            $inner_tstamp_sort = " ORDER BY tstamp desc ";
+            $fetch_tstamp_range_filter = " 1 ";
+            $fetch_tstamp_sort = " ORDER BY tstamp desc ";
         }
     }
 } else { /* query present */
@@ -201,23 +201,23 @@ if(!$query_present) {
     //var_dump($sort_str);
 
     if($from_date !== '') {
-        $flag_display_sort_asc = $sort_str === "latest" ? false : true;  /* set ascending if none specified */
+//        $flag_display_sort_asc = $sort_str === "latest" ? false : true;  /* set ascending if none specified */
         $str_display_sort_asc = $flag_display_sort_asc ? " asc " : " desc ";
         $sort_nonredundant = "";
-        $inner_tstamp_range_filter = " tstamp >= $from_unix ";
-        $inner_tstamp_sort = " ORDER BY tstamp asc ";
+        $fetch_tstamp_range_filter = " tstamp >= $from_unix ";
+        $fetch_tstamp_sort = " ORDER BY tstamp asc ";
     } else if ($to_date !== '') {
-        $flag_display_sort_asc = $sort_str === "latest" ? false : true;  /* set ascending if none specified */
+//        $flag_display_sort_asc = $sort_str === "latest" ? false : true;  /* set ascending if none specified */
         $str_display_sort_asc = $flag_display_sort_asc ? " asc " : " desc ";
         $sort_nonredundant = $sort_str === 'latest' ? "latest" : "";
-        $inner_tstamp_range_filter = " tstamp < $to_unix ";
-        $inner_tstamp_sort = " ORDER BY tstamp desc ";
+        $fetch_tstamp_range_filter = " tstamp < $to_unix ";
+        $fetch_tstamp_sort = " ORDER BY tstamp desc ";
     } else {
-        $flag_display_sort_asc = $sort_str === "earliest" ? true : false;  /* set descending if none specified */
+//        $flag_display_sort_asc = $sort_str === "earliest" ? true : false;  /* set descending if none specified */
         $str_display_sort_asc = $flag_display_sort_asc ? " asc " : " desc ";
         $sort_nonredundant = $sort_str === 'latest' ? "latest" : "";
-        $inner_tstamp_range_filter = " 1 ";
-        $inner_tstamp_sort = " ORDER BY tstamp $str_display_sort_asc ";
+        $fetch_tstamp_range_filter = " 1 ";
+        $fetch_tstamp_sort = $display_tstamp_sort;
     }
 
     //var_dump($outer_sort_asc);
@@ -363,16 +363,6 @@ if($user_date !== '') {
 //    if($sort_nonredundant !== '') {
 //        $query_arr['sort'] = $sort_nonredundant;
     //    
-    //    if($flag_show_tpp_bot !== '0') {
-    //        unset($query_arr['bot']);
-    //    }
-    //    if($flag_show_game_inputs !== '1') {
-    //        unset($query_arr['inputs']);
-    //    }
-    //    if($flag_show_unwhitelisted_chars !== '1') {
-    //        unset($query_arr['allchars']);
-    //    }
-    //    
     //    var_dump($query_arr);
     if ($from_date !== '') {
         $new_link .= "from/" . htmlEncodeMysqlDate($from_date) . "/";
@@ -387,9 +377,9 @@ if($user_date !== '') {
 }
 
 
-$trimmed_query = getTrimmedQuery($query_flags);
-$options_only_query = getTrimmedQuery($query_flags, True);
-$options_only_query = $options_only_query !== '' ? "?$options_only_query" : "";
+//$trimmed_query = getTrimmedQuery($query_flags);
+$flags_only_query = getTrimmedQuery($query_flags, True);
+$flags_only_query = $flags_only_query !== '' ? "?$flags_only_query" : "";
 //echo $trimmed_query;
-//echo $options_only_query;
+//echo $flags_only_query;
 ?>
