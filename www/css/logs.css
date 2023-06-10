@@ -439,7 +439,7 @@ a:hover {
 }
 .form-user, .form-date {
     
-    background-color: #3149ac;	
+    background-color: #3369DD;	
     background:-webkit-linear-gradient(top, #98b0e0, #2c5cc4);
     background:-moz-linear-gradient(top, #98b0e0, #2c5cc4);
     background:-ms-linear-gradient(top, #98b0e0, #2c5cc4);
@@ -454,6 +454,12 @@ a:hover {
 .form-date {
     width:250px;
     text-align: center;
+}
+input[type='checkbox'] {
+    accent-color: #3369DD;
+}
+input[type='radio'] {
+    accent-color: #3369DD;
 }
 .searchForm h1 {
     color: white;
