@@ -390,5 +390,6 @@ if($user_date !== '') {
 $trimmed_query = getTrimmedQuery($query_flags);
 $options_only_query = getTrimmedQuery($query_flags, True);
 $options_only_query = $options_only_query !== '' ? "?$options_only_query" : "";
+//echo $trimmed_query;
 //echo $options_only_query;
 ?>

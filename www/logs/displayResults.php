@@ -100,9 +100,14 @@ if($had_results) {
 
         #$user_emote = getImage($result->emote);
 
-        $user_href = SITE . "from/" . date("Y-m-d+H:i:s", $date - 60 * 3) . "/?u1=$result->username#$result->msg_id";
+        $user_href = SITE . "from/" . date("Y-m-d+H:i:s", $date - 60 * 3) 
+                . "/?u1=$result->username;"
+                . ""
+                . "#$result->msg_id";
         $user_color = adjustColor($result->color, $ADJUST_COLOR);
-        echo userHtml($result->username, $user_href, $user_color, $moder, $sub, $turbo);
+        echo userHtml($result->username, $user_href, $user_color, 
+                $result->display_name, $result->badge_ids, 
+                $result->badge_titles, $result->badge_url_ids);
 
         
         $displayed_msg = msgHtml($result->msg, $result->emote_locs);

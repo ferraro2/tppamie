@@ -111,12 +111,20 @@ function getMysqlResults($pdo, $tstamp_range_filter, $msg_flags_filter,
         $display_tstamp_sort) {
     $mysql_query = "SELECT username, md.color as color, moder, sub, turbo, "
             . " m.msg_id, tstamp, is_action, emote_locs, msg, video_id, "
-            .  "video_offset_seconds "
+            . " video_offset_seconds, md.display_name as display_name, "
+            . " GROUP_CONCAT(badge_id ORDER BY pos asc) as badge_ids,"
+            . " GROUP_CONCAT(title ORDER BY pos asc) as badge_titles, "
+            . " GROUP_CONCAT(url_id ORDER BY pos asc) as badge_url_ids "
             . " FROM users u join messages m using(user_id) "
             . " join msg_data md using(msg_id) "
+            . " left join msg_badges using(msg_id) "
+            . " left join badges using(badge_id)"
             . " WHERE "
             . $msg_flags_filter . " AND "
             . $tstamp_range_filter
+            . "group by username, md.color, moder, sub, turbo, md.msg_id, "
+            . "tstamp, is_action, emote_locs, msg, video_id, "
+            . "video_offset_seconds, md.display_name "
             . $display_tstamp_sort;
 
 //    echo "<br>$mysql_query<br>";

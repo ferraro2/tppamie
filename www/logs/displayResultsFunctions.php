@@ -93,16 +93,30 @@ function getImg($src, $name) {
     return "<img src=\"$src\" title=\"$escaped_name\" alt=\"$escaped_name\"/>";
 }
 
-function userHtml($name, $href, $color, $mod, $sub, $turbo) {
+function userHtml($name, $href, $color, $display_name, $badge_ids_str, 
+                $badge_titles_str, $badge_url_ids_str) {
     $ret = '<td>';
-    if ($mod)
-        $ret .= ' ' . getImg("https://static-cdn.jtvnw.net/badges/v1/3267646d-33f0-4b17-b3df-f923a41db1d0/1", 'Moderator');
-    if ($sub)
-        $ret .= ' ' . getImg("https://static-cdn.jtvnw.net/jtv_user_pictures/badges/1591/18x18.png", 'Subscriber');
+//    if ($mod)
+//        $ret .= ' ' . getImg("https://static-cdn.jtvnw.net/badges/v1/3267646d-33f0-4b17-b3df-f923a41db1d0/1", 'Moderator');
+//    if ($sub)
+//        $ret .= ' ' . getImg("https://static-cdn.jtvnw.net/jtv_user_pictures/badges/1591/18x18.png", 'Subscriber');
     //if ($turbo)
       //  $ret .= ' ' . getImg("https://static-cdn.jtvnw.net/chat-badges/turbo.png", 'Turbo');
    
-    $ret .= " <a href=\"$href\" style=\"color:#$color\">$name</a>";
+    $badge_titles = explode(',', $badge_titles_str);
+    $badge_url_ids = explode(',', $badge_url_ids_str);
+    
+    foreach($badge_url_ids as $index => $badge_url_id) {
+        $badge_title = $badge_titles[$index];
+        $ret .= " " . getImg("https://static-cdn.jtvnw.net/badges/v1/"
+                        . $badge_url_id . "/1", $badge_title);
+    }
+    
+    if(strcasecmp($name, $display_name)) {
+        $display_name = "$name ($display_name)";
+    }
+    
+    $ret .= " <a href=\"$href\" style=\"color:#$color\">$display_name</a>";
     $ret .= "</td>";
     return $ret;
 }

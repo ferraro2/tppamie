@@ -73,9 +73,10 @@
     }
 
     /*
-     * Return full Url path, stripped of certain vars
+     * Return url query stripped of date params, for prev / next links
      * 
-     * Currently used for prev / next links
+     * Further trim the query of msg/user params for jump/header links, 
+     * leaving only the checkbox flags
      */
     function getTrimmedQuery($query_flags, $flagsOnly=False) {
     //        $parsed_url = getParsedUrl();
@@ -102,6 +103,8 @@
        unset($query_arr['from']);
        unset($query_arr['to']);
        
+       // unset all flags, 
+       // and set them again for those not equal to their default value
        foreach (get_object_vars($query_flags) as $query_flag) {
            if ($query_flag->val === $query_flag->default) {
                unset($query_arr[$query_flag->name]);

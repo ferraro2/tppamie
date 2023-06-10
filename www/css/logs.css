@@ -135,6 +135,10 @@ h2 {
         
         table-layout: fixed;
 }
+.logTable tr {
+    /* prevent foreign displaynames from making row height askew */
+    line-height: 23px; 
+}
 .logTable tr:nth-child(odd) {
 }
 .logTable tr:nth-child(even) {
@@ -164,7 +168,7 @@ h2 {
 }
     
 .logTable th:nth-child(2) {
-    width:210px;
+    width:230px;
 }
 .logTable td:first-child {
     font-size: 18px;
@@ -173,6 +177,7 @@ h2 {
     text-align: right;
     font-weight: bold;
     afont-family: Helvetica Neue,Helvetica,sans-serif;
+    /*font-family: "Inter", "Roobert", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
     font-size: 18px;
     atext-shadow: -1px -1px #555, 1px -1px #555, -1px 1px #555, 1px 1px #555;
 }
@@ -180,6 +185,7 @@ h2 {
     text-align: left;
     padding-right: 15px;
     afont-family: Helvetica Neue,Helvetica,sans-serif;
+    /*font-family: "Inter", "Roobert", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
     font-size: 18px;
 }
 .logTable tr:nth-child(2) td{
