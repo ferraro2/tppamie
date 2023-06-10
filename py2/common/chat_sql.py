@@ -1,4 +1,7 @@
 from __future__ import division, print_function
+
+import time
+
 from sql_loader import SqlLoader
 import mysql.connector
 from mysql.connector import errorcode, IntegrityError
@@ -370,10 +373,13 @@ class ChatSql(SqlLoader):
                 idAndColor = self._insertUser(username, color, mod, sub, turbo, twitchId, dispName, dateStr)
                 return idAndColor
             except IntegrityError:
-                print('does this happen?')
-                #user in db already thanks to another thread
+                print('insertion failed. Committing, sleeping and attempting re-query')
+                # user in db already thanks to another thread
+                # but the fresh insert may not be available in our locked data set.  Refresh it
+                self.commit()
+                time.sleep(1)  # wait a bit just in case.  Don't know if necessary
                 idAndColor = self._queryIdAndColor(username, color)
-                #     fall through and update user
+                # fall through and update user
         (userId, color) = idAndColor
         self.updateUserIfInDB(userId, username, color, mod, sub, turbo, twitchId, dispName, dateStr)
         return idAndColor
