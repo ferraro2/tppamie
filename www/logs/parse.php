@@ -14,24 +14,62 @@ include 'parseFunctions.php';
 ***********************************************************/
 
 
-define("DATE_SANITIZE", "/[^a-zA-Z0-9\-:\s\\/,\+]/");
+define("DATE_SANITIZE", "/[^a-zA-Z0-9\-:\s\\/,\+\.]/");
 define("USER_SANITIZE", "/[^a-zA-Z0-9_ ]/");
 define("ID_SANITIZE", "/[^0-9]/");
 
-$non_wlist_str = ( isset($_GET['wlist']) && gettype($_GET['wlist']) === 'string' ) ? $_GET['wlist'] : '';
-$highlight_me_str = ( isset($_GET['me']) && gettype($_GET['me']) === 'string' ) ? $_GET['me'] : '';
+class QueryFlag {
+    public $name;
+    public $default;
+    public $val;
+    public $val_checked_str;
+    
+    public function __construct(string $name, bool $default) {
+        $this->name = $name;
+        $this->default = $default;
+        
+        // set val from GET
+        $param_as_string = (
+                isset($_GET[$name]) && 
+                    gettype($_GET[$name]) === 'string' ) 
+                ? $_GET[$name] 
+                : '';
+//        echo "<br>param '$param_name' as string:" . $param_as_string. "<br>";
+        if($default === True) {
+//            $query = "";
+            $this->val = $param_as_string === '0' ? False : True;
+        } else {
+//            $query = "&$param_name=" . (1 - ($default ? 1 : 0));
+            $this->val = $param_as_string === '1' ? True : False;
+        }
+        $this->val_checked_str = $this->val ? 'checked' : '';
+    }
+}
 
-$non_wlist = $non_wlist_str === '1' ? 1 : 0;
-$highlight_me = $highlight_me_str === '1' ? 1 : 0;
+class QueryFlags {
+    public $show_game_inputs;
+    public $show_tpp_bot;
+    public $show_unwhitelisted_chars;
+    public $display_sort_asc;
+    
+    public function __construct() {
+        $this->show_game_inputs = new QueryFlag("inputs", False);
+        $this->show_tpp_bot = new QueryFlag("bot", True);
+        $this->show_unwhitelisted_chars = new QueryFlag("chars", False);
+        $this->display_sort_asc = new QueryFlag("sort", False);
+    }
+}
 
-$options_query = "";
-$options_query .= $non_wlist === 1 ? "&wlist=1" : "";
-$options_query .= $highlight_me === 1 ? "&me=1" : "";
+$query_flags = new QueryFlags();
 
+$msg_flags_filter = " 1 ";
+$msg_flags_filter .= $query_flags->show_game_inputs->val
+        ? "" : " and is_input=0 and is_match_command=0 ";
+$msg_flags_filter .= $query_flags->show_tpp_bot->val
+        ? "" : " and is_bot=0 ";
+$msg_flags_filter .= $query_flags->show_unwhitelisted_chars->val
+        ? "" : " and has_unwhitelisted_chars=0 ";
 
-
-$non_wlist_check = $non_wlist === 1 ? "checked" : "";
-$highlight_me_check = $highlight_me === 1 ? "checked" : "";
 
 /*
 * Ensure query and user vars are strings
@@ -95,6 +133,9 @@ if ($user_date !== '') {
         list($to_date, $to_unix, $to) = ["", 0, getDateParam("to")];
     } else {
         list($to_date, $to_unix, $to) = getMysqlDate('to');
+//        echo "<br>to_date: :$to_date<br>";
+//        echo "<br>to_unix: :$to_unix<br>";
+//        echo "<br>to: :$to<br>";
     }
 }
 /*
@@ -119,23 +160,31 @@ if(!$query_present) {
         list($to_date, $to_unix) = [$temp_date, $temp_unix];
     }
 
-    $outer_sort_asc = true;
+    
+
+    $flag_display_sort_asc = $query_flags->display_sort_asc->val;
+    $display_tstamp_sort = " ORDER BY tstamp " . 
+            ($flag_display_sort_asc ? " asc " : " desc ");
     if ($from_date !== '') {
         $sort_nonredundant = "earliest";
-        $inner_ordered_range = " WHERE tstamp >= '$from_date' ORDER BY tstamp asc ";
+        $inner_tstamp_range_filter = " tstamp >= '$from_date' ";
+        $inner_tstamp_sort = " ORDER BY tstamp asc ";
     } else if($to_date !== '') {
         $sort_nonredundant = "";
-        $inner_ordered_range = " WHERE tstamp < '$to_date' ORDER BY tstamp desc ";
+        $inner_tstamp_range_filter = " tstamp < '$to_date' ";
+        $inner_tstamp_sort = " ORDER BY tstamp desc ";
     } else {
         if ($sort_str === 'earliest') {
             $sort_nonredundant = "earliest";
-            $inner_ordered_range = " ORDER BY tstamp asc ";
+            $inner_tstamp_range_filter = " 1 ";
+            $inner_tstamp_sort = " ORDER BY tstamp asc ";
         } else {
             $sort_nonredundant = "";
-            $inner_ordered_range = " ORDER BY tstamp desc ";
+            $inner_tstamp_range_filter = " 1 ";
+            $inner_tstamp_sort = " ORDER BY tstamp desc ";
         }
     }
-} else { /* query not present */
+} else { /* query present */
     /* May swap $from_date and $to_date to better match the user date request */
     if ($user_date !== '' &&
             ( $from_date !== '' && $sort_str === 'latest'
@@ -152,20 +201,23 @@ if(!$query_present) {
     //var_dump($sort_str);
 
     if($from_date !== '') {
-        $outer_sort_asc = $sort_str === "latest" ? false : true;  /* set ascending if none specified */
-        $outer_sort = $outer_sort_asc ? " asc " : " desc ";
+        $flag_display_sort_asc = $sort_str === "latest" ? false : true;  /* set ascending if none specified */
+        $str_display_sort_asc = $flag_display_sort_asc ? " asc " : " desc ";
         $sort_nonredundant = "";
-        $inner_ordered_range = " AND tstamp >= $from_unix ORDER BY tstamp asc ";
+        $inner_tstamp_range_filter = " tstamp >= $from_unix ";
+        $inner_tstamp_sort = " ORDER BY tstamp asc ";
     } else if ($to_date !== '') {
-        $outer_sort_asc = $sort_str === "latest" ? false : true;  /* set ascending if none specified */
-        $outer_sort = $outer_sort_asc ? " asc " : " desc ";
+        $flag_display_sort_asc = $sort_str === "latest" ? false : true;  /* set ascending if none specified */
+        $str_display_sort_asc = $flag_display_sort_asc ? " asc " : " desc ";
         $sort_nonredundant = $sort_str === 'latest' ? "latest" : "";
-        $inner_ordered_range = " AND tstamp < $to_unix ORDER BY tstamp desc ";
+        $inner_tstamp_range_filter = " tstamp < $to_unix ";
+        $inner_tstamp_sort = " ORDER BY tstamp desc ";
     } else {
-        $outer_sort_asc = $sort_str === "earliest" ? true : false;  /* set descending if none specified */
-        $outer_sort = $outer_sort_asc ? " asc " : " desc ";
+        $flag_display_sort_asc = $sort_str === "earliest" ? true : false;  /* set descending if none specified */
+        $str_display_sort_asc = $flag_display_sort_asc ? " asc " : " desc ";
         $sort_nonredundant = $sort_str === 'latest' ? "latest" : "";
-        $inner_ordered_range = " ORDER BY tstamp $outer_sort ";
+        $inner_tstamp_range_filter = " 1 ";
+        $inner_tstamp_sort = " ORDER BY tstamp $str_display_sort_asc ";
     }
 
     //var_dump($outer_sort_asc);
@@ -293,27 +345,50 @@ if (!$query_present && $from_date === '' && $to_date === '') {
 if($user_date !== '') {
     $new_link = SITE;
 
-    $query = $_SERVER['QUERY_STRING'];
-    parse_str($query, $query_arr);
-    //var_dump($query_arr);
+    $temp_query_part = $_SERVER['QUERY_STRING'];
+    parse_str($temp_query_part, $query_arr);
+//    var_dump($query_arr);
     unset($query_arr['date']);
     unset($query_arr['from']);
     unset($query_arr['to']);
     unset($query_arr['sort']);
-    if($sort_nonredundant !== '') {
-        $query_arr['sort'] = $sort_nonredundant;
-    }
     
+    foreach (get_object_vars($query_flags) as $query_flag) {
+        if ($query_flag->val === $query_flag->default) {
+            unset($query_arr[$query_flag->name]);
+        } else {
+            $query_arr[$query_flag->name] = $query_flag->val;
+        }
+    }
+//    if($sort_nonredundant !== '') {
+//        $query_arr['sort'] = $sort_nonredundant;
+    //    
+    //    if($flag_show_tpp_bot !== '0') {
+    //        unset($query_arr['bot']);
+    //    }
+    //    if($flag_show_game_inputs !== '1') {
+    //        unset($query_arr['inputs']);
+    //    }
+    //    if($flag_show_unwhitelisted_chars !== '1') {
+    //        unset($query_arr['allchars']);
+    //    }
+    //    
+    //    var_dump($query_arr);
     if ($from_date !== '') {
         $new_link .= "from/" . htmlEncodeMysqlDate($from_date) . "/";
     } else if ($to_date !== '') {
         $new_link .= "to/" . htmlEncodeMysqlDate($to_date) . "/";
     } 
-    
+
     $trunc_query = http_build_query($query_arr);
-    $new_link .= $trunc_query !== '' ? "?" : "" ;
+    $new_link .= $trunc_query !== '' ? "?" : "";  # add `?` if query exists
     $new_link .= $trunc_query;
     header("Location: " . $new_link);
 }
 
+
+$trimmed_query = getTrimmedQuery($query_flags);
+$options_only_query = getTrimmedQuery($query_flags, True);
+$options_only_query = $options_only_query !== '' ? "?$options_only_query" : "";
+//echo $options_only_query;
 ?>

@@ -9,10 +9,10 @@ if ($had_results || True) {
    echo "
    <div class=\"linkAndMetaBar\">
        <div class=\"leftLink\">
-           <a type=\"button\" class=\"$PREV_BUTTON_CLASS\" href=\"$PREV_LINK\">Previous</a>       
+           <a type=\"button\" class=\"$PREV_BUTTON_CLASS\" href=\"$PREV_LINK_TOP\">Previous</a>       
        </div>
        <div class=\"rightLink\">
-          <a type=\"button\" class=\"$NEXT_BUTTON_CLASS\" href=\"$NEXT_LINK\">Next</a>
+          <a type=\"button\" class=\"$NEXT_BUTTON_CLASS\" href=\"$NEXT_LINK_TOP\">Next</a>
        </div>
 
        <div class=\"meta\">
@@ -31,8 +31,6 @@ if ($had_results) {
      
 <?php
 
-include 'displayResultsFunctions.php';
-
 /***********************************************************
  ***********************************************************
  *      CREATE HTML FROM RESULTS
@@ -50,9 +48,9 @@ if($had_results) {
 
     foreach ($results AS $result) {
 
-        if (!$non_wlist && !$result->whitelisted) {
-            continue;
-        }
+//        if (false && !$flag_has_unwhitelisted_chars && !$result->has_unwhitelisted_chars) {
+//            continue;
+//        }
 
         if($CAST_MYSQL_RESULTS) {
             $moder = (bool) ($result->moder);
@@ -89,11 +87,11 @@ if($had_results) {
 //            $displayedTime = date("g\:i\:", $date)
 //                    . "<span style=\"font-size: 12px;\">" . date("s", $date) . "</span>"
 //                    . date(" a", $date);
-        $arrowTimeDirection = $outer_sort_asc ? "🠗" : "🠕";
+        $arrowTimeDirection = $flag_display_sort_asc ? "🠗" : "🠕";
         $displayedTimeMin = date("g\:i\ a ", $date);
         $displayedTimeSec = "<span class=\"littleSeconds\">&nbsp" . date("s", $date) . "s</span>";
 
-        echo '<td><a href="' . getIdLink($result->msg_id, "") .'">'
+        echo '<td><a href="' . getJumpToIdLink($result->msg_id, $options_only_query) .'">'
         . $displayedTimeMin . '</a>' . $arrowTimeDirection;
 
         $vodLink = getVodLink($result->video_id, $result->video_offset_seconds);
@@ -109,7 +107,7 @@ if($had_results) {
         
         $displayed_msg = msgHtml($result->msg, $result->emote_locs);
         //if ($highlight_me === 1 && $result->me === '1') {
-        if ($result->me === '1') {  // just always highlight it
+        if ($result->is_action === '1') {  // just always highlight it
             $displayed_msg = "<span style=\"color:#$user_color;\">$displayed_msg</span>";
         }
         
@@ -200,10 +198,10 @@ if ($had_results) {
     <a class=\"arrowUp\" href=\"#top\"></a>
     <div class=\"linkAndMetaBar\">
         <div class=\"leftLink\">
-            <a type=\"button\" class=\"$PREV_BUTTON_CLASS\" href=\"$PREV_LINK\">Previous</a>
+            <a type=\"button\" class=\"$PREV_BUTTON_CLASS\" href=\"$PREV_LINK_BOTTOM\">Previous</a>
         </div>
         <div class=\"rightLink\">
-           <a type=\"button\" class=\"$NEXT_BUTTON_CLASS\" href=\"$NEXT_LINK\">Next</a>
+           <a type=\"button\" class=\"$NEXT_BUTTON_CLASS\" href=\"$NEXT_LINK_BOTTOM\">Next</a>
         </div>
 
         <div class=\"meta\">

@@ -178,8 +178,12 @@ function msgHtml($msg, $emote_locs) {
 
    return trim($msgHtml);# . "<br>" . $emote_locs;
 }
+
+function getJumpLink($options_only_query) {
+    return SITE . "/$options_only_query";
+}
     
-function getIdLink($id, $options_only_query) {
+function getJumpToIdLink($id, $options_only_query) {
     return SITE . "id/" . ($id) . "/$options_only_query#$id";
 }
 

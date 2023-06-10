@@ -24,16 +24,18 @@ function h($str) {
  * Get the time range for the query: min_tstamp and max_tstamp
  * (no jump id)
  */
-function getMysqlRange($pdo, $tstamp_ordered_range) {
+function getMysqlRange($pdo, $tstamp_range, $tstamp_sort, $msg_flags_filter) {
     /*
         * get min and max timestamps for the query
         */
        $tstamp_query = "SELECT MIN(tstamp) as min_t, MAX(tstamp) as max_t "
-               ."FROM (SELECT tstamp FROM messages "
-               . $tstamp_ordered_range
+               ."FROM (SELECT tstamp FROM messages WHERE "
+               . $msg_flags_filter . " AND "
+               . $tstamp_range 
+               . $tstamp_sort
                . " LIMIT " . LIMIT . ") t";
 
-       #echo "<br>$tstamp_query<br>";
+//       echo "<br>$tstamp_query<br>";
        $tstamp_results = $pdo->prepare($tstamp_query);
        $tstamp_results->execute( array() );
 
@@ -53,13 +55,16 @@ function getMysqlRange($pdo, $tstamp_ordered_range) {
  * Get the time range for the query: min_tstamp and max_tstamp
  * Use provided jump id
  */
-function getMysqlJumpRange($pdo, $jump_id) {
+function getMysqlJumpRange($pdo, $jump_id, $msg_flags_filter) {
     /* 
      * get tstamp of the jump id
      */
     $jump_tstamp_query = "SELECT tstamp as jump_time "
             ."FROM (SELECT tstamp FROM messages "
-            . "WHERE msg_id = $jump_id LIMIT 1) t";
+            . "WHERE msg_id = $jump_id AND " 
+            . $msg_flags_filter
+            . "LIMIT 1) t";
+//    echo $jump_tstamp_query;
     $jump_tstamp_results = $pdo->prepare($jump_tstamp_query);
     $jump_tstamp_results->execute( array() );
     $jump_tstamp_obj = $jump_tstamp_results->fetchObject();
@@ -73,12 +78,12 @@ function getMysqlJumpRange($pdo, $jump_id) {
 
         $min_tstamp_query = "SELECT MIN(low_stamp_range) as min_t "
             ."FROM (SELECT tstamp as low_stamp_range FROM messages "
-            . "WHERE tstamp <= '$jump_tstamp' "
+            . "WHERE tstamp <= '$jump_tstamp' AND " . $msg_flags_filter
             . " ORDER BY tstamp desc LIMIT " . JUMP_OFFSET . ") t1";
 
         $max_tstamp_query = "SELECT MAX(high_stamp_range) as max_t "
             ."FROM (SELECT tstamp as high_stamp_range FROM messages "
-            . "WHERE tstamp >= '$jump_tstamp' "
+            . "WHERE tstamp >= '$jump_tstamp' AND " . $msg_flags_filter
             . " ORDER BY tstamp asc LIMIT " . (LIMIT - JUMP_OFFSET) . ") t2";
 
         $min_tstamp_results = $pdo->prepare($min_tstamp_query);
@@ -102,16 +107,19 @@ function getMysqlJumpRange($pdo, $jump_id) {
 /*
  * Get Mysql results in the tstamp range
  */
-function getMysqlResults($pdo, $tstamp_range) {
+function getMysqlResults($pdo, $tstamp_range_filter, $msg_flags_filter, 
+        $display_tstamp_sort) {
     $mysql_query = "SELECT username, md.color as color, moder, sub, turbo, "
-            . " m.msg_id, tstamp, whitelisted, me, emote_locs, msg, video_id, "
+            . " m.msg_id, tstamp, is_action, emote_locs, msg, video_id, "
             .  "video_offset_seconds "
-            . " FROM users as u, messages as m, msg_data as md "
-            . " WHERE u.user_id = m.user_id AND m.msg_id = md.msg_id "
-            . $tstamp_range
-            . " ORDER BY tstamp ASC";
+            . " FROM users u join messages m using(user_id) "
+            . " join msg_data md using(msg_id) "
+            . " WHERE "
+            . $msg_flags_filter . " AND "
+            . $tstamp_range_filter
+            . $display_tstamp_sort;
 
-    ##echo "<br>$mysql_query<br>";
+//    echo "<br>$mysql_query<br>";
 
     $mysql_results = $pdo->prepare($mysql_query);
     $mysql_results->execute( array() );
@@ -129,9 +137,9 @@ function getMysqlResults($pdo, $tstamp_range) {
  * Return bool indicating whether results 
  *  exist before tstamp provided
  */
-function mysqlPrevResultsExist($pdo, $tstamp) {
+function mysqlPrevResultsExist($pdo, $tstamp, $msg_flags_filter) {
     $prev_query = "SELECT msg_id, tstamp FROM messages "
-            ."WHERE tstamp < '$tstamp' LIMIT 1";
+            ."WHERE tstamp < '$tstamp' AND {$msg_flags_filter} LIMIT 1";
     ##echo "<br>$prev_query<br>";
     $prev_results = $pdo->prepare($prev_query);
     $prev_results->execute( array() );
@@ -142,9 +150,9 @@ function mysqlPrevResultsExist($pdo, $tstamp) {
  * Return bool indicating whether results 
  *  exist after tstamp provided
  */
-function mysqlNextResultsExist($pdo, $tstamp) {
+function mysqlNextResultsExist($pdo, $tstamp, $msg_flags_filter) {
     $next_query = "SELECT msg_id, tstamp FROM messages "
-            ."WHERE tstamp > '$tstamp' LIMIT 1";
+            ."WHERE tstamp > '$tstamp' AND {$msg_flags_filter} LIMIT 1";
     ##echo "<br>$prev_query<br>";
     $next_results = $pdo->prepare($next_query);
     $next_results->execute( array() );
@@ -160,7 +168,8 @@ function mysqlNextResultsExist($pdo, $tstamp) {
  ***********************************************************
  ***********************************************************/
 
-function mysqlQuery($config, $jump_id, $inner_ordered_range) {
+function mysqlQuery($config, $jump_id, $inner_tstamp_range_filter, 
+        $inner_tstamp_sort, $msg_flags_filter, $display_tstamp_sort) {
     try {
         $pdo_command = sprintf("mysql:host=%s;dbname=%s;charset=utf8mb4", $config['hostname'], $config['database']);
         $pdo = new PDO($pdo_command, $config['username'], $config['password']);
@@ -178,7 +187,7 @@ function mysqlQuery($config, $jump_id, $inner_ordered_range) {
              */
             $time_pre = microtime(true);
             list($had_results, $min_tstamp, $max_tstamp) = 
-                    getMysqlJumpRange($pdo, $jump_id);
+                    getMysqlJumpRange($pdo, $jump_id, $msg_flags_filter);
             $time_post = microtime(true);    
             #echo "<br>getTimeRangeWithJump took " . ($time_post - $time_pre) * 1000 . " ms<br>";
         } else {
@@ -187,7 +196,8 @@ function mysqlQuery($config, $jump_id, $inner_ordered_range) {
              */
             $time_pre = microtime(true);
             list($had_results, $min_tstamp, $max_tstamp) = 
-                    getMysqlRange($pdo, $inner_ordered_range);
+                    getMysqlRange($pdo, $inner_tstamp_range_filter, 
+                            $inner_tstamp_sort, $msg_flags_filter);
             $time_post = microtime(true);
             #echo "<br>getTimeRange took " . ($time_post - $time_pre) * 1000 . " ms<br>";
         }
@@ -195,20 +205,25 @@ function mysqlQuery($config, $jump_id, $inner_ordered_range) {
         if ($had_results) {
             $time_pre = microtime(true);
 
-            $mysql_results_tstamp_range = " AND tstamp >= '$min_tstamp' AND tstamp <= '$max_tstamp' ";
+            $mysql_results_tstamp_range_filter = " '$min_tstamp' <= tstamp "
+                    . " AND tstamp <= '$max_tstamp' ";
 
             /*
              * get all results in the dual-inclusive tstamp range
              */
-            $results = getMysqlResults($pdo, $mysql_results_tstamp_range);
+            $results = getMysqlResults(
+                    $pdo,  $mysql_results_tstamp_range_filter, 
+                    $msg_flags_filter, $display_tstamp_sort);
             $time_post = microtime(true);
             #echo "<br>getMysqlResults took " . ($time_post - $time_pre) * 1000 . " ms<br>";
             
             /*
              * get flags indicating whether previous / next results exist
              */
-            $prev_results_exist = mysqlPrevResultsExist($pdo, $min_tstamp);
-            $next_results_exist = mysqlNextResultsExist($pdo, $max_tstamp);
+            $prev_results_exist = mysqlPrevResultsExist(
+                    $pdo, $min_tstamp, $msg_flags_filter);
+            $next_results_exist = mysqlNextResultsExist(
+                    $pdo, $max_tstamp, $msg_flags_filter);
             
             
             /* close mysql connection */
@@ -376,7 +391,7 @@ function getSphinxRange($pdo, $sphx_match_string, $tstamp_ordered_range) {
     * Execute the search
     */
     $sphx_match_query = "SELECT id, tstamp FROM"
-           . " tppMain, tppDelta1, tppDelta2, tppDelta3, tppDelta4, tppDelta5, tppDelta6"
+           . " tppMain, tppDelta1, tppDelta2, tppDelta3, tppDelta4, tppDelta5"
            . " WHERE MATCH(?)"
            . $tstamp_ordered_range
            . " LIMIT " . LIMIT;
@@ -425,7 +440,7 @@ function sphinxGetMeta($pdo) {
  */
 function sphinxPrevResultsExist($pdo, $query, $tstamp) {
     $prev_query = "SELECT id FROM"
-            . " tppMain, tppDelta1, tppDelta2, tppDelta3, tppDelta4, tppDelta5, tppDelta6"
+            . " tppMain, tppDelta1, tppDelta2, tppDelta3, tppDelta4, tppDelta5"
             . " WHERE Match(?)"
             ." AND tstamp < $tstamp LIMIT 1";
     ##echo "<br>$prev_query<br>";
@@ -440,7 +455,7 @@ function sphinxPrevResultsExist($pdo, $query, $tstamp) {
  */
 function sphinxNextResultsExist($pdo, $query, $tstamp) {
     $next_query = "SELECT id FROM"
-            . " tppMain, tppDelta1, tppDelta2, tppDelta3, tppDelta4, tppDelta5, tppDelta6"
+            . " tppMain, tppDelta1, tppDelta2, tppDelta3, tppDelta4, tppDelta5"
             . " WHERE Match(?)"
             . " AND tstamp > $tstamp LIMIT 1";
     ##echo "<br>$next_query<br>";

@@ -5,28 +5,38 @@
      ***********************************************************
      ***********************************************************/
 
+//    function parseFlagStrParamAndAppendToQueryStr(
+//            $param_name, $default, & $query_list) {
+//        list($value, $query) = parseFlagStrParam($param_name, $default);
+//        array_push($query_list, $query);
+//        return $value;
+//    }
+
+
+    
+
     /*
      * Returns the value of the parameter, as a lightly sanitized string.
      */
-    function getDateParam($name) {
+    function getDateParam($param_name) {
 //        var_dump($_SERVER);
 //        echo "<br><br>";
 //        var_dump($_GET);
-//        echo "<br>param '$name' set:" . isset($_GET[$name]). "<br>";
-//        echo "<br>param '$name' type:" . gettype($_GET[$name]) . "<br>";
-        $date = !isset($_GET[$name]) || gettype($_GET[$name]) !== 'string'
+//        echo "<br>param '$param_name' set:" . isset($_GET[$param_name]). "<br>";
+//        echo "<br>param '$param_name' type:" . gettype($_GET[$param_name]) . "<br>";
+        $date = !isset($_GET[$param_name]) || gettype($_GET[$param_name]) !== 'string'
                ? ''
-               : preg_replace(DATE_SANITIZE, " ", $_GET[$name]);
+               : preg_replace(DATE_SANITIZE, " ", $_GET[$param_name]);
         
-//        echo "<br>param '$name':$date<br>";
+//        echo "<br>param '$param_name':$date<br>";
         $decoded_date = htmlDecodeDate($date);
-//        echo "<br>param '$name':$date<br>";
+//        echo "<br>param '$param_name':$date<br>";
 //        exit();
         return $decoded_date;
      }
 
-    function getMysqlDate($name) {
-        $date = getDateParam($name);
+    function getMysqlDate($param_name) {
+        $date = getDateParam($param_name);
         return getMysqlFormattedDate($date);
     }
 
@@ -67,7 +77,7 @@
      * 
      * Currently used for prev / next links
      */
-    function getTrimmedQuery($optionsOnly=False) {
+    function getTrimmedQuery($query_flags, $flagsOnly=False) {
     //        $parsed_url = getParsedUrl();
     //        echo "<br>";
     //        var_dump($parsed_url);
@@ -91,14 +101,23 @@
        unset($query_arr['date']);
        unset($query_arr['from']);
        unset($query_arr['to']);
-       unset($query_arr['sort']);
-       if ($optionsOnly) {
+       
+       foreach (get_object_vars($query_flags) as $query_flag) {
+           if ($query_flag->val === $query_flag->default) {
+               unset($query_arr[$query_flag->name]);
+           } else {
+               $query_arr[$query_flag->name] = $query_flag->val;
+           }
+       }
+       
+       if ($flagsOnly) {
            unset($query_arr['q1']);
            unset($query_arr['q2']);
            unset($query_arr['q3']);
            unset($query_arr['u1']);
            unset($query_arr['u2']);
            unset($query_arr['u3']);
+           unset($query_arr['id']);
        }
        
        return http_build_query($query_arr);

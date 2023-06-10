@@ -19,6 +19,15 @@
     */
     include "siteDefinitions.php";
 
+    /*
+     * Parse user input
+     * Include functions useful for parsing
+     * 
+     * May redirect to a corrected URL
+     */
+    include 'parse.php';
+
+    include 'displayResultsFunctions.php';
 
     echo "
     <body>
@@ -30,7 +39,7 @@
          ------------------------------------------------------------
          ------------------------------------------------------------>
 
-        <a class=\"banner\" href=\"" . SITE . "\">
+        <a class=\"banner\" href=\"" . getJumpLink($options_only_query) . "\">
         <!--        <img alt = '' src='../img/chatBanner.png'/>-->
         <img alt = '' src='/img/pokemon/xy/unown-t.gif'/>
         <img alt = '' src='/img/pokemon/xy/unown-p.gif'/>
@@ -52,13 +61,6 @@
     </a>
     ";
 
-    /*
-     * Parse user input
-     * Include functions useful for parsing
-     * 
-     * May redirect to a corrected URL
-     */
-    include 'parse.php';
 
 
     /*
@@ -90,7 +92,7 @@
         --------    PAGE FOOTER
         ------------------------------------------------------------
         ------------------------------------------------------------>
-        <a class=\"banner\" href=\"" . SITE . "\" >
+        <a class=\"banner\" href=\"" . getJumpLink($options_only_query) . "\" >
             <img src='/img/pokemon/xy/magikarp.gif'/>
             <img src='/img/pokemon/xy/magikarp.gif'/>
             <img src='/img/pokemon/xy-shiny/magikarp.gif'/>
@@ -102,7 +104,7 @@
 
     </div>
     <div class=\"leftBorder\"> </div>
-    <script data-main=\"/js/logs_main_1.2.0\" src=\"/js/require.js\"></script>
+    <script data-main=\"/js/main-logs\" src=\"/js/require.js\"></script>
     "
     
 ?>

@@ -30,10 +30,6 @@
                 $outer_sort_asc 
      */
     
-    
-    $trimmed_query = getTrimmedQuery();
-    $options_only_query = getTrimmedQuery(True);
-    $options_only_query = $options_only_query !== '' ? "?$options_only_query" : "";
     /***********************************************************
      ***********************************************************
      *      QUERY NOT PRESENT - MYSQL ONLY
@@ -54,7 +50,9 @@
         
         list($had_results, $valid_query, $min_tstamp, $max_tstamp, 
                 $results, $prev_results_exist, $next_results_exist) = 
-                mysqlQuery($mysql_config, $jump_id, $inner_ordered_range);
+                mysqlQuery($mysql_config, $jump_id, $inner_tstamp_range_filter,
+                        $inner_tstamp_sort, $msg_flags_filter, 
+                        $display_tstamp_sort);
         
         /*
          * Write in meta info
@@ -67,6 +65,9 @@
             $meta_info = "Browsing All Logs<br>&nbsp&nbsp"
                     . date("M jS Y\, g\:i a", $min_tstamp_unix) . " - <br>"
                     . date("M jS Y\, g\:i a", $max_tstamp_unix) . "   ";
+//            $meta_info .= $flag_display_sort_asc
+//                    ? "<br><span class=\"alert\">Chronological order.</span>"
+//                    : "<br><span class=\"alert\">Reverse chronological order.</span>";
         } else {
             $meta_info = "";
             if($from_date !== '') {
@@ -80,21 +81,41 @@
          * Set prev & next link targets
          */
         if ($prev_results_exist) {
-            $PREV_LINK = SITE . "to/"
-                    . htmlEncodeMysqlDate($min_tstamp) . "/$options_only_query#bottom";
             $PREV_BUTTON_CLASS = "resultsLink";
+            $PREV_LINK = SITE . "to/"
+                    . htmlEncodeMysqlDate($min_tstamp)
+                    . "/$options_only_query#";
+            if ($flag_display_sort_asc) {
+                $PREV_LINK_TOP = $PREV_LINK . "bottom";
+                $PREV_LINK_BOTTOM = $PREV_LINK . "bottom";
+            } else {
+                $PREV_LINK_TOP = $PREV_LINK . "top";
+                $PREV_LINK_BOTTOM = $PREV_LINK . "top";
+            }
+
+            
         } else {
-            $PREV_LINK = "";
             $PREV_BUTTON_CLASS = "noResultsLink";
+            $PREV_LINK_TOP = "";
+            $PREV_LINK_BOTTOM = "";
         }
 
         if ($next_results_exist) {
-            $NEXT_LINK = SITE . "from/"
-                    . htmlEncodeMysqlDate($max_tstamp_inc) . "/$options_only_query#top";
             $NEXT_BUTTON_CLASS = "resultsLink";
+            $NEXT_LINK = SITE . "from/"
+                    . htmlEncodeMysqlDate($max_tstamp_inc) 
+                    . "/$options_only_query#";
+            if ($flag_display_sort_asc) {
+                $NEXT_LINK_TOP = $NEXT_LINK . "top";
+                $NEXT_LINK_BOTTOM = $NEXT_LINK . "top";
+            } else {
+                $NEXT_LINK_TOP = $NEXT_LINK . "bottom";
+                $NEXT_LINK_BOTTOM = $NEXT_LINK . "bottom";
+            }
         } else {
-            $NEXT_LINK = "";
             $NEXT_BUTTON_CLASS = "noResultsLink";
+            $NEXT_LINK_TOP = "";
+            $NEXT_LINK_BOTTOM = "";
         }
         
         /*
@@ -121,7 +142,7 @@
         $hostname = "localhost"; 
         list($had_results, $valid_query, $min_tstamp_unix, $max_tstamp_unix,
                 $msg_ids, $meta, $prev_results_exist, $next_results_exist)
-                = sphinxQuery($hostname, $sphinx_match_query, $inner_ordered_range);
+                = sphinxQuery($hostname, $sphinx_match_query, $inner_tstamp_sort);
         
         /***********************************************************
          *   DUMP RESULTS, PREPARE MYSQL QUERY
@@ -165,12 +186,13 @@
                 
                 /* Here, we are using a MySQL IN clause to pull the movie_id, title, and synopsis from the DB for display. */
                 $all_msg_query = "SELECT username, md.color as color, moder, sub, turbo, "
-                        . "m.msg_id, tstamp, whitelisted, me, emote_locs, msg, video_id, "
+                        . "m.msg_id, tstamp, has_unwhitelisted_chars, is_action, emote_locs, msg, video_id, "
                         . "video_offset_seconds "
                         . "FROM users as u, messages as m, msg_data as md "
                         . "WHERE u.user_id = m.user_id AND m.msg_id = md.msg_id "
+                        . "AND has_unwhitelisted_chars = 1 "
                         . "AND m.msg_id IN ($BLANK_IN_PARAMS) "
-                        . "ORDER BY tstamp $outer_sort ";
+                        . "ORDER BY tstamp $str_display_sort_asc ";
                 $all_msg_result = $pdo->prepare($all_msg_query);
                 $all_msg_result->execute( $msg_ids );
 
@@ -198,9 +220,9 @@
                     . "&nbsp&nbsp" . date("M jS Y\, g\:i a", $min_tstamp_unix) . " - <br>"
                     . date("M jS Y\, g\:i a", $max_tstamp_unix) . "   ";
                     
-            $meta_info .= $outer_sort_asc
-                    ? ''
-                    : "<br><span class=\"alert\">Reverse chronological order.</span>";
+//            $meta_info .= $flag_display_sort_asc
+//                    ? "<br><span class=\"alert\">Chronological order.</span>"
+//                    : "<br><span class=\"alert\">Reverse chronological order.</span>";
 
         } else {
             //search did not have results
@@ -223,7 +245,7 @@
         if ($prev_results_exist) {
             $PREV_LINK = SITE . "to/"
                     . htmlEncodeMysqlDate($min_tstamp) . "/?$trimmed_query";
-            $PREV_LINK .= $outer_sort_asc ? "#bottom" : "&sort=latest#top";
+            $PREV_LINK .= $flag_display_sort_asc ? "#bottom" : "&sort=latest#top";
             
             $PREV_BUTTON_CLASS = "resultsLink";
         } else {
@@ -234,7 +256,7 @@
         if($next_results_exist) {
             $NEXT_LINK = SITE . "from/"
                     . htmlEncodeMysqlDate($max_tstamp_inc) . "/?$trimmed_query";
-            $NEXT_LINK .= $outer_sort_asc ? "#top" : "&sort=latest#bottom";
+            $NEXT_LINK .= $flag_display_sort_asc ? "#top" : "&sort=latest#bottom";
             
             $NEXT_BUTTON_CLASS = "resultsLink";
         } else {

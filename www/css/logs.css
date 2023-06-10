@@ -351,8 +351,58 @@ a:hover {
 .resultsLink    {
     outline:0;
 }
+
 .examples {
-    
+    width: 90%;
+    margin: 0 auto;
+    border: 3px 3px;
+    aborder-left-color: #ccc;
+    aborder-top-color: #ccc;
+    border-style: double;
+    padding: 5px 10px;
+    background-color: #c8c8c8;
+}
+.examples > p {
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: normal;
+    margin-top: 6px;
+    margin-bottom: 7px;
+    margin-left: 30px;
+}
+.examples > h1 {
+    font-size: 22px;
+    /*font-style: italic;*/
+    margin-bottom: 9px;
+    /*text-align: left;*/  
+}
+.examples > h2 {
+    font-size: 18px;
+    font-style: italic;
+    font-weight: bold;
+    /*text-align: left;*/  
+}
+.examples > h3 {
+    font-size: 17px;
+    /*font-style: italic;*/
+    font-weight: bold;
+    margin-left: 30px;
+    margin-bottom: -8px;
+    /*font-style: italic;*/
+    /*text-align: left;*/  
+}
+
+.examples > ul {
+    margin-top: -2px;
+}
+.examples > ul > li {
+    line-height: 22px;
+}
+
+.searchOptions {
+    position: absolute;
+    right: 17px;
+    margin-top: -20px;
 }
     
 .logTextField {
@@ -447,24 +497,6 @@ a:hover {
     vertical-align: middle;
     text-align:center;
 }
-.examples {
-    width: 90%;
-    margin: 0 auto;
-    border: 3px 3px;
-    aborder-left-color: #ccc;
-    aborder-top-color: #ccc;
-    border-style: double;
-    padding: 5px 10px;
-    background-color: #c8c8c8;
-}
-p {
-    font-size: 18px;
-    line-height: 18px;
-    font-weight: normal;
-    margin-top: 6px;
-    margin-bottom: 7px;
-    margin-left: 30px;
-}
 h3 {
     font-size:20px;
     font-style: italic;
@@ -558,7 +590,7 @@ h3 {
     background: linear-gradient(-60deg, #fff4a0, #ac9c30);
     
     abox-shadow: -2px 0px 2px #fff, 0px -1px 2px #fff, 2px 2px 2px #444;
-    a-webkit-box-shadow: -2px 0px 2px #fff, 0px -1px 2px $fff, 2px 2px 2px #444;
+    a-webkit-box-shadow: -2px 0px 2px #fff, 0px -1px 2px #fff, 2px 2px 2px #444;
     
     abox-shadow: -2px 0px 2px #90d890, 0px -1px 2px #90d890, 2px 2px 2px #444;
     a-webkit-box-shadow: -2px 0px 2px #509050, 0px -1px 2px #509050, 2px 2px 2px #444;
