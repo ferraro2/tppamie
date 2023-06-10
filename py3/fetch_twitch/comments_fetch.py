@@ -53,6 +53,9 @@ NUM_PROCESSES = 10
 PRINT_PROGRESS_PER_N_PAGES = 500
 VIDEOS_PROGRESS_SORT_CREATED_AT = pymongo.ASCENDING
 
+# must clear progress with -r for this to update
+ONLY_VIDEOS_AFTER_DATE = '2016-03-02T00:00:00Z'
+
 VideoWork = namedtuple("VideoWork", "video offset_seconds queue_pos")
 
 
@@ -210,7 +213,7 @@ def insert_unstarted_fetch_progress(db, videos):
     for video in videos:
         created_at = video['created_at']
         # videos prior to this date have no comments so exclude them
-        if created_at > '2016-03-02T00:00:00Z':
+        if ONLY_VIDEOS_AFTER_DATE < created_at:
             ops.append(pymongo.InsertOne({
                 "completed": False,
                 "offset_seconds": 0,
