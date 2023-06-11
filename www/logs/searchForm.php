@@ -148,9 +148,7 @@
        <li><u>Display in chronological order</u> determines the order in which
            the results of current page are displayed. <br>
            Clicking the little arrow between <b><u>11:00 pm 🠕 00s</b></u> 
-            inverts this selection.<br>
-           Set this to the desired value before clicking <b>Search</b> for it 
-           to affect your results.
+            has the same effect, and inverts this selection.<br>
        </li>
    </ul>
        <h2>Other</h2>
