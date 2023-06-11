@@ -116,9 +116,13 @@ if($had_results) {
         
         $displayed_msg = msgHtml($result->msg, $result->emote_locs);
         //if ($highlight_me === 1 && $result->me === '1') {
-        if ($result->is_action === '1') {  // just always highlight it
-            $displayed_msg = "<span style=\"color:#$user_color;\">$displayed_msg</span>";
+        if ($result->is_action === '1') {  // just always italicize it
+            $displayed_msg = "<span style=\"font-style: italic;\">$displayed_msg</span>";
         }
+        // old /me highlight code
+//        else if ($result->is_action === '1') {
+//            $displayed_msg = "<span style=\"color:#$user_color;\">$displayed_msg</span>";
+//        }
         
         echo '<td>' . $displayed_msg . '</td>';
         echo "</tr>";
