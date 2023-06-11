@@ -167,7 +167,7 @@ def fetch_video_comments_after_offset(db, video, offset_seconds):
 
         # write a sample file
         # if is_first_page:
-        #     with open("video_message_sample.json", "w") as outfile:
+        #     with open("sample_video_message.json", "w") as outfile:
         #         outfile.write(json.dumps(response_json, indent=4))
         #         print("response written to sample json")
 
