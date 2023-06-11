@@ -1,0 +1,1 @@
+C:\Users\admin\Documents\main\installs\sphinx-2.2.11-release-win64\bin\indexer.exe --config C:\Users\admin\Documents\main\dev\tpp\amie\sphinx\sphinx.conf tppMain tppDelta1 tppDelta2 tppDelta3 tppDelta4 tppDelta5 tppDelta6 --rotate
