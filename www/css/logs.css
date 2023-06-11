@@ -339,6 +339,7 @@ h2 {
 .reloadText {
     position: absolute;
     font-style: italic;
+    margin-top: 2px;
 }
 .reloadButton{
     display: inline-block;
@@ -349,7 +350,7 @@ h2 {
     padding-left: 4px;
     font-weight: bold;
     /*font-style: italic;*/
-    margin: 2px 8px 0px 13px;
+    margin: 3px 8px 0px 13px;
     
     
 /*  yellow big button
