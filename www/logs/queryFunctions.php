@@ -28,27 +28,29 @@ function getMysqlRange($pdo, $tstamp_range_filter, $tstamp_sort, $msg_flags_filt
     /*
         * get min and max timestamps for the query
         */
-       $tstamp_query = "SELECT MIN(tstamp) as min_t, MAX(tstamp) as max_t "
+//        $time_pre = microtime(true);
+        $tstamp_query = "SELECT MIN(tstamp) as min_t, MAX(tstamp) as max_t "
                ."FROM (SELECT tstamp FROM messages WHERE "
                . $msg_flags_filter . " AND "
                . $tstamp_range_filter 
                . $tstamp_sort
                . " LIMIT " . LIMIT . ") t";
 
-//       echo "<br>$tstamp_query<br>";
-       $tstamp_results = $pdo->prepare($tstamp_query);
-       $tstamp_results->execute( array() );
+//        echo "<br>$tstamp_query<br>";
+//        $time_post = microtime(true);
+//        echo "<br>getMysqlRange took " . ($time_post - $time_pre). " s<br>";
+        $tstamp_results = $pdo->prepare($tstamp_query);
+        $tstamp_results->execute( array() );
+        $tstamp_obj = $tstamp_results->fetchObject();
 
-       $tstamp_obj = $tstamp_results->fetchObject();
-       
-       /*
-        * Success if neither min_t and max_t are null
-        */
-       if ($tstamp_obj->min_t && $tstamp_obj->max_t) {
-           return array(True, $tstamp_obj->min_t, $tstamp_obj->max_t);
-       } else {
-           return array(False, null, null);
-       }
+        /*
+         * Success if neither min_t and max_t are null
+         */
+        if ($tstamp_obj->min_t && $tstamp_obj->max_t) {
+            return array(True, $tstamp_obj->min_t, $tstamp_obj->max_t);
+        } else {
+            return array(False, null, null);
+        }
 }
 
 /*
@@ -128,9 +130,11 @@ function getMysqlResults($pdo, $tstamp_range_filter, $msg_flags_filter,
             . $display_tstamp_sort;
 
 //    echo "<br>$mysql_query<br>";
-
+//    $time_pre = microtime(true);
     $mysql_results = $pdo->prepare($mysql_query);
     $mysql_results->execute( array() );
+//    $time_post = microtime(true);
+//    echo "<br>getMysqlResults took " . ($time_post - $time_pre) . " s<br>";
 
     $results = [];
     while ($qresult = $mysql_results->fetchObject()) {
@@ -147,10 +151,14 @@ function getMysqlResults($pdo, $tstamp_range_filter, $msg_flags_filter,
  */
 function mysqlPrevResultsExist($pdo, $tstamp, $msg_flags_filter) {
     $prev_query = "SELECT msg_id, tstamp FROM messages "
-            ."WHERE tstamp < '$tstamp' AND {$msg_flags_filter} LIMIT 1";
-    ##echo "<br>$prev_query<br>";
+            . " WHERE $msg_flags_filter and tstamp < '$tstamp'"
+            . "ORDER BY tstamp LIMIT 1";
+//    echo "<br>$prev_query<br>";
+//    $time_pre = microtime(true);
     $prev_results = $pdo->prepare($prev_query);
     $prev_results->execute( array() );
+//    $time_post = microtime(true);
+//    echo "<br>getPrevResultsExist took " . ($time_post - $time_pre) . " s<br>";
     return $prev_results->fetchObject() == True;
 }
 
@@ -160,13 +168,16 @@ function mysqlPrevResultsExist($pdo, $tstamp, $msg_flags_filter) {
  */
 function mysqlNextResultsExist($pdo, $tstamp, $msg_flags_filter) {
     $next_query = "SELECT msg_id, tstamp FROM messages "
-            ."WHERE tstamp > '$tstamp' AND {$msg_flags_filter} LIMIT 1";
+            . " WHERE $msg_flags_filter AND tstamp > '$tstamp' "
+            . " ORDER BY tstamp LIMIT 1";
     ##echo "<br>$prev_query<br>";
+//    $time_pre = microtime(true);
     $next_results = $pdo->prepare($next_query);
     $next_results->execute( array() );
+//    $time_post = microtime(true);
+//    echo "<br>getNextResultsExist took " . ($time_post - $time_pre) . " s<br>";
     return $next_results->fetchObject() == True;
 }
-
 
 
 
@@ -193,25 +204,18 @@ function mysqlQuery($config, $jump_id, $fetch_tstamp_range_filter,
             /*
              * jump id was provided
              */
-            $time_pre = microtime(true);
             list($had_results, $min_tstamp, $max_tstamp) = 
                     getMysqlJumpRange($pdo, $jump_id, $msg_flags_filter);
-            $time_post = microtime(true);    
-            #echo "<br>getTimeRangeWithJump took " . ($time_post - $time_pre) * 1000 . " ms<br>";
         } else {
             /*
              * no jump id provided
              */
-            $time_pre = microtime(true);
             list($had_results, $min_tstamp, $max_tstamp) = 
                     getMysqlRange($pdo, $fetch_tstamp_range_filter, 
                             $fetch_tstamp_sort, $msg_flags_filter);
-            $time_post = microtime(true);
-            #echo "<br>getTimeRange took " . ($time_post - $time_pre) * 1000 . " ms<br>";
         }
         
         if ($had_results) {
-            $time_pre = microtime(true);
 
             $mysql_results_tstamp_range_filter = " '$min_tstamp' <= tstamp "
                     . " AND tstamp <= '$max_tstamp' ";
@@ -222,8 +226,6 @@ function mysqlQuery($config, $jump_id, $fetch_tstamp_range_filter,
             $results = getMysqlResults(
                     $pdo,  $mysql_results_tstamp_range_filter, 
                     $msg_flags_filter, $display_tstamp_sort);
-            $time_post = microtime(true);
-            #echo "<br>getMysqlResults took " . ($time_post - $time_pre) * 1000 . " ms<br>";
             
             /*
              * get flags indicating whether previous / next results exist
