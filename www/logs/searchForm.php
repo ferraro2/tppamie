@@ -54,7 +54,7 @@
         </div>
         
     <input id="js-reloadButton" type="submit" name="reload" 
-           class="clickableButton reloadButton" value="⟳"/><span class="reloadText">Apply to current page</span>
+           class="clickableButton reloadButton" value="⟳"/><span class="reloadText">Apply to current results</span>
 <!--         <input type="checkbox" class="options" name="wlist" value="1" <?php echo $non_wlist_check ?> > Show non-whitelisted -->
 <!--         <br> -->
 <!--         <input type="checkbox" class="options" name="me" value="1" <?php echo $highlight_me_check ?> > Highlight /me -->
