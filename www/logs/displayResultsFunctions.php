@@ -45,7 +45,7 @@ $ADJUST_COLOR = array(
    'ff7f50' => 'e05f30',
    '54ff9f' => '84d85f',
    '00ff00' => '00b000',
-   '00ff7f' => '00d87f',
+   '00ff7f' => '00d87f',  // twitch's springgreen
    '0000ff' => '0000e0'
 );
 
@@ -53,11 +53,25 @@ $ADJUST_COLOR = array(
 // $TWITCH_COLORS_LEN = count($TWITCH_COLORS);
 
 function adjustColor($color, $ADJUST_COLOR) {
+   $color = strtolower($color);
    #, '1e90ff', '00ff7f', '9acd32', '00ff00', 'ff4500', 'ff0000', 'daa520', 'ff69b4', '5f9ea0', '54ff9f', 'd2681e', '8a2be2', 'b22222'];
-   if (array_key_exists($color, $ADJUST_COLOR)) {
-       return $ADJUST_COLOR[$color];
-   } 
    
+   if (array_key_exists($color, $ADJUST_COLOR)) {
+       $color = $ADJUST_COLOR[$color];
+   } 
+   // darken if too close to white
+    $subcolors = array(
+        'red'   => hexdec(substr($color, 0, 2)),
+        'green' => hexdec(substr($color, 2, 2)),
+        'blue'  => hexdec(substr($color, 4, 2))
+    );
+    if ($subcolors['red']   >= 0xc0
+     && $subcolors['green'] >= 0xc0
+     && $subcolors['blue']  >= 0xc0) {
+        $color = dechex(($subcolors['red'] - 0x50))
+                . dechex(($subcolors['green'] - 0x50))
+                . dechex(($subcolors['blue'] - 0x50));
+    }
    return $color;
 }
 
