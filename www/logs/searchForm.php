@@ -116,14 +116,14 @@
    <p>&nbsp;&nbsp;&nbsp;- selecting <b><i>To Date</b></i> (or not making a selection) shows messages to the <u>end of time</u></p>
    <h2>Page Links</h2>
    <ul>
-       <li>Click the <b><u>hour:minutes AM/PM</b></u> time to the left of a message to see all chatlogs
-           at the time of that message, with the search criteria removed.</li>
-       <li>Click the <b><u>seconds</b></u> time to the left of a message to see the video at 
+       <li>Click the <b><u>hour:minutes AM/PM</b></u> to the left of a message to see all chatlogs
+           at the time of that message.</li>
+       <li>Click the <b><u>seconds</b></u> to the left of a message to see the video at 
            the time of that message.  Not all messages have video available.</li>
        <li>Click the <b><u>🠕</b></u> or <b><u>🠗</b></u> arrow between the above two to reload the page at this message with the 
            chronological order of messages reversed.
        <li>Click any <b><u>username</b></u> to see that user's chatlogs at the time of 
-           that message, with the search criteria removed.</li>
+           that message.</li>
        <li>The <i><u>Previous</i></u> button always links to messages 
            prior in time. <i><u>Next</i></u> works respectively.</li>
        <li>Click the green arrows on the right to jump to the bottom / 
@@ -135,7 +135,7 @@
        <li><u>TPP bot messages</u> filters messages from: tpp, tppinfobot,
            tppbankbot, and tppbalancebot.</li>
        <li><u>Game inputs</u> doesn't filter !-prefixed commands beyond those
-           similar to: <i>!bet</i>, <i>!balance</i>, <i>!aubl</i>, and <i>!move a</i>.<br>
+           of type: <i>!bet</i>, <i>!balance</i>, <i>!aubl</i>, and <i>!move a</i>.<br>
            It also doesn't filter most democracy inputs because they overlap
            heavily with real words.<br>
            It also doesn't filter game inputs containing additional text after 
