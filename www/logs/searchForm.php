@@ -172,7 +172,9 @@
    <h2>Privacy</h2>
    <p>To have all your messages removed from this site, just whisper me from the 
        Twitch account in question. Then let me know on Discord, and I will 
-       remove them promptly, no questions asked.</p>
+       remove them promptly, no questions asked.<br>
+      If you prefer, I can also remove individual messages of your choice.
+   </p>
    <p>This site provides an identical experience for all its visitors.  
        Your activity on this site will not be exposed to any other party, in any way.</p>
    <h2>Source Code</h2>

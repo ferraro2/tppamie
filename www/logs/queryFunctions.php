@@ -30,7 +30,7 @@ function getMysqlRange($pdo, $tstamp_range_filter, $tstamp_sort, $msg_flags_filt
         */
 //        $time_pre = microtime(true);
         $tstamp_query = "SELECT MIN(tstamp) as min_t, MAX(tstamp) as max_t "
-               ."FROM (SELECT tstamp FROM messages WHERE "
+               ."FROM (SELECT tstamp FROM messages WHERE is_hidden=0 AND "
                . $msg_flags_filter . " AND "
                . $tstamp_range_filter 
                . $tstamp_sort
@@ -63,7 +63,7 @@ function getMysqlJumpRange($pdo, $jump_id, $msg_flags_filter) {
      */
     $jump_tstamp_query = "SELECT tstamp as jump_time "
             ."FROM (SELECT tstamp FROM messages "
-            . "WHERE msg_id = $jump_id AND " 
+            . "WHERE is_hidden=0 AND msg_id = $jump_id AND " 
             . $msg_flags_filter
             . "LIMIT 1) t";
 //    echo $jump_tstamp_query;
@@ -80,12 +80,14 @@ function getMysqlJumpRange($pdo, $jump_id, $msg_flags_filter) {
 
         $min_tstamp_query = "SELECT MIN(low_stamp_range) as min_t "
             ."FROM (SELECT tstamp as low_stamp_range FROM messages "
-            . "WHERE tstamp <= '$jump_tstamp' AND " . $msg_flags_filter
+            . "WHERE is_hidden=0 AND "
+            . "tstamp <= '$jump_tstamp' AND " . $msg_flags_filter
             . " ORDER BY tstamp desc LIMIT " . JUMP_OFFSET . ") t1";
 
         $max_tstamp_query = "SELECT MAX(high_stamp_range) as max_t "
             ."FROM (SELECT tstamp as high_stamp_range FROM messages "
-            . "WHERE tstamp >= '$jump_tstamp' AND " . $msg_flags_filter
+            . "WHERE is_hidden=0 AND "
+            . "tstamp >= '$jump_tstamp' AND " . $msg_flags_filter
             . " ORDER BY tstamp asc LIMIT " . (LIMIT - JUMP_OFFSET) . ") t2";
 
         $min_tstamp_results = $pdo->prepare($min_tstamp_query);
@@ -121,7 +123,7 @@ function getMysqlResults($pdo, $tstamp_range_filter, $msg_flags_filter,
             . " join msg_data md using(msg_id) "
             . " left join msg_badges using(msg_id) "
             . " left join badges using(badge_id)"
-            . " WHERE "
+            . " WHERE is_hidden=0 AND "
             . $msg_flags_filter . " AND "
             . $tstamp_range_filter
             . "GROUP BY username, md.color, moder, sub, turbo, md.msg_id, "
@@ -151,7 +153,7 @@ function getMysqlResults($pdo, $tstamp_range_filter, $msg_flags_filter,
  */
 function mysqlPrevResultsExist($pdo, $tstamp, $msg_flags_filter) {
     $prev_query = "SELECT msg_id, tstamp FROM messages "
-            . " WHERE $msg_flags_filter and tstamp < '$tstamp'"
+            . " WHERE is_hidden=0 AND $msg_flags_filter and tstamp < '$tstamp'"
             . "ORDER BY tstamp LIMIT 1";
 //    echo "<br>$prev_query<br>";
 //    $time_pre = microtime(true);
@@ -168,7 +170,7 @@ function mysqlPrevResultsExist($pdo, $tstamp, $msg_flags_filter) {
  */
 function mysqlNextResultsExist($pdo, $tstamp, $msg_flags_filter) {
     $next_query = "SELECT msg_id, tstamp FROM messages "
-            . " WHERE $msg_flags_filter AND tstamp > '$tstamp' "
+            . " WHERE is_hidden=0 AND $msg_flags_filter AND tstamp > '$tstamp' "
             . " ORDER BY tstamp LIMIT 1";
     ##echo "<br>$prev_query<br>";
 //    $time_pre = microtime(true);
@@ -405,7 +407,7 @@ function getSphinxIdsAndRange($pdo, $sphx_match_string, $tstamp_ordered_range) {
     $sphx_match_query = "SELECT id, tstamp FROM"
            . " tppMain, tppDelta1, tppDelta2, tppDelta3, tppDelta4, "
            . " tppDelta5, tppDelta6 "
-           . " WHERE MATCH(?)"
+           . " WHERE is_hidden=0 AND MATCH(?)"
            . $tstamp_ordered_range
            . " LIMIT " . LIMIT;
     echo $sphx_match_query . "<br>";
@@ -455,7 +457,7 @@ function sphinxGetMeta($pdo) {
 function sphinxPrevResultsExist($pdo, $query, $tstamp) {
     $prev_query = "SELECT id FROM"
             . " tppMain, tppDelta1, tppDelta2, tppDelta3, tppDelta4, tppDelta5"
-            . " WHERE Match(?)"
+            . " WHERE is_hidden=0 AND Match(?)"
             ." AND tstamp < $tstamp LIMIT 1";
     ##echo "<br>$prev_query<br>";
     $prev_results = $pdo->prepare($prev_query);
@@ -470,7 +472,7 @@ function sphinxPrevResultsExist($pdo, $query, $tstamp) {
 function sphinxNextResultsExist($pdo, $query, $tstamp) {
     $next_query = "SELECT id FROM"
             . " tppMain, tppDelta1, tppDelta2, tppDelta3, tppDelta4, tppDelta5"
-            . " WHERE Match(?)"
+            . " WHERE is_hidden=0 AND Match(?)"
             . " AND tstamp > $tstamp LIMIT 1";
     ##echo "<br>$next_query<br>";
     $next_results = $pdo->prepare($next_query);
