@@ -131,7 +131,7 @@ $
 
 BOT_USERNAMENAMES = re.compile(r"""
 ^
-    tpp|tppinfobot|tppbankbot|tppbalancebot|visualizebot|tpphelpbot|tppsimulator
+    tpp|tppinfobot|tppbankbot|tppbalancebot
 $
 """, re.IGNORECASE | re.VERBOSE)
 
