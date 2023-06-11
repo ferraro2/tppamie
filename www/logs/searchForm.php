@@ -35,25 +35,25 @@
        <h2>By Users:</h2>
        <input type="text" id="js-u3" name = "u3" value="<?php echo h($u3) ?>" class="logTextField form-user tooltip"/>
        <br>-->
-        <input type="checkbox" class="options" 
+        <input id="js-CheckboxBot" type="checkbox" class="options" 
                name="<?php echo $query_flags->show_tpp_bot->name?>" value="1" 
              <?php echo $query_flags->show_tpp_bot->val_checked_str ?> > TPP bot messages
         <br> 
-        <input type="checkbox" class="options" 
+        <input id="js-CheckboxInputs" type="checkbox" class="options" 
                name="<?php echo $query_flags->show_game_inputs->name ?>" value="1"
              <?php echo $query_flags->show_game_inputs->val_checked_str ?> > Game inputs <i>(up, !a, !bet, !balance, etc.)</i>
         <br> 
-        <input type="checkbox" class="options" 
+        <input id="js-CheckboxChars" type="checkbox" class="options" 
                name="<?php echo $query_flags->show_unwhitelisted_chars->name ?>" value="1"
             <?php echo $query_flags->show_unwhitelisted_chars->val_checked_str ?> > ASCII spam / unnatural characters
         <br>
         <div class="orderOpdtions">
-        <input type="checkbox" class="options" 
+        <input id="js-CheckboxSort" type="checkbox" class="options" 
                name="<?php echo $query_flags->display_sort_asc->name ?>" value="1"
              <?php echo $query_flags->display_sort_asc->val_checked_str ?> > Display in chronological order
         </div>
         
-    <input id="js-reloadButton" type="submit" name="reload" 
+    <input id="js-reloadButton" type="button" name="reload" 
            class="clickableButton reloadButton" value="⟳"/><span class="reloadText">Apply to current results</span>
 <!--         <input type="checkbox" class="options" name="wlist" value="1" <?php echo $non_wlist_check ?> > Show non-whitelisted -->
 <!--         <br> -->
