@@ -9,10 +9,10 @@ if ($had_results || True) {
    echo "
    <div class=\"linkAndMetaBar\">
        <div class=\"leftLink\">
-           <a type=\"button\" class=\"$PREV_BUTTON_CLASS\" href=\"$PREV_LINK_TOP\">Previous</a>       
+           <a type=\"button\" class=\"resultsButton $PREV_BUTTON_CLASS\" href=\"$PREV_LINK_TOP\">Previous</a>       
        </div>
        <div class=\"rightLink\">
-          <a type=\"button\" class=\"$NEXT_BUTTON_CLASS\" href=\"$NEXT_LINK_TOP\">Next</a>
+          <a type=\"button\" class=\"resultsButton $NEXT_BUTTON_CLASS\" href=\"$NEXT_LINK_TOP\">Next</a>
        </div>
 
        <div class=\"meta\">
@@ -46,6 +46,7 @@ if($had_results) {
     */
     //echo "<br>";
 
+//    $time_pre = microtime(true);
     foreach ($results AS $result) {
 
 //        if (false && !$flag_has_unwhitelisted_chars && !$result->has_unwhitelisted_chars) {
@@ -129,7 +130,9 @@ if($had_results) {
         $lastTableHeader = $tableHeader;
         $lastTableDivider = $tableDivider;
     }
-
+    
+//    $time_post = microtime(true);
+//    echo "<br>displayresults took " . ($time_post - $time_pre) . " s<br>";
     echo $endTable;
 } else {
     echo "
@@ -211,10 +214,10 @@ if ($had_results) {
     <a class=\"arrowUp\" href=\"#top\"></a>
     <div class=\"linkAndMetaBar\">
         <div class=\"leftLink\">
-            <a type=\"button\" class=\"$PREV_BUTTON_CLASS\" href=\"$PREV_LINK_BOTTOM\">Previous</a>
+            <a type=\"button\" class=\"resultsButton $PREV_BUTTON_CLASS\" href=\"$PREV_LINK_BOTTOM\">Previous</a>
         </div>
         <div class=\"rightLink\">
-           <a type=\"button\" class=\"$NEXT_BUTTON_CLASS\" href=\"$NEXT_LINK_BOTTOM\">Next</a>
+           <a type=\"button\" class=\"resultsButton $NEXT_BUTTON_CLASS\" href=\"$NEXT_LINK_BOTTOM\">Next</a>
         </div>
 
         <div class=\"meta\">

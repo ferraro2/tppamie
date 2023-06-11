@@ -30,7 +30,7 @@ html, body {
 	margin: 0;
 	padding: 0;
 }
-body {
+body, input, textarea, button {
     font-family: Calibri, sans-serif;
     abackground-color: #a8a8a8;
     
@@ -186,7 +186,7 @@ h2 {
 .logTable td:nth-child(2) {
     text-align: right;
     font-weight: bold;
-    afont-family: Helvetica Neue,Helvetica,sans-serif;
+    /*afont-family: Helvetica Neue,Helvetica,sans-serif;*/
     /*font-family: "Inter", "Roobert", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
     font-size: 18px;
     atext-shadow: -1px -1px #555, 1px -1px #555, -1px 1px #555, 1px 1px #555;
@@ -194,7 +194,7 @@ h2 {
 .logTable td:nth-child(3) {
     text-align: left;
     padding-right: 15px;
-    afont-family: Helvetica Neue,Helvetica,sans-serif;
+    /*afont-family: Helvetica Neue,Helvetica,sans-serif;*/
     /*font-family: "Inter", "Roobert", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
     font-size: 18px;
 }
@@ -264,57 +264,31 @@ h2 {
     vertical-align: middle;
 }
 .searchButton {
-    display: block;
+    font-family: Arial;
+    font-size: 18px;
+    /*font-weight: bold;*/
     float: left;
     width: 170px;
     height: 40px;
-    cursor: pointer;
-    color: black;
     padding: 3px;
     margin: 45px 0px 40px 55px;
-    font-size: 18px;
-    -webkit-border-radius:8px;
-    -moz-border-radius:8px;
-    border-radius:8px;
-    background-color:white;
-    
-    
-    background: -webkit-linear-gradient(-60deg, #fff4a0, #ac9c30);
-    background: -o-linear-gradient(-60deg, #fff4a0, #ac9c30);
-    background: -moz-linear-gradient(-60deg, #fff4a0, #ac9c30);
-    background: -ms-linear-gradient(-60deg, #fff4a0, #ac9c30);
-    background: linear-gradient(-60deg, #fff4a0, #ac9c30);
     border: 0px solid #cc8;
     box-shadow: -2px 0px 2px #c4c480, 0px -1px 2px #c4c480, 2px 2px 2px #444;
     -webkit-box-shadow: -2px 0px 2px #c4c480, 0px -1px 2px #c4c480, 2px 2px 2px #444;
 }
-.searchButton:hover {
-    background: -webkit-linear-gradient(-60deg, #fff4a0, #ac9c30);
-    background: -o-linear-gradient(-60deg, #fff4a0, #ac9c30);
-    background: -moz-linear-gradient(-60deg, #fff4a0, #ac9c30);
-    background: -ms-linear-gradient(-60deg, #fff4a0, #ac9c30);
-    background: linear-gradient(-60deg, #fff4a0, #ac9c30);
-    border-left: 2px solid #444;
-    border-top: 2px solid #444;
-    border-bottom: 2px solid #333;
-    border-right: 2px solid #333;
-    box-shadow: 4px 4px 4px #555;
-    -webkit-box-shadow: 4px 4px 4px #555;
-    top:4px;
-}
-.searchButton:active{
-    top:6px;
-    left:4px;
-    border: 0px solid #333;
-    background: -webkit-linear-gradient(60deg, #fff4a0, #ac9c30);
-    background: -o-linear-gradient(60deg, #fff4a0, #ac9c30);
-    background: -moz-linear-gradient(60deg, #fff4a0, #ac9c30);
-    background: -ms-linear-gradient(60deg, #fff4a0, #ac9c30);
-    background: linear-gradient(60deg, #fff4a0, #ac9c30);
-    box-shadow: 0px 0px 0px #b9b, 0px 0px 0px #444;
-    -webkit-box-shadow: 0px 0px 0px #b9b, 0px 0px 0px #444;
+.reloadButton{
+    font-family: Arial;
+    width: 90px;
+    height: 27px;
+    font-size: 14px;
+    /*font-style: italic;*/
+    margin: 10px 0px 0px 21px;
+    border: 0px solid #cc8;
+    box-shadow: -2px 0px 2px #b4b470, 0px -1px 2px #b4b470, 2px 2px 2px #fff;
+    -webkit-box-shadow: -2px 0px 2px #bcbc70, 0px -2px 2px #bcbc70, 2px 2px 2px #777;
 }
 .helpButton {
+    font-family: Arial;
     height: 25px;
     padding: 0 12px 0 12px;
     line-height: 21px;
@@ -356,7 +330,7 @@ h2 {
 }
 .searchForm input, 
 .searchForm button, 
-.resultsLink    {
+.clickableButton    {
     outline:0;
 }
 
@@ -409,7 +383,7 @@ h2 {
 
 .searchOptions {
     float:right;
-    margin-top: -35px;
+    margin-top: 12px;
 }
     
 .logTextField {
@@ -579,63 +553,62 @@ h3 {
 } .rightLink {
     float:right;
 }
-.resultsLink, .noResultsLink {
+
+.resultsButton {
     margin-top: 10px;
     width: 100px;
     height: 30px;
-    display: block;
-    text-align: center;
-        cursor: pointer;
-        color: black;
-    padding: 3px;
     font-size: 15px;
     font-style: italic;
-    -webkit-border-radius:8px;
-    -moz-border-radius:8px;
-    border-radius:8px;
-    background-color: #f0f0f0;
+    
     border-bottom: 2px solid #585;
     border-right: 2px solid #585;
     border-left: 2px solid #80c880;
     border-top: 2px solid #80c880;
-    aborder: 0px solid black;
+   /*aborder: 0px solid black;*/
     
     border-bottom: 2px solid #885;
     border-right: 2px solid #885;
     border-left: 2px solid #f0f090;
     border-top: 2px solid #f0f090;
+    background-color: #f0f0f0;
     
+}
+
+.clickableButton, .unclickableButton {
+    display: block;
+    text-align: center;
+    cursor: pointer;
+    color: black;
+    padding: 3px;
+    -webkit-border-radius:8px;
+    -moz-border-radius:8px;
+    border-radius:8px;
     
     background:-webkit-linear-gradient(-60deg, #fff4a0, #ac9c30);
     background:-o-linear-gradient(-60deg, #fff4a0, #ac9c30);
     background: -moz-linear-gradient(-60deg, #fff4a0, #ac9c30);
     background: -ms-linear-gradient(-60deg, #fff4a0, #ac9c30);
     background: linear-gradient(-60deg, #fff4a0, #ac9c30);
-    
-    abox-shadow: -2px 0px 2px #fff, 0px -1px 2px #fff, 2px 2px 2px #444;
-    a-webkit-box-shadow: -2px 0px 2px #fff, 0px -1px 2px #fff, 2px 2px 2px #444;
-    
-    abox-shadow: -2px 0px 2px #90d890, 0px -1px 2px #90d890, 2px 2px 2px #444;
-    a-webkit-box-shadow: -2px 0px 2px #509050, 0px -1px 2px #509050, 2px 2px 2px #444;
 }
-.resultsLink:visited, .resultsLink:link, .resultsLink:hover,
-.noResultsLink:visited, .noResultsLink:link, .noResultsLink:hover {
+.clickableButton:visited, .clickableButton:link, .clickableButton:hover,
+.unclickableButton:visited, .unclickableButton:link, .unclickableButton:hover {
     color: black;
     text-decoration: none;
 }
-.noResultsLink, .noResultsLink:hover, .noResultsLink:active {
+.unclickableButton, .unclickableButton:hover, .unclickableButton:active {
     background:-webkit-linear-gradient(60deg, #f0f0f0, #a0a0a0);
     background:-o-linear-gradient(60deg, #f0f0f0, #a0a0a0);
     background: -moz-linear-gradient(60deg, #f0f0f0, #a0a0a0);
     background: -ms-linear-gradient(60deg, #f0f0f0, #a0a0a0);
     background: linear-gradient(60deg, #f0f0f0, #a0a0a0);
-    border-left: 2px solid #ccc;
-    border-top: 2px solid #ccc;
+    border-left: 2px solid #ddd;
+    border-top: 2px solid #ddd;
     border-bottom: 2px solid #666;
     border-right: 2px solid #666;
     cursor: not-allowed;
 }
-.resultsLink:hover {
+.clickableButton:hover {
     border-left: 2px solid #444;
     border-top: 2px solid #444;
     border-bottom: 2px solid #333;
@@ -644,7 +617,7 @@ h3 {
     -webkit-box-shadow: 4px 4px 4px #555;
     top:4px;
 }
-.resultsLink:active{
+.clickableButton:active{
     top:6px;
     left:4px;
     border: 0px solid #333;

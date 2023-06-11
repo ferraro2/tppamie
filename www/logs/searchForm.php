@@ -6,6 +6,7 @@
 
 <div id="top"></div>
 <form id="js-searchForm" class="searchForm" method="get">
+    <div>
     <h2>Search For:</h2>
    <input id="js-q1" type="text" name="q1" value="<?php echo h($q1) ?>" 
           class="logTextField form-query tooltip"/>
@@ -13,16 +14,7 @@
    <button type="button" id="js-helpButton" class="helpButton" tabindex ="-1">Help</button>
 
    <br>
-
-   <h2>By Users:</h2>
-   <input type="text" id="js-u1" name = "u1" value="<?php echo h($u1) ?>" 
-          class="logTextField form-user tooltip"/>
-
-   <!--<button type="button" id="js-extraFieldsButton" class="extraFieldsButton" tabindex ="-1" ><?php echo $EXTRA_FIELDS_BUTTON_VALUE ?></button>-->
-
-   <br>
-
-
+    </div>
    <div class="searchOptions">
        <!----------------------------------------------------------
        ------------------------------------------------------------
@@ -60,12 +52,23 @@
              <?php echo $query_flags->display_sort_asc->val_checked_str ?> > Display in chronological order
         <br>
         
+    <input id="js-reloadButton" type="submit" name="reload" 
+        class="reloadButton clickableButton" value="Reload"/>
 <!--         <input type="checkbox" class="options" name="wlist" value="1" <?php echo $non_wlist_check ?> > Show non-whitelisted -->
 <!--         <br> -->
 <!--         <input type="checkbox" class="options" name="me" value="1" <?php echo $highlight_me_check ?> > Highlight /me -->
        
        
    </div>
+   <h2>By Users:</h2>
+   <input type="text" id="js-u1" name = "u1" value="<?php echo h($u1) ?>" 
+          class="logTextField form-user tooltip"/>
+
+   <!--<button type="button" id="js-extraFieldsButton" class="extraFieldsButton" tabindex ="-1" ><?php echo $EXTRA_FIELDS_BUTTON_VALUE ?></button>-->
+
+   <br>
+
+
    <div style="float:left;">
        <h2> 
        <span id="js-jumpRadio" class="sortBy">
@@ -85,7 +88,7 @@
    </div>
 
     <input id="js-searchButton" type="submit" name="search" 
-        class="searchButton" value="Search"/>
+        class="searchButton clickableButton" value="Search"/>
    
    
    

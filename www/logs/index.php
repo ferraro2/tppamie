@@ -11,6 +11,7 @@
 <link rel="icon" sizes='42x42' href="/img/friendball.png" />
 
 </head>
+<body>
 
 <?php
 
@@ -30,7 +31,6 @@
     include 'displayResultsFunctions.php';
 
     echo "
-    <body>
         <div class=\"leftBorder\"> </div>
         <div class=\"mainPage\">
         <!----------------------------------------------------------

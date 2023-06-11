@@ -48,11 +48,14 @@
             "database" => "tpp_chat", 
         ];
         
+//        $time_pre = microtime(true);
         list($had_results, $query_was_valid, $min_tstamp_mysql, $max_tstamp_mysql, 
                 $results, $prev_results_exist, $next_results_exist) = 
                 mysqlQuery($mysql_config, $jump_id, $fetch_tstamp_range_filter,
                         $fetch_tstamp_sort, $msg_flags_filter, 
                         $display_tstamp_sort);
+//        $time_post = microtime(true);
+//        echo "<br>MysqlQuery took " . ($time_post - $time_pre) . " s<br>";
         
         /*
          * Write in meta info
@@ -84,7 +87,7 @@
          * Set prev & next link targets
          */
         if ($prev_results_exist) {
-            $PREV_BUTTON_CLASS = "resultsLink";
+            $PREV_BUTTON_CLASS = "clickableButton";
             $PREV_LINK = SITE . "to/"
                     . $min_tstamp_url_sub1us
                     . "/$flags_only_query#";
@@ -98,13 +101,13 @@
 
             
         } else {
-            $PREV_BUTTON_CLASS = "noResultsLink";
+            $PREV_BUTTON_CLASS = "unclickableButton";
             $PREV_LINK_TOP = "";
             $PREV_LINK_BOTTOM = "";
         }
 
         if ($next_results_exist) {
-            $NEXT_BUTTON_CLASS = "resultsLink";
+            $NEXT_BUTTON_CLASS = "clickableButton";
             $NEXT_LINK = SITE . "from/"
                     . $max_tstamp_url_plus1us
                     . "/$flags_only_query#";
@@ -116,7 +119,7 @@
                 $NEXT_LINK_BOTTOM = $NEXT_LINK . "bottom";
             }
         } else {
-            $NEXT_BUTTON_CLASS = "noResultsLink";
+            $NEXT_BUTTON_CLASS = "unclickableButton";
             $NEXT_LINK_TOP = "";
             $NEXT_LINK_BOTTOM = "";
         }
@@ -133,6 +136,7 @@
      ***********************************************************/
     
     else {
+        echo("NOT HERE");
         /*
          * get Match query from params
          */
@@ -204,7 +208,7 @@
                         . " tstamp, is_action, emote_locs, msg, video_id, "
                         . " video_offset_seconds, md.display_name "
                         . " $display_tstamp_sort ";
-//                echo "<br>$all_msg_query<br>";
+                echo "<br>$all_msg_query<br>";
                 $all_msg_result = $pdo->prepare($all_msg_query);
                 $all_msg_result->execute( $msg_ids );
 
@@ -255,7 +259,7 @@
         
         
         if ($prev_results_exist) {
-            $PREV_BUTTON_CLASS = "resultsLink";
+            $PREV_BUTTON_CLASS = "clickableButton";
             $PREV_LINK = SITE . "to/"
                     . $min_tstamp_url_sub1us
                     . "/$flags_only_query";
@@ -268,7 +272,7 @@
             }
             
         } else {
-            $PREV_BUTTON_CLASS = "noResultsLink";
+            $PREV_BUTTON_CLASS = "unclickableButton";
             $PREV_LINK_TOP = "";
             $PREV_LINK_BOTTOM = "";
         }
@@ -279,7 +283,7 @@
                     . "/$flags_only_query";
 //            $NEXT_LINK .= $flag_display_sort_asc ? "#top" : "&sort=latest#bottom";
             
-            $NEXT_BUTTON_CLASS = "resultsLink";
+            $NEXT_BUTTON_CLASS = "clickableButton";
             if ($flag_display_sort_asc) {
                 $NEXT_LINK_TOP = $NEXT_LINK . "top";
                 $NEXT_LINK_BOTTOM = $NEXT_LINK . "top";
@@ -288,7 +292,7 @@
                 $NEXT_LINK_BOTTOM = $NEXT_LINK . "bottom";
             }
         } else {
-            $NEXT_BUTTON_CLASS = "noResultsLink";
+            $NEXT_BUTTON_CLASS = "unclickableButton";
             $NEXT_LINK_TOP = "";
             $NEXT_LINK_BOTTOM = "";
         }
