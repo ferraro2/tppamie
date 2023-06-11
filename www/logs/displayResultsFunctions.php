@@ -73,6 +73,10 @@ function blist_url($str) {
 }
 
 function getEmoteImg($image_id, $emote_name) {
+    // 88 = old pogchamp, twitch removed the image
+    if ($image_id === "88") {
+        $image_id = "305954156";
+    }
     return getImg("https://static-cdn.jtvnw.net/emoticons/v2/$image_id/default/light/1.0", $emote_name);
     /*
     if ($image_id === 0 or gettype($image_id) !== 'integer') {
