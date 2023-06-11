@@ -46,14 +46,15 @@
         <input type="checkbox" class="options" 
                name="<?php echo $query_flags->show_unwhitelisted_chars->name ?>" value="1"
             <?php echo $query_flags->show_unwhitelisted_chars->val_checked_str ?> > ASCII spam / unnatural characters
-        <br><br>
+        <br>
+        <div class="orderOpdtions">
         <input type="checkbox" class="options" 
                name="<?php echo $query_flags->display_sort_asc->name ?>" value="1"
              <?php echo $query_flags->display_sort_asc->val_checked_str ?> > Display in chronological order
-        <br>
+        </div>
         
     <input id="js-reloadButton" type="submit" name="reload" 
-        class="reloadButton clickableButton" value="Reload"/>
+           class="clickableButton reloadButton" value="⟳"/><span class="reloadText">Apply to current page</span>
 <!--         <input type="checkbox" class="options" name="wlist" value="1" <?php echo $non_wlist_check ?> > Show non-whitelisted -->
 <!--         <br> -->
 <!--         <input type="checkbox" class="options" name="me" value="1" <?php echo $highlight_me_check ?> > Highlight /me -->

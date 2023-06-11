@@ -80,6 +80,66 @@ a, a:visited {
 a.uncoloredLink, a.uncoloredLink:link, a.uncoloredLink:hover, a.uncoloredLink:visited {
 	color: #000;
 }
+
+.clickableButton, .unclickableButton {
+    display: block;
+    text-align: center;
+    cursor: pointer;
+    color: black;
+    padding: 3px;
+    -webkit-border-radius:8px;
+    -moz-border-radius:8px;
+    border-radius:8px;
+    border-bottom: 2px solid #885;
+    border-right: 2px solid #885;
+    border-left: 2px solid #f0f090;
+    border-top: 2px solid #f0f090;
+    background-color: #f0f0f0;
+    
+    background:-webkit-linear-gradient(-60deg, #fff4a0, #ac9c30);
+    background:-o-linear-gradient(-60deg, #fff4a0, #ac9c30);
+    background: -moz-linear-gradient(-60deg, #fff4a0, #ac9c30);
+    background: -ms-linear-gradient(-60deg, #fff4a0, #ac9c30);
+    background: linear-gradient(-60deg, #fff4a0, #ac9c30);
+}
+.clickableButton:visited, .clickableButton:link, .clickableButton:hover,
+.unclickableButton:visited, .unclickableButton:link, .unclickableButton:hover {
+    color: black;
+    text-decoration: none;
+}
+.unclickableButton, .unclickableButton:hover, .unclickableButton:active {
+    background:-webkit-linear-gradient(60deg, #f0f0f0, #a0a0a0);
+    background:-o-linear-gradient(60deg, #f0f0f0, #a0a0a0);
+    background: -moz-linear-gradient(60deg, #f0f0f0, #a0a0a0);
+    background: -ms-linear-gradient(60deg, #f0f0f0, #a0a0a0);
+    background: linear-gradient(60deg, #f0f0f0, #a0a0a0);
+    border-left: 2px solid #ddd;
+    border-top: 2px solid #ddd;
+    border-bottom: 2px solid #666;
+    border-right: 2px solid #666;
+    cursor: not-allowed;
+}
+.clickableButton:hover {
+    border-left: 2px solid #444;
+    border-top: 2px solid #444;
+    border-bottom: 2px solid #333;
+    border-right: 2px solid #333;
+    box-shadow: 4px 4px 4px #555;
+    -webkit-box-shadow: 4px 4px 4px #555;
+    top:4px;
+}
+.clickableButton:active{
+    top:6px;
+    left:4px;
+    border: 0px solid #333;
+    background:-webkit-linear-gradient(60deg, #fff4a0, #ac9c30);
+    background:-o-linear-gradient(60deg, #fff4a0, #ac9c30);
+    background: -moz-linear-gradient(60deg, #fff4a0, #ac9c30);
+    background: -ms-linear-gradient(60deg, #fff4a0, #ac9c30);
+    background: linear-gradient(60deg, #fff4a0, #ac9c30);
+    box-shadow: 0px 0px 0px #b9b, 0px 0px 0px #444;
+    -webkit-box-shadow: 0px 0px 0px #b9b, 0px 0px 0px #444;
+}
 .tooltipClass {
 	font-weight: lighter;
 	font-size: 12px;
@@ -276,17 +336,71 @@ h2 {
     box-shadow: -2px 0px 2px #c4c480, 0px -1px 2px #c4c480, 2px 2px 2px #444;
     -webkit-box-shadow: -2px 0px 2px #c4c480, 0px -1px 2px #c4c480, 2px 2px 2px #444;
 }
-.reloadButton{
-    font-family: Arial;
-    width: 90px;
-    height: 27px;
-    font-size: 14px;
-    /*font-style: italic;*/
-    margin: 10px 0px 0px 21px;
-    border: 0px solid #cc8;
-    box-shadow: -2px 0px 2px #b4b470, 0px -1px 2px #b4b470, 2px 2px 2px #fff;
-    -webkit-box-shadow: -2px 0px 2px #bcbc70, 0px -2px 2px #bcbc70, 2px 2px 2px #777;
+.reloadText {
+    position: absolute;
+    font-style: italic;
 }
+.reloadButton{
+    display: inline-block;
+    font-family: Arial;
+    width: 24px;
+    height: 22px;
+    font-size: 13px;
+    padding-left: 4px;
+    font-weight: bold;
+    /*font-style: italic;*/
+    margin: 2px 8px 0px 13px;
+    
+    
+/*  yellow big button
+    border: 0px solid #cc8;
+    box-shadow: 0px 0px 2px #b4b470, 0px -1px 2px #b4b470, 2px 2px 2px #666;
+    -webkit-box-shadow: 0px 0px 2px #bcbc70, 0px -1px 2px #bcbc70, 2px 2px 2px #666;*/
+    
+    
+    box-shadow: -2px 0px 2px #b4b470, 0px -1px 2px #b4b470, 2px 2px 2px #fff;
+    -webkit-box-shadow: 2px 1px 2px #777;
+    background:-webkit-linear-gradient(-60deg, #8FA7D8, #326DDB);
+    background:-moz-linear-gradient(-60deg, #98b0e0, #326DDB);
+    background:-ms-linear-gradient(-60deg, #98b0e0, #326DDB);
+    background:-o-linear-gradient(-60deg, #98b0e0, #326DDB);
+    background:linear-gradient(-60deg, #98b0e0, #4176D8);
+    border-bottom: 2px solid #2c4c74;
+    border-right: 2px solid #2c4ca4;
+    border-left: 1px solid #88a0c0;
+    border-top: 1px solid #88a0c0;
+    
+    
+/*  blue big button
+    box-shadow: -2px 0px 2px #b4b470, 0px -1px 2px #b4b470, 2px 2px 2px #fff;
+    -webkit-box-shadow: 2px 1px 2px #777;
+    background:-webkit-linear-gradient(-60deg, #8FA7D8, #326DDB);
+    background:-moz-linear-gradient(-60deg, #98b0e0, #326DDB);
+    background:-ms-linear-gradient(-60deg, #98b0e0, #326DDB);
+    background:-o-linear-gradient(-60deg, #98b0e0, #326DDB);
+    background:linear-gradient(-60deg, #98b0e0, #4176D8);
+    border-bottom: 2px solid #2c4c74;
+    border-right: 2px solid #2c4ca4;
+    border-left: 1px solid #88a0c0;
+    border-top: 1px solid #88a0c0;*/
+}
+.reloadButton:active {
+    background:-webkit-linear-gradient(60deg, #8FA7D8, #326DDB);
+    background:-moz-linear-gradient(60deg, #98b0e0, #326DDB);
+    background:-ms-linear-gradient(60deg, #98b0e0, #326DDB);
+    background:-o-linear-gradient(60deg, #98b0e0, #326DDB);
+    background:linear-gradient(60deg, #98b0e0, #4176D8);
+}
+.reloadButton:hover {
+    border-left: 2px solid #444;
+    border-top: 2px solid #444;
+    border-bottom: 2px solid #333;
+    border-right: 2px solid #333;
+    box-shadow: 2px 2px 2px #555;
+    -webkit-box-shadow: 2px 2px 2px #555;
+    top:4px;
+}
+
 .helpButton {
     font-family: Arial;
     height: 25px;
@@ -383,7 +497,12 @@ h2 {
 
 .searchOptions {
     float:right;
-    margin-top: 12px;
+    margin-top: 32px;
+    line-height: 24px;
+}
+
+.orderOptions {
+    margin-top: 8px;
 }
     
 .logTextField {
@@ -561,73 +680,7 @@ h3 {
     font-size: 15px;
     font-style: italic;
     
-    border-bottom: 2px solid #585;
-    border-right: 2px solid #585;
-    border-left: 2px solid #80c880;
-    border-top: 2px solid #80c880;
-   /*aborder: 0px solid black;*/
     
-    border-bottom: 2px solid #885;
-    border-right: 2px solid #885;
-    border-left: 2px solid #f0f090;
-    border-top: 2px solid #f0f090;
-    background-color: #f0f0f0;
-    
-}
-
-.clickableButton, .unclickableButton {
-    display: block;
-    text-align: center;
-    cursor: pointer;
-    color: black;
-    padding: 3px;
-    -webkit-border-radius:8px;
-    -moz-border-radius:8px;
-    border-radius:8px;
-    
-    background:-webkit-linear-gradient(-60deg, #fff4a0, #ac9c30);
-    background:-o-linear-gradient(-60deg, #fff4a0, #ac9c30);
-    background: -moz-linear-gradient(-60deg, #fff4a0, #ac9c30);
-    background: -ms-linear-gradient(-60deg, #fff4a0, #ac9c30);
-    background: linear-gradient(-60deg, #fff4a0, #ac9c30);
-}
-.clickableButton:visited, .clickableButton:link, .clickableButton:hover,
-.unclickableButton:visited, .unclickableButton:link, .unclickableButton:hover {
-    color: black;
-    text-decoration: none;
-}
-.unclickableButton, .unclickableButton:hover, .unclickableButton:active {
-    background:-webkit-linear-gradient(60deg, #f0f0f0, #a0a0a0);
-    background:-o-linear-gradient(60deg, #f0f0f0, #a0a0a0);
-    background: -moz-linear-gradient(60deg, #f0f0f0, #a0a0a0);
-    background: -ms-linear-gradient(60deg, #f0f0f0, #a0a0a0);
-    background: linear-gradient(60deg, #f0f0f0, #a0a0a0);
-    border-left: 2px solid #ddd;
-    border-top: 2px solid #ddd;
-    border-bottom: 2px solid #666;
-    border-right: 2px solid #666;
-    cursor: not-allowed;
-}
-.clickableButton:hover {
-    border-left: 2px solid #444;
-    border-top: 2px solid #444;
-    border-bottom: 2px solid #333;
-    border-right: 2px solid #333;
-    box-shadow: 4px 4px 4px #555;
-    -webkit-box-shadow: 4px 4px 4px #555;
-    top:4px;
-}
-.clickableButton:active{
-    top:6px;
-    left:4px;
-    border: 0px solid #333;
-    background:-webkit-linear-gradient(60deg, #fff4a0, #ac9c30);
-    background:-o-linear-gradient(60deg, #fff4a0, #ac9c30);
-    background: -moz-linear-gradient(60deg, #fff4a0, #ac9c30);
-    background: -ms-linear-gradient(60deg, #fff4a0, #ac9c30);
-    background: linear-gradient(60deg, #fff4a0, #ac9c30);
-    box-shadow: 0px 0px 0px #b9b, 0px 0px 0px #444;
-    -webkit-box-shadow: 0px 0px 0px #b9b, 0px 0px 0px #444;
 }
 .warning {
     font-style: italic;
