@@ -1,10 +1,11 @@
 from __future__ import division, print_function
 
 import time
+import traceback
 
 from sql_loader import SqlLoader
 import mysql.connector
-from mysql.connector import errorcode, IntegrityError
+from mysql.connector import errorcode, IntegrityError, InternalError
 import random
 
 # from common
@@ -57,7 +58,7 @@ class ChatSql(SqlLoader):
     # ----------------------------------------- Table Insertion ---------------------------------------------------------------
 
     def insertBadges(self, values):
-        self.cursor.execute(("REPLACE INTO badges "
+        self.cursor.execute(("INSERT INTO badges "
                              "(badge_id, url_id, title, description) "
                              "VALUES (%s, %s, %s, %s)"), values)
 
@@ -81,14 +82,17 @@ class ChatSql(SqlLoader):
                              "(username, twitch_id, color, moder, sub, turbo, display_name, updated_at) "
                              "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"), values)
 
-    def insert(self, table, items):
+    def insert(self, table, items, duplicateUpdateItems=None):
         command = "INSERT INTO %s (%s) VALUES (%s)" % \
                   (table,
                    ', '.join(items.keys()),
                    ', '.join(('%s',) * len(items)))
-        # print(command)
-        # print(items)
-        self.cursor.execute(command, items.values())
+        values = items.values()
+        if duplicateUpdateItems:
+            command += " ON DUPLICATE KEY UPDATE " \
+                       + ', '.join(("%s=%%s" % k for k in duplicateUpdateItems.keys()))
+            values += duplicateUpdateItems.values()
+        self.cursor.execute(command, values)
 
     # ----------------------------------------- Table Query ---------------------------------------------------------------
     def queryPartitions(self, values):
@@ -253,24 +257,36 @@ class ChatSql(SqlLoader):
         # sanitize the display name
         # if dispName.lower() != username.lower():
         #     dispName = ''
-        (userId, color) = self._insertOrUpdateUser(
-            username, color, mod, sub, turbo, twitchId, dispName, dateStr)
-        self.commit()
-        # WRITE MESSAGE
-        if filters.isMisty(text):
-            return
+        attempts = 0
+        while True:
+            try:
+                (userId, color) = self._insertOrUpdateUser(
+                    username, color, mod, sub, turbo, twitchId, dispName, dateStr)
+                self.commit()
 
-        if self._isDuplicateMessage(userId, dateStr, text):
-            return
-            # raise Exception("duplicate message: %s %s %s" % (dateStr, userId, text))
+                if filters.isMisty(text):
+                    return
+                if self._isDuplicateMessage(userId, dateStr, text):
+                    return
+                    # raise Exception("duplicate message: %s %s %s" % (dateStr, userId, text))
 
-        msgId = self._insertMessage(userId, username, is_action, dateStr, text)
-
-        self._insertMsgData(msgId, emotes, text, videoId, videoOffsetSeconds, dispName, color)
-
-        self._insertMsgBadges(msgId, badges)
-
-        self.commit()
+                msgId = self._insertMessage(userId, username, is_action, dateStr, text)
+                self._insertMsgData(msgId, emotes, text, videoId, videoOffsetSeconds, dispName, color)
+                self._insertMsgBadges(msgId, badges)
+                self.commit()
+            except (IntegrityError, InternalError):
+                print('message processing failed with %s' % traceback.format_exc())
+                print('in transaction: %s' % self.in_transaction)
+                attempts += 1
+                if attempts >= 5:
+                    raise Exception('could not insert message after several attempts')
+                else:
+                    print('sleeping before attempting again')
+                    # user in db already thanks to another thread
+                    # but the fresh insert may not be available in our locked data set.  Refresh it
+                    if self.in_transaction():
+                        self.rollback()
+                    time.sleep(attempts * attempts)  # wait a bit
 
     def _isDuplicateMessage(self, userId, dateStr, text):
         self.queryDuplicateMessage((userId, dateStr, text))
@@ -295,7 +311,6 @@ class ChatSql(SqlLoader):
         self.insert('messages', messagesInsertItems)
 
         return self.cursor.lastrowid  # msg_id of our inserted message
-
 
     def _insertMsgData(self, msgId, emotes, text, videoId, videoOffsetSeconds, dispName, color):
         msgDataInsertItems = {
@@ -369,17 +384,9 @@ class ChatSql(SqlLoader):
         idAndColor = self._queryIdAndColor(username, color)
         if not idAndColor:
             # insert if that didn't work- user not in db
-            try:
-                idAndColor = self._insertUser(username, color, mod, sub, turbo, twitchId, dispName, dateStr)
-                return idAndColor
-            except IntegrityError:
-                print('insertion failed. Committing, sleeping and attempting re-query')
-                # user in db already thanks to another thread
-                # but the fresh insert may not be available in our locked data set.  Refresh it
-                self.commit()
-                time.sleep(1)  # wait a bit just in case.  Don't know if necessary
-                idAndColor = self._queryIdAndColor(username, color)
-                # fall through and update user
-        (userId, color) = idAndColor
-        self.updateUserIfInDB(userId, username, color, mod, sub, turbo, twitchId, dispName, dateStr)
-        return idAndColor
+            idAndColor = self._insertUser(username, color, mod, sub, turbo, twitchId, dispName, dateStr)
+            return idAndColor
+        else:
+            (userId, color) = idAndColor
+            self.updateUserIfInDB(userId, username, color, mod, sub, turbo, twitchId, dispName, dateStr)
+            return idAndColor

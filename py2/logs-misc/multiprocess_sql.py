@@ -23,6 +23,10 @@ for path in paths:
 from common import filters
 from common.chat_sql import ChatSql
 
+# note- resizing pycharm terminal to see what processes finished is bugged and
+# can delete a few lines printed to the terminal.  Scroll instead, or resize
+# terminal before a ctrl-c
+
 
 def main():
     mongo_comments_insert()
@@ -42,7 +46,7 @@ def mongo_comments_insert():
 
     # min_date = datetime.strptime('2016-12-06T05:23:08.426', '%Y-%m-%dT%H:%M:%S.%f')
     # max_date = datetime.strptime('2016-12-16T15:25:42.425', '%Y-%m-%dT%H:%M:%S.%f')
-    min_date = datetime.strptime('2020-04-02T15:25:42.425', '%Y-%m-%dT%H:%M:%S.%f')
+    min_date = datetime.strptime('2023-03-23T15:25:42.425', '%Y-%m-%dT%H:%M:%S.%f')
     # max_date = datetime.strptime('2016-12-16T15:25:42.425', '%Y-%m-%dT%H:%M:%S.%f')
     interval_size = timedelta(minutes=20)
     partition_ranges = get_partition_ranges_of_time_interval(interval_size, min_date, max_date)

@@ -46,6 +46,12 @@ class SqlLoader:
 	def commit(self):
 		# print("Changes were committed.")
 		self.cnx.commit()
+
+	def rollback(self):
+		self.cnx.rollback()
+
+	def in_transaction(self):
+		return self.cnx.in_transaction
 		
 	def close(self):
 		# print("Connection closed.\n")
