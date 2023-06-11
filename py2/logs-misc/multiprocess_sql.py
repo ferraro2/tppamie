@@ -25,10 +25,14 @@ from common.chat_sql import ChatSql
 
 
 def main():
-    # microsecond_assign()
-    # tppvisuals_message_update()
     mongo_comments_insert()
-    pass
+
+    # go through all messages and modify them in some way
+    # e.g. if our input regex is modified, we can update the flags with this
+    # message_update()
+
+    # old script to add microseconds to messages with same tstamp, so they can sort by tstamp
+    # microsecond_assign()
 
 
 def mongo_comments_insert():
@@ -38,7 +42,7 @@ def mongo_comments_insert():
 
     # min_date = datetime.strptime('2016-12-06T05:23:08.426', '%Y-%m-%dT%H:%M:%S.%f')
     # max_date = datetime.strptime('2016-12-16T15:25:42.425', '%Y-%m-%dT%H:%M:%S.%f')
-    min_date = datetime.strptime('2020-02-26T15:25:42.425', '%Y-%m-%dT%H:%M:%S.%f')
+    min_date = datetime.strptime('2020-04-02T15:25:42.425', '%Y-%m-%dT%H:%M:%S.%f')
     # max_date = datetime.strptime('2016-12-16T15:25:42.425', '%Y-%m-%dT%H:%M:%S.%f')
     interval_size = timedelta(minutes=20)
     partition_ranges = get_partition_ranges_of_time_interval(interval_size, min_date, max_date)
@@ -172,7 +176,7 @@ def get_partition_ranges_of_time_interval(interval_duration, min_date, max_date)
     return results
 
 
-def tppvisuals_message_update():
+def message_update():
     num_processes = 15
     # min_date = datetime.min
     max_date = datetime.max
@@ -191,10 +195,10 @@ def tppvisuals_message_update():
         print(pr)
 
     print('%d partition ranges' % len(partition_ranges))
-    perform_partitions_work(partition_ranges, num_processes, tppvisuals_message_update_consumer)
+    perform_partitions_work(partition_ranges, num_processes, message_update_consumer)
 
 
-def tppvisuals_message_update_consumer(i, q):
+def message_update_consumer(i, q):
     auth = json.load(open('../../oauth.json'))
     sql = ChatSql('tpp_chat', auth['mysql']['user'], auth['mysql']['pass'])
     # results = []
@@ -226,16 +230,16 @@ def tppvisuals_message_update_consumer(i, q):
                 sql.update('messages', msg_update_items, msg_update_criteria)
 
                 # print('[%s] %s: %s (%s)' % (tstamp, msg_id, msg_update_items, msg.encode('utf-8')))
-                search_text = 'tppvisuals.com'
-                replace_text = 'tppamie.com'
-                if search_text in msg:
-                    msg_data_update_items = {
-                        'msg': msg.replace(search_text, replace_text),
-                    }
-                    msg_data_update_criteria = {
-                        'msg_id': msg_id,
-                    }
-                    sql.update('msg_data', msg_data_update_items, msg_data_update_criteria)
+                # search_text = 'tppvisuals.com'
+                # replace_text = 'tppamie.com'
+                # if search_text in msg:
+                #     msg_data_update_items = {
+                #         'msg': msg.replace(search_text, replace_text),
+                #     }
+                #     msg_data_update_criteria = {
+                #         'msg_id': msg_id,
+                #     }
+                #     sql.update('msg_data', msg_data_update_items, msg_data_update_criteria)
                     # print('[%s] %s: %s (%s)' % (tstamp, msg_id, msg_data_update_items, msg.encode('utf-8')))
 
             sql.commit()

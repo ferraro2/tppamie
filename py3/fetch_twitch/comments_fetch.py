@@ -41,7 +41,7 @@ Usage:
     to resume progress.
     
     To clear progress, run this script with the -r option.  This marks all videos as 
-    unprocessed, but does not delete any fetched comments. 
+    unprocessed, but does not delete any fetched comments.  
 """
 
 MONGO_SERVER_URI = '127.0.0.1:27017'
@@ -54,6 +54,7 @@ PRINT_PROGRESS_PER_N_PAGES = 500
 VIDEOS_PROGRESS_SORT_CREATED_AT = pymongo.ASCENDING
 
 # must clear progress with -r for this to update
+# don't worry about any overlap- upsert by id prevents duplicates
 ONLY_VIDEOS_AFTER_DATE = '2016-03-02T00:00:00Z'
 
 VideoWork = namedtuple("VideoWork", "video offset_seconds queue_pos")
