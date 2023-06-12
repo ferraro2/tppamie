@@ -468,7 +468,7 @@ function sphinxPrevResultsExist($pdo, $query, $query_filter, $tstamp_sphinx) {
     $prev_query = "SELECT id FROM"
             . " tppMain, tppDelta1, tppDelta2, tppDelta3, tppDelta4, "
             . " tppDelta5, tppDelta6"
-            . " WHERE $filter AND Match(?)"
+            . " WHERE Match(?) $filter "
             ." AND tstamp < $tstamp_sphinx LIMIT 1";
     echo "Sphinx prev results query: <br>$prev_query<br>";
     $prev_results = $pdo->prepare($prev_query);
@@ -487,7 +487,7 @@ function sphinxNextResultsExist($pdo, $query, $query_filter, $tstamp_sphinx) {
     $next_query = "SELECT id FROM"
             . " tppMain, tppDelta1, tppDelta2, tppDelta3, tppDelta4, "
             . " tppDelta5, tppDelta6"
-            . " WHERE $filter AND Match(?)"
+            . " WHERE Match(?) $filter "
             . " AND tstamp > $tstamp_sphinx LIMIT 1";
     echo "Sphinx next results query: <br>$next_query<br>";
     $next_results = $pdo->prepare($next_query);
