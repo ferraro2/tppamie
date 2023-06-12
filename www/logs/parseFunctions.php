@@ -63,7 +63,7 @@
                 substr($sphinx_date, 8, 2) . ':' . 
                 substr($sphinx_date, 10, 2) . '.' . 
                 substr($sphinx_date, 12, 6);
-        echo "<$nicer_sphinx>";
+//        echo "<$nicer_sphinx>";
         return new DateTimeImmutable($nicer_sphinx);
     } 
     
