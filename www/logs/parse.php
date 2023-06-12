@@ -59,7 +59,7 @@ if(!preg_match("/^from|to$/", $user_date_direction)) {
 }
 
 $query_filter_array = array();
-//array_push($query_filter_array, "is_hidden=0");
+array_push($query_filter_array, "is_hidden=0");
 if (!$query_flags->show_game_inputs->val) {
     array_push($query_filter_array, "is_input=0");
     array_push($query_filter_array, "is_match_command=0");
@@ -339,7 +339,7 @@ if($user_date) {
         $new_link .= "to/" . $to_date_url . "/";
     } 
 
-    $new_link .= getReplacementQuery($query_flags);
+    $new_link .= getRedactedQuery($query_flags);
     header("Location: " . $new_link);
 }
 
