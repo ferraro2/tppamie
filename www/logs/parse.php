@@ -58,20 +58,21 @@ if(!preg_match("/^from|to$/", $user_date_direction)) {
     $user_date_direction = "";
 }
 
-$msg_flags_filter_array = array();
+$query_filter_array = array();
+//array_push($query_filter_array, "is_hidden=0");
 if (!$query_flags->show_game_inputs->val) {
-    array_push($msg_flags_filter_array, "is_input=0");
-    array_push($msg_flags_filter_array, "is_match_command=0");
+    array_push($query_filter_array, "is_input=0");
+    array_push($query_filter_array, "is_match_command=0");
 }
 if (!$query_flags->show_tpp_bot->val) {
-    array_push($msg_flags_filter_array, "is_bot=0");
+    array_push($query_filter_array, "is_bot=0");
 }
 if (!$query_flags->show_unwhitelisted_chars->val) {
-    array_push($msg_flags_filter_array, "has_unwhitelisted_chars=0");
+    array_push($query_filter_array, "has_unwhitelisted_chars=0");
 }
-$msg_flags_filter = implode(" AND ", $msg_flags_filter_array);
-if ($msg_flags_filter == "") {
-    $msg_flags_filter = " 1 ";
+$query_filter = implode(" AND ", $query_filter_array);
+if ($query_filter == "") {
+    $query_filter = " 1 ";
 }
 
 /*

@@ -52,7 +52,7 @@
         list($had_results, $query_was_valid, $min_tstamp_mysql, $max_tstamp_mysql, 
                 $results, $prev_results_exist, $next_results_exist) = 
                 mysqlQuery($mysql_config, $jump_id, $fetch_tstamp_range_filter,
-                        $fetch_tstamp_sort, $msg_flags_filter, 
+                        $fetch_tstamp_sort, $query_filter, 
                         $display_tstamp_sort);
 //        $time_post = microtime(true);
 //        echo "<br>MysqlQuery took " . ($time_post - $time_pre) . " s<br>";
@@ -148,7 +148,7 @@
         $hostname = "localhost"; 
         list($had_results, $query_was_valid, $min_tstamp_sphinx, $max_tstamp_sphinx,
                 $msg_ids, $meta, $prev_results_exist, $next_results_exist)
-                = sphinxQuery($hostname, $sphinx_match_query, $msg_flags_filter, 
+                = sphinxQuery($hostname, $sphinx_match_query, $query_filter, 
                         $fetch_tstamp_range_filter, $fetch_tstamp_sort);
         $min_tstamp_DTI = getNullableDTIFromSphinxDate($min_tstamp_sphinx);
         $max_tstamp_DTI = getNullableDTIFromSphinxDate($max_tstamp_sphinx);
