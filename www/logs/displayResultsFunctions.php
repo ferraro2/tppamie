@@ -120,15 +120,16 @@ function userHtml($name, $href, $color, $display_name, $badge_ids_str,
 //        $ret .= ' ' . getImg("https://static-cdn.jtvnw.net/jtv_user_pictures/badges/1591/18x18.png", 'Subscriber');
     //if ($turbo)
       //  $ret .= ' ' . getImg("https://static-cdn.jtvnw.net/chat-badges/turbo.png", 'Turbo');
-   
-    $badge_titles = explode(',', $badge_titles_str);
-    $badge_url_ids = explode(',', $badge_url_ids_str);
-    
-    foreach($badge_url_ids as $index => $badge_url_id) {
-        $badge_title = $badge_titles[$index];
-        $ret .= " " . getImg("https://static-cdn.jtvnw.net/badges/v1/"
-                        . $badge_url_id . "/1", $badge_title);
-    }
+   if ($badge_url_ids_str != "") {
+        $badge_titles = explode(',', $badge_titles_str);
+        $badge_url_ids = explode(',', $badge_url_ids_str);
+        foreach($badge_url_ids as $index => $badge_url_id) {
+            $badge_title = $badge_titles[$index];
+            $ret .= " " . getImg("https://static-cdn.jtvnw.net/badges/v1/"
+                            . $badge_url_id . "/1", $badge_title);
+        }
+       
+   }
     
     if(strcasecmp($name, $display_name)) {
         $display_name = "$name ($display_name)";
@@ -221,6 +222,14 @@ function getJumpToIdLink($id, $options_only_query) {
 
 function getVodLink($id, $offset) {
     return $id? "https://www.twitch.tv/videos/$id?t={$offset}s" : null;
+}
+
+function restoredDate($from_date, $to_date) {
+    if($from_date) {
+        return h(getMysqlDateNoUSFromNullableDTI($from_date));
+    } else {
+        return h(getMysqlDateNoUSFromNullableDTI($to_date));
+    }
 }
 
 ?>

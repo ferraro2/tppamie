@@ -7,7 +7,6 @@ define(['jquery'],
     
     var baseEnd = window.location.href.indexOf('/logs');
     var SITE = window.location.href.substr(0, baseEnd) + '/logs/';
-    var SITE = window.location.href.substr(0, baseEnd) + '/logs/';
     /*
      * Toggle div element containing additional query fields
      * 
@@ -94,7 +93,7 @@ define(['jquery'],
         /* put the original value back (in case user presses back button) */
 //        dateEl.val = oldJumpVal;
         var newQueryArr = [];
-        
+//        console.log(oldQueryArr);
         /*
          * Remove all empty variables from old query
          */
@@ -110,6 +109,7 @@ define(['jquery'],
         var dest = SITE;
         dest += newQueryString.length !== 0 ? "?" : "";
         dest += newQueryString;
+//        console.log("redirecting to " + dest);
         window.location.href = dest;
         //requestPage(query);
     }

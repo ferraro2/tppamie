@@ -48,7 +48,6 @@ if($had_results) {
 
 //    $time_pre = microtime(true);
     foreach ($results AS $result) {
-
 //        if (false && !$flag_has_unwhitelisted_chars && !$result->has_unwhitelisted_chars) {
 //            continue;
 //        }

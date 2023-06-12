@@ -81,8 +81,12 @@
        </span>
        </h2>
        <div style="float: left;">
-           <input type="text" id="js-date" name="date" value="" 
+           <input type="text" id="js-date" name="date" 
+                  value="" 
                   class="logTextField form-date tooltip"/>
+<!--           <input type="text" id="js-date" name="date" 
+                  value="<?php echo restoredDate($from_date, $to_date)?>" 
+                  class="logTextField form-date tooltip"/>-->
        </div>
        
        
@@ -173,7 +177,8 @@
    <p>To have all your messages removed from this site, just whisper me from the 
        Twitch account in question. Then let me know on Discord, and I will 
        remove them promptly, no questions asked.<br>
-      If you prefer, I can also remove individual messages of your choice.
+      If you prefer, I can also remove individual messages of your choice, 
+      or all messages in any specified time range.
    </p>
    <p>This site provides an identical experience for all its visitors.  
        Your activity on this site will not be exposed to any other party, in any way.</p>

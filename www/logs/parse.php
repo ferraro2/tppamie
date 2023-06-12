@@ -58,15 +58,21 @@ if(!preg_match("/^from|to$/", $user_date_direction)) {
     $user_date_direction = "";
 }
 
-
-$msg_flags_filter = " 1 ";
-$msg_flags_filter .= $query_flags->show_game_inputs->val
-        ? "" : " and is_input=0 and is_match_command=0 ";
-$msg_flags_filter .= $query_flags->show_tpp_bot->val
-        ? "" : " and is_bot=0 ";
-$msg_flags_filter .= $query_flags->show_unwhitelisted_chars->val
-        ? "" : " and has_unwhitelisted_chars=0 ";
-
+$msg_flags_filter_array = array();
+if (!$query_flags->show_game_inputs->val) {
+    array_push($msg_flags_filter_array, "is_input=0");
+    array_push($msg_flags_filter_array, "is_match_command=0");
+}
+if (!$query_flags->show_tpp_bot->val) {
+    array_push($msg_flags_filter_array, "is_bot=0");
+}
+if (!$query_flags->show_unwhitelisted_chars->val) {
+    array_push($msg_flags_filter_array, "has_unwhitelisted_chars=0");
+}
+$msg_flags_filter = implode(" AND ", $msg_flags_filter_array);
+if ($msg_flags_filter == "") {
+    $msg_flags_filter = " 1 ";
+}
 
 /*
 * Ensure query and user vars are strings
@@ -181,13 +187,13 @@ if(!$query_present) {
     }
 } else { /* query present */
     $flag_display_sort_asc = $query_flags->display_sort_asc->val;
-    $str_display_sort_asc = $flag_display_sort_asc ? " asc " : " desc ";
+    $display_tstamp_sort = " ORDER BY tstamp " . 
+            ($flag_display_sort_asc ? " asc " : " desc ");
     if($from_date) {
-        $fetch_tstamp_range_filter = " tstamp >= '$from_date_sphinx' ";
+        $fetch_tstamp_range_filter = " tstamp >= $from_date_sphinx ";
         $fetch_tstamp_sort = " ORDER BY tstamp asc ";
     } else if ($to_date) {
-        $str_display_sort_asc = $flag_display_sort_asc ? " asc " : " desc ";
-        $fetch_tstamp_range_filter = " tstamp <= '$to_date_sphinx' ";
+        $fetch_tstamp_range_filter = " tstamp <= $to_date_sphinx ";
         $fetch_tstamp_sort = " ORDER BY tstamp desc ";
     } else {
         if ($user_date_direction === 'from') {
@@ -337,8 +343,8 @@ if($user_date) {
 }
 
 
-//$trimmed_query = getTrimmedQuery($query_flags);
-$flags_only_query = getReplacementQuery($query_flags, True);
+$redacted_query = getRedactedQuery($query_flags);
+$flags_only_query = getRedactedQuery($query_flags, True);
 $reverse_display_sort_url = getReverseDisplaySortUrl($query_flags);
 //echo $trimmed_query;
 //echo $flags_only_query;

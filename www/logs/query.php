@@ -136,28 +136,28 @@
      ***********************************************************/
     
     else {
-        echo("NOT HERE");
         /*
          * get Match query from params
          */
         $sphinx_match_query = getMatchQuery($q1, $q2, $q3, $u1, $u2, $u3);
         //$sphinx_match_query = "(@msg (\\@z33k33))";
-        //echo "Sphinx Match Query: $sphinx_match_query<br>";
+        echo "Sphinx Match Query: $sphinx_match_query<br>";
         /*
         * sphinx doesn't take a username or password, just the hostname
         */
         $hostname = "localhost"; 
-        list($had_results, $query_was_valid, $min_tstamp_mysql, $max_tstamp_mysql,
+        list($had_results, $query_was_valid, $min_tstamp_sphinx, $max_tstamp_sphinx,
                 $msg_ids, $meta, $prev_results_exist, $next_results_exist)
-                = sphinxQuery($hostname, $sphinx_match_query, $fetch_tstamp_sort);
+                = sphinxQuery($hostname, $sphinx_match_query, $msg_flags_filter, 
+                        $fetch_tstamp_range_filter, $fetch_tstamp_sort);
+        $min_tstamp_DTI = getNullableDTIFromSphinxDate($min_tstamp_sphinx);
+        $max_tstamp_DTI = getNullableDTIFromSphinxDate($max_tstamp_sphinx);
         
         /***********************************************************
          *   DUMP RESULTS, PREPARE MYSQL QUERY
          ***********************************************************/
 
         if ( $had_results ) {
-            $min_tstamp_DTI = new DateTimeImmutable($min_tstamp_mysql);
-            $max_tstamp_DTI = new DateTimeImmutable($max_tstamp_mysql);
             $min_tstamp_url_sub1us = getUrlDateFromNullableDTI(
                     $min_tstamp_DTI->modify("-1 microsecond"));
             $max_tstamp_url_plus1us = getUrlDateFromNullableDTI(
@@ -208,7 +208,7 @@
                         . " tstamp, is_action, emote_locs, msg, video_id, "
                         . " video_offset_seconds, md.display_name "
                         . " $display_tstamp_sort ";
-                echo "<br>$all_msg_query<br>";
+                echo "Sphinx msg ids query: <br>$all_msg_query<br>";
                 $all_msg_result = $pdo->prepare($all_msg_query);
                 $all_msg_result->execute( $msg_ids );
 
@@ -233,8 +233,8 @@
             $total_found_str = number_format($total_found);
             
             $meta_info = "$total_found_str hits ($search_duration seconds)<br>"
-                    . "&nbsp&nbsp" . $min_tstamp_DTI.format("M jS Y\, g\:i a") 
-                    . " - <br>". $max_tstamp_DTI.format("M jS Y\, g\:i a") . "   ";
+                    . "&nbsp&nbsp" . $min_tstamp_DTI->format("M jS Y\, g\:i a") 
+                    . " - <br>". $max_tstamp_DTI->format("M jS Y\, g\:i a") . "   ";
                     
 //            $meta_info .= $flag_display_sort_asc
 //                    ? "<br><span class=\"alert\">Chronological order.</span>"
@@ -245,10 +245,10 @@
             $meta_info = "";
             if ($query_was_valid) {
                 /* print some meta info about the query */
-                if($from_date_mysql !== '') {
+                if($from_date) {
                     $meta_info .= "Searched after:<br> $from_date_mysql";
-                } else if($to_date !== '') {
-                    $meta_info .= "Searched before $to_date";
+                } else if($to_date) {
+                    $meta_info .= "Searched before $to_date_mysql";
                 }
             } else {
                 $meta_info .= "<span class=\"warning\">"
@@ -262,7 +262,7 @@
             $PREV_BUTTON_CLASS = "clickableButton";
             $PREV_LINK = SITE . "to/"
                     . $min_tstamp_url_sub1us
-                    . "/$flags_only_query";
+                    . "/$redacted_query#";
             if ($flag_display_sort_asc) {
                 $PREV_LINK_TOP = $PREV_LINK . "bottom";
                 $PREV_LINK_BOTTOM = $PREV_LINK . "bottom";
@@ -280,7 +280,7 @@
         if($next_results_exist) {
             $NEXT_LINK = SITE . "from/"
                     . $max_tstamp_url_plus1us
-                    . "/$flags_only_query";
+                    . "/$redacted_query#";
 //            $NEXT_LINK .= $flag_display_sort_asc ? "#top" : "&sort=latest#bottom";
             
             $NEXT_BUTTON_CLASS = "clickableButton";

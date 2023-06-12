@@ -6,7 +6,7 @@
      ***********************************************************/
 
     define("DATE_SANITIZE", "/[^a-zA-Z0-9\-:\s\\/,\+\.]/");
-    define("USER_SANITIZE", "/[^a-zA-Z0-9_ ]/");
+    define("USER_SANITIZE", "/[^a-zA-Z0-9_ !]/");
     define("ID_SANITIZE", "/[^0-9]/");
 
     /*
@@ -47,6 +47,26 @@
         }
     } 
     
+    function getNullableDTIFromSphinxDate($sphinx_date) {
+//        echo "<br>";
+//        echo strval($sphinx);
+//        echo "<br>";
+        // dunno if this conversion is needed
+        if ($sphinx_date === 0) {
+            return null;
+        }
+        $nicer_sphinx = '20' . 
+                substr($sphinx_date, 0, 2) . '-' . 
+                substr($sphinx_date, 2, 2) . '-' . 
+                substr($sphinx_date, 4, 2) . ' ' . 
+                substr($sphinx_date, 6, 2) . ':' . 
+                substr($sphinx_date, 8, 2) . ':' . 
+                substr($sphinx_date, 10, 2) . '.' . 
+                substr($sphinx_date, 12, 6);
+        echo "<$nicer_sphinx>";
+        return new DateTimeImmutable($nicer_sphinx);
+    } 
+    
     function getUrlDateFromNullableDTI($dti) {
         if ($dti == null) {
             return "";
@@ -61,11 +81,18 @@
         return $dti->format("Y-m-d H\:i\:s.u");
     }
     
+    function getMysqlDateNoUSFromNullableDTI($dti) {
+        if ($dti == null) {
+            return "";
+        }
+        return $dti->format("Y-m-d H\:i\:s");
+    }
+    
     function getSphinxDateFromNullableDTI($dti) {
         if ($dti == null) {
             return "";
         }
-        return $dti->format("Y-m-d H\:i\:s.u");
+        return intval($dti->format("ymdHisu"));
     }
 
     function getParsedUrl() {
@@ -131,7 +158,7 @@
      * checkbox flags.
      * Used for jump/header links
      */
-    function getReplacementQuery($query_flags, $flags_only=False,
+    function getRedactedQuery($query_flags, $flags_only=False,
             $reverse_sort=False) {
        $query = $_SERVER['QUERY_STRING'];
        parse_str($query, $query_arr);

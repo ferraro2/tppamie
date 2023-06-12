@@ -264,7 +264,8 @@ function mysqlQuery($config, $jump_id, $fetch_tstamp_range_filter,
  *      PRIMARY SPHINX ROUTINE
  ***********************************************************
  ***********************************************************/
-function sphinxQuery($hostname, $sphinx_match_query, $inner_tstamp_sort) {
+function sphinxQuery($hostname, $sphinx_match_query, $msg_flags_filter, 
+        $fetch_tstamp_range_filter, $fetch_tstamp_sort) {
 
     /*
      * only one prepared parameter here- unfortunately, Sphinx doesn't like 
@@ -278,8 +279,9 @@ function sphinxQuery($hostname, $sphinx_match_query, $inner_tstamp_sort) {
        echo "setting attribute<br>";
        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
        echo "running subroutine<br>";
-        list($had_results, $msg_ids, $min_tstamp, $max_tstamp) =
-           getSphinxIdsAndRange($pdo, $sphinx_match_query, $inner_tstamp_sort);
+        list($had_results, $msg_ids, $min_tstamp_sphinx, $max_tstamp_sphinx) =
+           getSphinxIdsAndRange($pdo, $sphinx_match_query, $msg_flags_filter, 
+                   $fetch_tstamp_range_filter, $fetch_tstamp_sort);
         
         if ($had_results) {
             $meta = sphinxGetMeta($pdo);
@@ -287,13 +289,15 @@ function sphinxQuery($hostname, $sphinx_match_query, $inner_tstamp_sort) {
              * get flags indicating whether previous / next results exist
              */
             $prev_results_exist = sphinxPrevResultsExist(
-                    $pdo, $sphinx_match_query, $min_tstamp);
+                    $pdo, $sphinx_match_query, $msg_flags_filter, 
+                    $min_tstamp_sphinx);
             $next_results_exist = sphinxNextResultsExist(
-                    $pdo, $sphinx_match_query, $max_tstamp);
+                    $pdo, $sphinx_match_query, $msg_flags_filter, 
+                    $max_tstamp_sphinx);
             
             /* close the sphinx connection */
             $pdo = null;
-            return [$had_results, true, $min_tstamp, $max_tstamp,
+            return [$had_results, true, $min_tstamp_sphinx, $max_tstamp_sphinx,
                  $msg_ids, $meta, $prev_results_exist, $next_results_exist];
         } else {
             /* close the sphinx connection */
@@ -400,17 +404,25 @@ function getMatchQuery($q1, $q2, $q3, $u1, $u2, $u3) {
 /*
  * Get the time range for the query: min_tstamp and max_tstamp
  */
-function getSphinxIdsAndRange($pdo, $sphx_match_string, $tstamp_ordered_range) {
+function getSphinxIdsAndRange($pdo, $sphx_match_string, $msg_flags_filter, 
+        $fetch_tstamp_range_filter, $tstamp_ordered_range) {
+    $filter = $fetch_tstamp_range_filter == " 1 "
+        ? ""
+        : " AND " . $fetch_tstamp_range_filter;
+    $filter .= $msg_flags_filter == " 1 "
+        ? ""
+        : " AND " . $msg_flags_filter;
     /*
     * Execute the search
     */
     $sphx_match_query = "SELECT id, tstamp FROM"
            . " tppMain, tppDelta1, tppDelta2, tppDelta3, tppDelta4, "
            . " tppDelta5, tppDelta6 "
-           . " WHERE is_hidden=0 AND MATCH(?)"
-           . $tstamp_ordered_range
+           . " WHERE is_hidden=0 AND MATCH(?) "
+           . " $filter"
+           . " $tstamp_ordered_range"
            . " LIMIT " . LIMIT;
-    echo $sphx_match_query . "<br>";
+    echo "Sphinx match query: $sphx_match_query<br>";
     $sphx_match_result = $pdo->prepare($sphx_match_query);
     $sphx_match_result->execute( [$sphx_match_string] );
     
@@ -422,16 +434,16 @@ function getSphinxIdsAndRange($pdo, $sphx_match_string, $tstamp_ordered_range) {
     while ($sphx_match_obj = $sphx_match_result->fetchObject()) {
        array_push($msg_ids, $sphx_match_obj->id);
        if ($c++ === 0) {
-           $first_tstamp = $sphx_match_obj->tstamp;
+           $first_tstamp_sphinx = $sphx_match_obj->tstamp;
        }
-       $last_tstamp = $sphx_match_obj->tstamp;
+       $last_tstamp_sphinx = $sphx_match_obj->tstamp;
     }
     if ($c !== 0) {
-        $is_asc = $first_tstamp <= $last_tstamp;
-        $min_tstamp = $is_asc ? $first_tstamp : $last_tstamp;
-        $max_tstamp = $is_asc ? $last_tstamp : $first_tstamp;
+        $is_asc = $first_tstamp_sphinx <= $last_tstamp_sphinx;
+        $min_tstamp_sphinx = $is_asc ? $first_tstamp_sphinx : $last_tstamp_sphinx;
+        $max_tstamp_sphinx = $is_asc ? $last_tstamp_sphinx : $first_tstamp_sphinx;
            
-        return [True, $msg_ids, $min_tstamp, $max_tstamp];
+        return [True, $msg_ids, $min_tstamp_sphinx, $max_tstamp_sphinx];
     } else {
         return [False, null, null, null];
     }
@@ -454,12 +466,16 @@ function sphinxGetMeta($pdo) {
  * Return bool indicating whether results 
  *  exist before tstamp provided
  */
-function sphinxPrevResultsExist($pdo, $query, $tstamp) {
+function sphinxPrevResultsExist($pdo, $query, $msg_flags_filter, $tstamp_sphinx) {
+    $filter = $msg_flags_filter == " 1 "
+        ? ""
+        : " AND " . $msg_flags_filter;
     $prev_query = "SELECT id FROM"
-            . " tppMain, tppDelta1, tppDelta2, tppDelta3, tppDelta4, tppDelta5"
-            . " WHERE is_hidden=0 AND Match(?)"
-            ." AND tstamp < $tstamp LIMIT 1";
-    ##echo "<br>$prev_query<br>";
+            . " tppMain, tppDelta1, tppDelta2, tppDelta3, tppDelta4, "
+            . " tppDelta5, tppDelta6"
+            . " WHERE is_hidden=0 $filter AND Match(?)"
+            ." AND tstamp < $tstamp_sphinx LIMIT 1";
+    echo "Sphinx prev results query: <br>$prev_query<br>";
     $prev_results = $pdo->prepare($prev_query);
     $prev_results->execute( array($query) );
     return $prev_results->fetchObject() == True;
@@ -469,24 +485,20 @@ function sphinxPrevResultsExist($pdo, $query, $tstamp) {
  * Return bool indicating whether results 
  *  exist aftertstamp provided
  */
-function sphinxNextResultsExist($pdo, $query, $tstamp) {
+function sphinxNextResultsExist($pdo, $query, $msg_flags_filter, $tstamp_sphinx) {
+    $filter = $msg_flags_filter == " 1 "
+        ? ""
+        : " AND " . $msg_flags_filter;
     $next_query = "SELECT id FROM"
-            . " tppMain, tppDelta1, tppDelta2, tppDelta3, tppDelta4, tppDelta5"
-            . " WHERE is_hidden=0 AND Match(?)"
-            . " AND tstamp > $tstamp LIMIT 1";
-    ##echo "<br>$next_query<br>";
+            . " tppMain, tppDelta1, tppDelta2, tppDelta3, tppDelta4, "
+            . " tppDelta5, tppDelta6"
+            . " WHERE is_hidden=0 $filter AND Match(?)"
+            . " AND tstamp > $tstamp_sphinx LIMIT 1";
+    echo "Sphinx next results query: <br>$next_query<br>";
     $next_results = $pdo->prepare($next_query);
     $next_results->execute( array($query) );
     return $next_results->fetchObject() == True;
 }
-
-
-
-
-
-
-
-
 
  /*
                      * An old example for connecting to Sphinx via the Sphinx PHP API
