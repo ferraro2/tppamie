@@ -74,10 +74,10 @@
        <h2> 
        <span id="js-jumpRadio" class="sortBy">
            <input id="js-dateDirectionFrom" type="radio" name="dir" value="from">
-           <span class="dateDirection">From Date:</span>
+           <span class="dateDirection dateDirectionFrom">From Date:</span>
            
            <input id="js-dateDirectionTo" type="radio" name="dir" value="to">
-           <span class="dateDirection">To Date:</span>
+           <span class="dateDirection dateDirectionTo">To Date:</span>
        </span>
        </h2>
        <div style="float: left;">
@@ -178,9 +178,11 @@
        Twitch account in question. Then let me know on Discord, and I will 
        remove them promptly, no questions asked.<br>
       If you prefer, I can also remove individual messages of your choice, 
-      or all messages in any specified time range.
+      or all messages in any specified time range.<br>
+      I do not disclose who has made requests or what they requested.
    </p>
-   <p>This site provides an identical experience for all its visitors.  
+   <p>This site provides an identical experience for all its visitors 
+       (e.g., there are no special hidden features for moderators or anyone else).<br>
        Your activity on this site will not be exposed to any other party, in any way.</p>
    <h2>Source Code</h2>
    <p><a href="https://github.com/ferraro2/tppamie">The source for 

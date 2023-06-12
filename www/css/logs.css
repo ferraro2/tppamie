@@ -608,11 +608,11 @@ input[type='radio'] {
 .dateDirection {
 /*    font-weight: 600;*/
 }
-.dateRadioFrom {
-    margin: 3px 7px 0px 5px;
+.dateDirectionFrom {
+    margin: 3px 9px 0px -3px;
 }
-.dateRadioTo {
-    margin: 3px 6px 0px 11px;
+.dateDirectionTo {
+    margin: 3px 0px 0px -4px;
 }
 h3 {
     font-size:20px;
