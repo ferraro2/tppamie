@@ -44,8 +44,9 @@ class QueryOptions {
     
     public function __construct() {
         $valid_checkbox = array('0', '1');
-        $this->show_game_inputs = new QueryOption("inputs", '0', $valid_checkbox);
         $this->show_tpp_bot = new QueryOption("bot", '1', $valid_checkbox);
+        $this->show_commands = new QueryOption("cmds", '1', $valid_checkbox);
+        $this->show_game_inputs = new QueryOption("inputs", '0', $valid_checkbox);
         $this->show_unwhitelisted_chars = new QueryOption("chars", '0', $valid_checkbox);
         $this->display_sort_asc = new QueryOption("sort", '0', $valid_checkbox);
         
@@ -81,6 +82,9 @@ if ($query_options->show_game_inputs->val == '0') {
 }
 if ($query_options->show_tpp_bot->val == '0') {
     array_push($query_filter_array, "is_bot=0");
+}
+if ($query_options->show_commands->val == '0') {
+    array_push($query_filter_array, "is_command=0");
 }
 if ($query_options->show_unwhitelisted_chars->val == '0') {
     array_push($query_filter_array, "has_unwhitelisted_chars=0");

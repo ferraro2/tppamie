@@ -100,11 +100,14 @@ define(['jquery'],
          * Remove all empty variables from old query
          */
         let isBot = false;
+        let showCommands = false;
         oldQueryArr.forEach(function(val) {
             console.log(val);
             var valLen = val.length;
             if (val === 'bot=1') {
                 isBot = true;
+            } else if (val === 'cmds=1') {
+                showCommands = true;
             } else if (val[valLen-1] !== '=' && 
                     !val.startsWith("sort")) {
                 newQueryArr.push(val);
@@ -112,6 +115,9 @@ define(['jquery'],
         });
         if (!isBot) {
             newQueryArr.push("bot=0");
+        }
+        if (!showCommands) {
+            newQueryArr.push("cmds=0");
         }
         
         if (dateFrom.is(":checked")) {
@@ -137,6 +143,7 @@ define(['jquery'],
         let params = new URLSearchParams(window.location.search);
         
         let isBotChecked = $("#js-CheckboxBot").is(":checked");
+        let isCommandsChecked = $("#js-CheckboxCommands").is(":checked");
         let isInputsChecked = $("#js-CheckboxInputs").is(":checked");
         let isCharsChecked = $("#js-CheckboxChars").is(":checked");
         // default True
@@ -144,6 +151,11 @@ define(['jquery'],
             params.delete('bot');
         } else {
             params.set("bot", 0);
+        }
+        if (isCommandsChecked) {
+            params.delete('cmds');
+        } else {
+            params.set("cmds", 0);
         }
         // default False
         if (!isInputsChecked) {

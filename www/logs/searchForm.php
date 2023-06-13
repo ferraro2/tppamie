@@ -8,12 +8,12 @@
 <form id="js-searchForm" class="searchForm" method="get">
     <div>
     <h2>Search For:</h2>
-   <input id="js-q1" type="text" name="q1" value="<?php echo h($q1) ?>" 
-          class="logTextField form-query tooltip"/>
-
-   <button type="button" id="js-helpButton" class="helpButton" tabindex ="-1">Help</button>
-
-   <br>
+    <div>
+        <input id="js-q1" type="text" name="q1" value="<?php echo h($q1) ?>" 
+               class="logTextField form-query tooltip"/>
+        <button type="button" id="js-helpButton" class="helpButton clickableButton redButton"
+           tabindex ="-1">Help</button>
+    </div>
     </div>
    <div class="searchOptions">
        <!----------------------------------------------------------
@@ -30,6 +30,10 @@
                name="<?php echo $query_options->show_game_inputs->name ?>" value="1"
              <?php echo $query_options->show_game_inputs->val_checked_str ?> > Game inputs <i>(up, !a, !bet, !balance, etc.)</i>
         <br> 
+        <input id="js-CheckboxCommands" type="checkbox" class="options" 
+               name="<?php echo $query_options->show_commands->name ?>" value="1"
+             <?php echo $query_options->show_commands->val_checked_str ?> > Commands <i>(anything starting with !)</i>
+        <br> 
         <input id="js-CheckboxChars" type="checkbox" class="options" 
                name="<?php echo $query_options->show_unwhitelisted_chars->name ?>" value="1"
             <?php echo $query_options->show_unwhitelisted_chars->val_checked_str ?> > ASCII spam / unnatural characters
@@ -39,8 +43,9 @@
                name="<?php echo $query_options->display_sort_asc->name ?>" value="1"
              <?php echo $query_options->display_sort_asc->val_checked_str ?> > Display in chronological order-->
         <!--</div>-->
-    <input id="js-reloadButton" type="button" name="reload" 
-           class="clickableButton reloadButton" value="⟳"/><span class="reloadText">Apply to current results</span>
+        <input id="js-reloadButton" type="button" name="reload" 
+               class="clickableButton reloadButton blueButton" 
+               value="⟳"/><span class="reloadText">Apply to current results</span>
 <!--         <input type="checkbox" class="options" name="wlist" value="1" <?php echo $non_wlist_check ?> > Show non-whitelisted -->
 <!--         <br> -->
 <!--         <input type="checkbox" class="options" name="me" value="1" <?php echo $highlight_me_check ?> > Highlight /me -->
@@ -48,11 +53,13 @@
        
    </div>
    <h2>By Users:</h2>
-   <input type="text" id="js-u1" name = "u1" value="<?php echo h($u1) ?>" 
-          class="logTextField form-user tooltip"/>
-
-   <button type="button" id="js-extraFieldsButton" class="extraFieldsButton" tabindex ="-1" ><?php echo $EXTRA_FIELDS_BUTTON_VALUE ?></button>
-   <br>
+   <div>
+        <input type="text" id="js-u1" name = "u1" value="<?php echo h($u1) ?>" 
+               class="logTextField form-user tooltip"/>
+        <button type="button" id="js-extraFieldsButton" 
+                class="extraFieldsButton clickableButton blueButton" 
+                tabindex ="-1" ><?php echo $EXTRA_FIELDS_BUTTON_VALUE ?></button>
+   </div>
    <div id="js-extraFields" class="extraFields" style="<?php echo $EXTRA_FIELDS_DISPLAY ?>">
        <h1>Additional search fields:</h1>
        <input id="js-q2" type="text" name="q2" value="<?php echo h($q2) ?>" class="logTextField form-query tooltip"/>
@@ -69,39 +76,28 @@
        <input type="text" id="js-u3" name = "u3" value="<?php echo h($u3) ?>" class="logTextField form-user tooltip"/>
        <br>
    </div>
-   <div style="float:left;">
-       <h2> 
-       <span id="js-jumpRadio" class="sortBy">
-           <input id="js-dateDirectionFrom" type="radio" name="dir" 
-                  value="from" <?php echo $from_checked?>>
-           <span class="dateDirection dateDirectionFrom">From Date:</span>
-           
-           <input id="js-dateDirectionTo" type="radio" name="dir"
-                  value="to" <?php echo $to_checked?>>
-           <span class="dateDirection dateDirectionTo">To Date:</span>
-       </span>
-       </h2>
-       <div style="float: left;">
-           <input type="text" id="js-date" name="date" 
-                  value="" 
-                  class="logTextField form-date tooltip"/>
-<!--           <input type="text" id="js-date" name="date" 
-                  value="<?php echo restoredDate($from_date, $to_date)?>" 
-                  class="logTextField form-date tooltip"/>-->
-           
+   <div style="display: inline-block;">
+        <h2> Starting from Date:</h2>
+        <input type="text" id="js-date" name="date" 
+           value="" 
+           class="logTextField form-date tooltip"/>
+    <!--           <input type="text" id="js-date" name="date" 
+           value="<?php echo restoredDate($from_date, $to_date)?>" 
+           class="logTextField form-date tooltip"/>-->
 
-       </div>
-       
-       
-   </div>
+        <h3>&nbsp;&nbsp;&nbsp;or from:
+        <input id="js-dateDirectionFrom" type="radio" name="dir" 
+               value="from" <?php echo $from_checked?>>
+        <span class="dateDirection dateDirectionFrom">Earliest</span>
+
+        <input id="js-dateDirectionTo" type="radio" name="dir"
+               value="to" <?php echo $to_checked?>>
+        <span class="dateDirection dateDirectionTo">Latest</span>
+        </h3>
+    </div>
 
     <input id="js-searchButton" type="submit" name="search" 
         class="searchButton clickableButton" value="Search"/>
-   
-   
-   
-
-   <div style="clear:left;"></div>
 </form>
 
 <!----------------------------------------------------------
