@@ -106,7 +106,9 @@ if($had_results) {
 
         $user_href = SITE . "from/" . date("Y-m-d+H:i:s", $date - 60 * 3) 
                 . "/?u1=$result->username"
-                . ""
+                . ($flags_only_query 
+                        ? "&" . substr($flags_only_query, 1) 
+                        : "")
                 . "#$result->msg_id";
         $user_color = adjustColor($result->color, $ADJUST_COLOR);
         echo userHtml($result->username, $user_href, $user_color, 
