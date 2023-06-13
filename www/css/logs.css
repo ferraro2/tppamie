@@ -503,7 +503,7 @@ h2 {
 }
 
 .orderOptions {
-    margin-top: 8px;
+    /*margin-top: 8px;*/
 }
     
 .logTextField {
@@ -629,7 +629,7 @@ h3 {
 }
 .meta {
     margin: 0 auto;
-    width: 280px;
+    width: 350px;
     /*color: #fff;*/
     font-style: italic;
     vertical-align: bottom;
@@ -692,13 +692,20 @@ h3 {
     text-shadow: -1px -1px #555, 1px -1px #555, -1px 1px #555, 1px 1px #555;
 }
 .alert {
-    font-style: italic;
+    /*font-style: italic;*/
     font-weight: bold;
-    font-size: 18px;
+    text-decoration: underline;
+    /*font-size: 18px;*/
     acolor: #e46655;
-    color: #f0e000;
-    text-shadow: -1px -1px #555, 1px -1px #555, -1px 1px #555, 1px 1px #555;
+    /*color: #f0e000;*/
+    /*text-shadow: -1px -1px #555, 1px -1px #555, -1px 1px #555, 1px 1px #555;*/
 }
+
+.linkStrong {
+    /*font-weight: bold;*/
+    font-size: 16px;
+}
+
 .options {
     margin-top: 4px;
     margin-bottom: 4px;

@@ -89,6 +89,8 @@ define(['jquery'],
 //        var oldJumpVal = dateEl.val;
 //        console.log(oldJumpVal);
 //        dateEl.val = oldJumpVal.replace(" ", "+");
+        var dateFrom = $("#js-dateDirectionFrom");
+        var dateTo = $("#js-dateDirectionTo");
         var oldQueryArr = $('#js-searchForm').serialize().split("&");
         /* put the original value back (in case user presses back button) */
 //        dateEl.val = oldJumpVal;
@@ -103,13 +105,19 @@ define(['jquery'],
             var valLen = val.length;
             if (val === 'bot=1') {
                 isBot = true;
-            } else if (val[valLen-1] !== '=') {
+            } else if (val[valLen-1] !== '=' && 
+                    !val.startsWith("sort")) {
                 newQueryArr.push(val);
             }
         });
         if (!isBot) {
             newQueryArr.push("bot=0");
         }
+        
+        if (dateFrom.is(":checked")) {
+            newQueryArr.push("sort=1");
+        }
+        
         
         var newQueryString = newQueryArr.join("&");
         var dest = SITE;
@@ -131,7 +139,6 @@ define(['jquery'],
         let isBotChecked = $("#js-CheckboxBot").is(":checked");
         let isInputsChecked = $("#js-CheckboxInputs").is(":checked");
         let isCharsChecked = $("#js-CheckboxChars").is(":checked");
-        let isSortAscChecked = $("#js-CheckboxSort").is(":checked");
         // default True
         if (isBotChecked) {
             params.delete('bot');
@@ -149,11 +156,11 @@ define(['jquery'],
         } else {
             params.set("chars", 1);
         }
-        if (!isSortAscChecked) {
-            params.delete('sort');
-        } else {
-            params.set("sort", 1);
-        }
+//        if (!isSortAscChecked) {
+//            params.delete('sort');
+//        } else {
+//            params.set("sort", 1);
+//        }
         
         let paramStr = params.toString();
         paramStr = paramStr ? "?" + paramStr : paramStr;

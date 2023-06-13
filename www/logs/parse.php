@@ -14,53 +14,58 @@ include 'parseFunctions.php';
 ***********************************************************/
 
 
-class QueryFlag {
+class QueryOption {
     public $name;
     public $default;
     public $val;
     public $val_checked_str;
     
-    public function __construct(string $name, bool $default) {
+    public function __construct(string $name, bool $default, $valid) {
         $this->name = $name;
         $this->default = $default;
         
         // set val from GET
-        $param_as_string = filter_input(INPUT_GET, $name);
-//        echo "<br>param '$param_name' as string:" . $param_as_string. "<br>";
-        if($default === True) {
-//            $query = "";
-            $this->val = $param_as_string === '0' ? False : True;
-        } else {
-//            $query = "&$param_name=" . (1 - ($default ? 1 : 0));
-            $this->val = $param_as_string === '1' ? True : False;
+        $this->val = filter_input(INPUT_GET, $name);
+        // set default value if empty or invalid
+        if(!in_array($this->val, $valid)) {
+            $this->val = $default;
         }
-        $this->val_checked_str = $this->val ? 'checked' : '';
+        $this->val_checked_str = $this->val == '1' ? 'checked' : '';
     }
 }
 
-class QueryFlags {
+class QueryOptions {
     public $show_game_inputs;
     public $show_tpp_bot;
     public $show_unwhitelisted_chars;
     public $display_sort_asc;
+    public $direction;
+    
     
     public function __construct() {
-        $this->show_game_inputs = new QueryFlag("inputs", False);
-        $this->show_tpp_bot = new QueryFlag("bot", True);
-        $this->show_unwhitelisted_chars = new QueryFlag("chars", False);
-        $this->display_sort_asc = new QueryFlag("sort", False);
+        $valid_checkbox = array('0', '1');
+        $this->show_game_inputs = new QueryOption("inputs", '0', $valid_checkbox);
+        $this->show_tpp_bot = new QueryOption("bot", '1', $valid_checkbox);
+        $this->show_unwhitelisted_chars = new QueryOption("chars", '0', $valid_checkbox);
+        $this->display_sort_asc = new QueryOption("sort", '0', $valid_checkbox);
+        
+        $valid_directions = array('from', 'to');
+        $this->direction = new QueryOption("dir", "to", $valid_directions);
     }
 }
-
-$query_flags = new QueryFlags();
-$user_date_direction = filter_input(INPUT_GET, "dir");
-if(!preg_match("/^from|to$/", $user_date_direction)) {
-    $user_date_direction = "";
+//echo ($query_options->direction) + "<br>";
+$query_options = new QueryOptions();
+if ($query_options->direction->val == 'from') {
+    $from_checked = 'checked';
+    $to_checked = '';
+} else {
+    $from_checked = '';
+    $to_checked = 'checked';
 }
 
 $query_filter_array = array();
-array_push($query_filter_array, "is_hidden=0");
-array_push($query_filter_array, "hide_all_messages=0");
+//array_push($query_filter_array, "is_hidden=0");
+//array_push($query_filter_array, "hide_all_messages=0");
 
 // additionally filter results from sphinx on filter parameters
 // that may have gone stale: e.g. user wants messages hidden,
@@ -70,14 +75,14 @@ if ($mysql_sphinx_ids_filter == "") {
     $mysql_sphinx_ids_filter = " 1 ";
 }
 
-if (!$query_flags->show_game_inputs->val) {
+if ($query_options->show_game_inputs->val == '0') {
     array_push($query_filter_array, "is_input=0");
     array_push($query_filter_array, "is_match_command=0");
 }
-if (!$query_flags->show_tpp_bot->val) {
+if ($query_options->show_tpp_bot->val == '0') {
     array_push($query_filter_array, "is_bot=0");
 }
-if (!$query_flags->show_unwhitelisted_chars->val) {
+if ($query_options->show_unwhitelisted_chars->val == '0') {
     array_push($query_filter_array, "has_unwhitelisted_chars=0");
 }
 $query_filter = implode(" AND ", $query_filter_array);
@@ -133,7 +138,7 @@ if ($user_date) {
      * set from_date to the user date and $to_date to empty string.
      * 
      */
-    if ($user_date_direction == 'to') {
+    if ($query_options->direction->val == 'to') {
         $to_date = $user_date;
         $from_date = null;
     } else {
@@ -174,7 +179,7 @@ $to_date_sphinx = getSphinxDateFromNullableDTI($to_date);
 
 
 if(!$query_present) {
-    $flag_display_sort_asc = $query_flags->display_sort_asc->val;
+    $flag_display_sort_asc = $query_options->display_sort_asc->val == '1';
     $display_tstamp_sort = " ORDER BY tstamp " . 
             ($flag_display_sort_asc ? " asc " : " desc ");
     if ($from_date) {
@@ -186,7 +191,7 @@ if(!$query_present) {
         $fetch_tstamp_range_filter = " tstamp <= '$to_date_mysql' ";
         $fetch_tstamp_sort = " ORDER BY tstamp desc ";
     } else {
-        if ($user_date_direction === 'from') {
+        if ($query_options->direction->val === 'from') {
 //            $sort_nonredundant = "earliest";
             $fetch_tstamp_range_filter = " 1 ";
             $fetch_tstamp_sort = " ORDER BY tstamp asc ";
@@ -197,7 +202,7 @@ if(!$query_present) {
         }
     }
 } else { /* query present */
-    $flag_display_sort_asc = $query_flags->display_sort_asc->val;
+    $flag_display_sort_asc = $query_options->display_sort_asc->val == '1';
     $display_tstamp_sort = " ORDER BY tstamp " . 
             ($flag_display_sort_asc ? " asc " : " desc ");
     if($from_date) {
@@ -207,7 +212,7 @@ if(!$query_present) {
         $fetch_tstamp_range_filter = " tstamp <= $to_date_sphinx ";
         $fetch_tstamp_sort = " ORDER BY tstamp desc ";
     } else {
-        if ($user_date_direction === 'from') {
+        if ($query_options->direction->val === 'from') {
             $fetch_tstamp_range_filter = " 1 ";
             $fetch_tstamp_sort = " ORDER BY tstamp asc ";
         } else {
@@ -349,14 +354,14 @@ if($user_date) {
         $new_link .= "to/" . $to_date_url . "/";
     } 
 
-    $new_link .= getRedactedQuery($query_flags);
+    $new_link .= getRedactedQuery($query_options);
     header("Location: " . $new_link);
 }
 
 
-$redacted_query = getRedactedQuery($query_flags);
-$flags_only_query = getRedactedQuery($query_flags, True);
-$reverse_display_sort_url = getReverseDisplaySortUrl($query_flags);
+$redacted_query = getRedactedQuery($query_options);
+$flags_only_query = getRedactedQuery($query_options, True);
+$reverse_display_sort_url = getReverseDisplaySortUrl($query_options);
 //echo $trimmed_query;
 //echo $flags_only_query;
 ?>

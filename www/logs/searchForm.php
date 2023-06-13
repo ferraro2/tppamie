@@ -21,38 +21,24 @@
        --------    EXTRA FIELDS
        ------------------------------------------------------------
        ------------------------------------------------------------>
-<!--       <h1>Additional search fields:</h1>
-       <input id="js-q2" type="text" name="q2" value="<?php echo h($q2) ?>" class="logTextField form-query tooltip"/>
-       <br>
-       <div class="smallBr"></div>
-       <h2>By Users:</h2>
-       <input type="text" id="js-u2" name = "u2" value="<?php echo h($u2) ?>" class="logTextField form-user tooltip"/>
-       <br>
-       <br>
-       <input id="js-q3" type="text" name="q3" value="<?php echo h($q3) ?>" class="logTextField form-query tooltip"/>
-       <br>
-       <div class="smallBr"> </div>
-       <h2>By Users:</h2>
-       <input type="text" id="js-u3" name = "u3" value="<?php echo h($u3) ?>" class="logTextField form-user tooltip"/>
-       <br>-->
+
         <input id="js-CheckboxBot" type="checkbox" class="options" 
-               name="<?php echo $query_flags->show_tpp_bot->name?>" value="1" 
-             <?php echo $query_flags->show_tpp_bot->val_checked_str ?> > TPP bot messages
+               name="<?php echo $query_options->show_tpp_bot->name?>" value="1" 
+             <?php echo $query_options->show_tpp_bot->val_checked_str ?> > TPP bot messages
         <br> 
         <input id="js-CheckboxInputs" type="checkbox" class="options" 
-               name="<?php echo $query_flags->show_game_inputs->name ?>" value="1"
-             <?php echo $query_flags->show_game_inputs->val_checked_str ?> > Game inputs <i>(up, !a, !bet, !balance, etc.)</i>
+               name="<?php echo $query_options->show_game_inputs->name ?>" value="1"
+             <?php echo $query_options->show_game_inputs->val_checked_str ?> > Game inputs <i>(up, !a, !bet, !balance, etc.)</i>
         <br> 
         <input id="js-CheckboxChars" type="checkbox" class="options" 
-               name="<?php echo $query_flags->show_unwhitelisted_chars->name ?>" value="1"
-            <?php echo $query_flags->show_unwhitelisted_chars->val_checked_str ?> > ASCII spam / unnatural characters
+               name="<?php echo $query_options->show_unwhitelisted_chars->name ?>" value="1"
+            <?php echo $query_options->show_unwhitelisted_chars->val_checked_str ?> > ASCII spam / unnatural characters
         <br>
-        <div class="orderOpdtions">
-        <input id="js-CheckboxSort" type="checkbox" class="options" 
-               name="<?php echo $query_flags->display_sort_asc->name ?>" value="1"
-             <?php echo $query_flags->display_sort_asc->val_checked_str ?> > Display in chronological order
-        </div>
-        
+        <!--<div class="orderOptions">-->
+<!--        <input id="js-CheckboxSort" type="checkbox" class="options" 
+               name="<?php echo $query_options->display_sort_asc->name ?>" value="1"
+             <?php echo $query_options->display_sort_asc->val_checked_str ?> > Display in chronological order-->
+        <!--</div>-->
     <input id="js-reloadButton" type="button" name="reload" 
            class="clickableButton reloadButton" value="⟳"/><span class="reloadText">Apply to current results</span>
 <!--         <input type="checkbox" class="options" name="wlist" value="1" <?php echo $non_wlist_check ?> > Show non-whitelisted -->
@@ -65,18 +51,33 @@
    <input type="text" id="js-u1" name = "u1" value="<?php echo h($u1) ?>" 
           class="logTextField form-user tooltip"/>
 
-   <!--<button type="button" id="js-extraFieldsButton" class="extraFieldsButton" tabindex ="-1" ><?php echo $EXTRA_FIELDS_BUTTON_VALUE ?></button>-->
-
+   <button type="button" id="js-extraFieldsButton" class="extraFieldsButton" tabindex ="-1" ><?php echo $EXTRA_FIELDS_BUTTON_VALUE ?></button>
    <br>
-
-
+   <div id="js-extraFields" class="extraFields" style="<?php echo $EXTRA_FIELDS_DISPLAY ?>">
+       <h1>Additional search fields:</h1>
+       <input id="js-q2" type="text" name="q2" value="<?php echo h($q2) ?>" class="logTextField form-query tooltip"/>
+       <br>
+       <div class="smallBr"></div>
+       <h2>By Users:</h2>
+       <input type="text" id="js-u2" name = "u2" value="<?php echo h($u2) ?>" class="logTextField form-user tooltip"/>
+       <br>
+       <br>
+       <input id="js-q3" type="text" name="q3" value="<?php echo h($q3) ?>" class="logTextField form-query tooltip"/>
+       <br>
+       <div class="smallBr"> </div>
+       <h2>By Users:</h2>
+       <input type="text" id="js-u3" name = "u3" value="<?php echo h($u3) ?>" class="logTextField form-user tooltip"/>
+       <br>
+   </div>
    <div style="float:left;">
        <h2> 
        <span id="js-jumpRadio" class="sortBy">
-           <input id="js-dateDirectionFrom" type="radio" name="dir" value="from">
+           <input id="js-dateDirectionFrom" type="radio" name="dir" 
+                  value="from" <?php echo $from_checked?>>
            <span class="dateDirection dateDirectionFrom">From Date:</span>
            
-           <input id="js-dateDirectionTo" type="radio" name="dir" value="to">
+           <input id="js-dateDirectionTo" type="radio" name="dir"
+                  value="to" <?php echo $to_checked?>>
            <span class="dateDirection dateDirectionTo">To Date:</span>
        </span>
        </h2>
@@ -87,6 +88,8 @@
 <!--           <input type="text" id="js-date" name="date" 
                   value="<?php echo restoredDate($from_date, $to_date)?>" 
                   class="logTextField form-date tooltip"/>-->
+           
+
        </div>
        
        

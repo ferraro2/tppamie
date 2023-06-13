@@ -158,7 +158,7 @@
      * checkbox flags.
      * Used for jump/header links
      */
-    function getRedactedQuery($query_flags, $flags_only=False,
+    function getRedactedQuery($query_flags, $options_only=False,
             $reverse_sort=False) {
        $query = $_SERVER['QUERY_STRING'];
        parse_str($query, $query_arr);
@@ -174,7 +174,7 @@
        foreach (get_object_vars($query_flags) as $query_flag) {
            // reverse sort if requested
            if($reverse_sort && $query_flag->name == 'sort') {
-               $val = !$query_flag->val;  
+               $val = $query_flag->val == '1' ? '0' : '1';
            } else {
                $val = $query_flag->val;
            }
@@ -186,7 +186,7 @@
            }
        }
        
-       if ($flags_only) {
+       if ($options_only) {
            unset($query_arr['q1']);
            unset($query_arr['q2']);
            unset($query_arr['q3']);

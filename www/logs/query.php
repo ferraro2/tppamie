@@ -72,8 +72,13 @@
                     . $min_tstamp_DTI->format("M jS Y\, g\:i a") . " - <br>"
                     . $max_tstamp_DTI->format("M jS Y\, g\:i a") . "   ";
 //            $meta_info .= $flag_display_sort_asc
-//                    ? "<br><span class=\"alert\">Chronological order.</span>"
+//                    ? "<br><a href=\"\" class=linkStrong>Switch to reverse chronological order</a>"
 //                    : "<br><span class=\"alert\">Reverse chronological order.</span>";
+            $meta_info .= $flag_display_sort_asc
+                ? "<br>Page in chronological order ("
+                    . "<a href=\"$reverse_display_sort_url\" class=\"linkStrong\">Switch</a>)"
+                : "<br>Page in reverse chronological order ("
+                    . "<a href=\"$reverse_display_sort_url\" class=\"linkStrong\">Switch</a>)";
         } else {
             $meta_info = "";
             if($from_date) {
@@ -237,9 +242,11 @@
                     . "&nbsp&nbsp" . $min_tstamp_DTI->format("M jS Y\, g\:i a") 
                     . " - <br>". $max_tstamp_DTI->format("M jS Y\, g\:i a") . "   ";
                     
-//            $meta_info .= $flag_display_sort_asc
-//                    ? "<br><span class=\"alert\">Chronological order.</span>"
-//                    : "<br><span class=\"alert\">Reverse chronological order.</span>";
+            $meta_info .= $flag_display_sort_asc
+                ? "<br>Page in chronological order ("
+                    . "<a href=\"$reverse_display_sort_url\" class=\"linkStrong\">Switch</a>)"
+                : "<br>Page in reverse chronological order ("
+                    . "<a href=\"$reverse_display_sort_url\" class=\"linkStrong\">Switch</a>)";
 
         } else {
             //search did not have results
