@@ -97,13 +97,19 @@ define(['jquery'],
         /*
          * Remove all empty variables from old query
          */
+        let isBot = false;
         oldQueryArr.forEach(function(val) {
+            console.log(val);
             var valLen = val.length;
-            if (val[valLen-1] !== '=') {
+            if (val === 'bot=1') {
+                isBot = true;
+            } else if (val[valLen-1] !== '=') {
                 newQueryArr.push(val);
             }
-            
         });
+        if (!isBot) {
+            newQueryArr.push("bot=0");
+        }
         
         var newQueryString = newQueryArr.join("&");
         var dest = SITE;
