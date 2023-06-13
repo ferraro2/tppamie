@@ -204,6 +204,7 @@
                         . " left join msg_badges using(msg_id) "
                         . " left join badges using(badge_id)"
                         . " WHERE m.msg_id IN ($BLANK_IN_PARAMS) "
+                        . " AND $mysql_sphinx_ids_filter"
                         . " GROUP BY username, md.color, moder, sub, turbo, md.msg_id, "
                         . " tstamp, is_action, emote_locs, msg, video_id, "
                         . " video_offset_seconds, md.display_name "

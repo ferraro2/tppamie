@@ -30,8 +30,8 @@ function getMysqlRange($pdo, $tstamp_range_filter, $tstamp_sort, $query_filter) 
         */
 //        $time_pre = microtime(true);
         $tstamp_query = "SELECT MIN(tstamp) as min_t, MAX(tstamp) as max_t "
-               ."FROM (SELECT tstamp FROM messages WHERE "
-               . $query_filter . " AND "
+               ."FROM (SELECT tstamp FROM messages join users using(user_id) "
+               . "WHERE " . $query_filter . " AND "
                . $tstamp_range_filter 
                . $tstamp_sort
                . " LIMIT " . LIMIT . ") t";
@@ -62,7 +62,7 @@ function getMysqlJumpRange($pdo, $jump_id, $query_filter) {
      * get tstamp of the jump id
      */
     $jump_tstamp_query = "SELECT tstamp as jump_time "
-            . " FROM (SELECT tstamp FROM messages "
+            . " FROM (SELECT tstamp FROM messages join users using(user_id) "
             . " WHERE msg_id = $jump_id AND $query_filter"
             . " LIMIT 1) t";
 //    echo $jump_tstamp_query;
@@ -78,12 +78,14 @@ function getMysqlJumpRange($pdo, $jump_id, $query_filter) {
 
 
         $min_tstamp_query = "SELECT MIN(low_stamp_range) as min_t "
-            ."FROM (SELECT tstamp as low_stamp_range FROM messages "
+            ."FROM (SELECT tstamp as low_stamp_range FROM "
+            . "messages join users using(user_id) "
             . "WHERE tstamp <= '$jump_tstamp' AND " . $query_filter
             . " ORDER BY tstamp desc LIMIT " . JUMP_OFFSET . ") t1";
 
         $max_tstamp_query = "SELECT MAX(high_stamp_range) as max_t "
-            ."FROM (SELECT tstamp as high_stamp_range FROM messages "
+            ."FROM (SELECT tstamp as high_stamp_range FROM "
+            . "messages join users using(user_id) "
             . "WHERE tstamp >= '$jump_tstamp' AND " . $query_filter
             . " ORDER BY tstamp asc LIMIT " . (LIMIT - JUMP_OFFSET) . ") t2";
 
@@ -147,9 +149,10 @@ function getMysqlResults($pdo, $tstamp_range_filter, $query_filter,
  *  exist before tstamp provided
  */
 function mysqlPrevResultsExist($pdo, $tstamp, $query_filter) {
-    $prev_query = "SELECT msg_id, tstamp FROM messages "
+    $prev_query = "SELECT msg_id, tstamp FROM "
+            . " messages join users using(user_id) "
             . " WHERE $query_filter and tstamp < '$tstamp'"
-            . "ORDER BY tstamp LIMIT 1";
+            . " ORDER BY tstamp LIMIT 1";
 //    echo "<br>$prev_query<br>";
 //    $time_pre = microtime(true);
     $prev_results = $pdo->prepare($prev_query);
@@ -164,7 +167,8 @@ function mysqlPrevResultsExist($pdo, $tstamp, $query_filter) {
  *  exist after tstamp provided
  */
 function mysqlNextResultsExist($pdo, $tstamp, $query_filter) {
-    $next_query = "SELECT msg_id, tstamp FROM messages "
+    $next_query = "SELECT msg_id, tstamp FROM "
+            . " messages join users using(user_id) "
             . " WHERE $query_filter AND tstamp > '$tstamp' "
             . " ORDER BY tstamp LIMIT 1";
     ##echo "<br>$prev_query<br>";
@@ -187,7 +191,8 @@ function mysqlNextResultsExist($pdo, $tstamp, $query_filter) {
 function mysqlQuery($config, $jump_id, $fetch_tstamp_range_filter, 
         $fetch_tstamp_sort, $query_filter, $display_tstamp_sort) {
     try {
-        $pdo_command = sprintf("mysql:host=%s;dbname=%s;charset=utf8mb4", $config['hostname'], $config['database']);
+        $pdo_command = sprintf("mysql:host=%s;dbname=%s;charset=utf8mb4", 
+                $config['hostname'], $config['database']);
         $pdo = new PDO($pdo_command, $config['username'], $config['password']);
         // set the PDO error mode to exception
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

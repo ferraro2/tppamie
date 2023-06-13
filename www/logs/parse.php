@@ -60,6 +60,16 @@ if(!preg_match("/^from|to$/", $user_date_direction)) {
 
 $query_filter_array = array();
 array_push($query_filter_array, "is_hidden=0");
+array_push($query_filter_array, "hide_all_messages=0");
+
+// additionally filter results from sphinx on filter parameters
+// that may have gone stale: e.g. user wants messages hidden,
+// but that isn't updated in the results returned by the sphinx indices
+$mysql_sphinx_ids_filter = implode(" AND ", $query_filter_array);
+if ($mysql_sphinx_ids_filter == "") {
+    $mysql_sphinx_ids_filter = " 1 ";
+}
+
 if (!$query_flags->show_game_inputs->val) {
     array_push($query_filter_array, "is_input=0");
     array_push($query_filter_array, "is_match_command=0");
