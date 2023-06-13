@@ -9,52 +9,15 @@
     <div>
     <h2>Search For:</h2>
     <div>
-        <input id="js-q1" type="text" name="q1" value="<?php echo h($q1) ?>" 
+        <input id="js-q1" type="text" name="q1" tabindex="1" value="<?php echo h($q1) ?>" 
                class="logTextField form-query tooltip"/>
         <button type="button" id="js-helpButton" class="helpButton clickableButton redButton"
            tabindex ="-1">Help</button>
     </div>
     </div>
-   <div class="searchOptions">
-       <!----------------------------------------------------------
-       ------------------------------------------------------------
-       --------    EXTRA FIELDS
-       ------------------------------------------------------------
-       ------------------------------------------------------------>
-
-        <input id="js-CheckboxBot" type="checkbox" class="options" 
-               name="<?php echo $query_options->show_tpp_bot->name?>" value="1" 
-             <?php echo $query_options->show_tpp_bot->val_checked_str ?> > TPP bot messages
-        <br> 
-        <input id="js-CheckboxInputs" type="checkbox" class="options" 
-               name="<?php echo $query_options->show_game_inputs->name ?>" value="1"
-             <?php echo $query_options->show_game_inputs->val_checked_str ?> > Game inputs <i>(up, !a, !bet, !balance, etc.)</i>
-        <br> 
-        <input id="js-CheckboxCommands" type="checkbox" class="options" 
-               name="<?php echo $query_options->show_commands->name ?>" value="1"
-             <?php echo $query_options->show_commands->val_checked_str ?> > Commands <i>(anything starting with !)</i>
-        <br> 
-        <input id="js-CheckboxChars" type="checkbox" class="options" 
-               name="<?php echo $query_options->show_unwhitelisted_chars->name ?>" value="1"
-            <?php echo $query_options->show_unwhitelisted_chars->val_checked_str ?> > ASCII spam / unnatural characters
-        <br>
-        <!--<div class="orderOptions">-->
-<!--        <input id="js-CheckboxSort" type="checkbox" class="options" 
-               name="<?php echo $query_options->display_sort_asc->name ?>" value="1"
-             <?php echo $query_options->display_sort_asc->val_checked_str ?> > Display in chronological order-->
-        <!--</div>-->
-        <input id="js-reloadButton" type="button" name="reload" 
-               class="clickableButton reloadButton blueButton" 
-               value="⟳"/><span class="reloadText">Apply to current results</span>
-<!--         <input type="checkbox" class="options" name="wlist" value="1" <?php echo $non_wlist_check ?> > Show non-whitelisted -->
-<!--         <br> -->
-<!--         <input type="checkbox" class="options" name="me" value="1" <?php echo $highlight_me_check ?> > Highlight /me -->
-       
-       
-   </div>
    <h2>By Users:</h2>
    <div>
-        <input type="text" id="js-u1" name = "u1" value="<?php echo h($u1) ?>" 
+        <input type="text" id="js-u1" name = "u1" tabindex="2" value="<?php echo h($u1) ?>" 
                class="logTextField form-user tooltip"/>
         <button type="button" id="js-extraFieldsButton" 
                 class="extraFieldsButton clickableButton blueButton" 
@@ -76,9 +39,9 @@
        <input type="text" id="js-u3" name = "u3" value="<?php echo h($u3) ?>" class="logTextField form-user tooltip"/>
        <br>
    </div>
-   <div style="display: inline-block;">
+   <div style="float: left;">
         <h2> Starting from Date:</h2>
-        <input type="text" id="js-date" name="date" 
+        <input type="text" id="js-date" name="date" tabindex="3" 
            value="" 
            class="logTextField form-date tooltip"/>
     <!--           <input type="text" id="js-date" name="date" 
@@ -87,17 +50,57 @@
 
         <h3>&nbsp;&nbsp;&nbsp;or from:
         <input id="js-dateDirectionFrom" type="radio" name="dir" 
-               value="from" <?php echo $from_checked?>>
+               tabindex="4" value="from" <?php echo $from_checked?>>
         <span class="dateDirection dateDirectionFrom">Earliest</span>
 
         <input id="js-dateDirectionTo" type="radio" name="dir"
-               value="to" <?php echo $to_checked?>>
+               tabindex="5" value="to" <?php echo $to_checked?>>
         <span class="dateDirection dateDirectionTo">Latest</span>
         </h3>
     </div>
 
-    <input id="js-searchButton" type="submit" name="search" 
-        class="searchButton clickableButton" value="Search"/>
+   
+   <div class="searchOptions">
+       <!----------------------------------------------------------
+       ------------------------------------------------------------
+       --------    EXTRA FIELDS
+       ------------------------------------------------------------
+       ------------------------------------------------------------>
+
+        <input id="js-CheckboxBot" type="checkbox" class="options" tabindex="20"
+               name="<?php echo $query_options->show_tpp_bot->name?>" value="1" 
+             <?php echo $query_options->show_tpp_bot->val_checked_str ?> > TPP bot messages
+        <br> 
+        <input id="js-CheckboxInputs" type="checkbox" class="options" tabindex="21"
+               name="<?php echo $query_options->show_game_inputs->name ?>" value="1"
+             <?php echo $query_options->show_game_inputs->val_checked_str ?> > Game inputs <i>(up, !a, !bet, !balance, etc.)</i>
+        <br> 
+        <input id="js-CheckboxCommands" type="checkbox" class="options" tabindex="22"
+               name="<?php echo $query_options->show_commands->name ?>" value="1"
+             <?php echo $query_options->show_commands->val_checked_str ?> > Commands <i>(anything starting with !)</i>
+        <br> 
+        <input id="js-CheckboxChars" type="checkbox" class="options" tabindex="23"
+               name="<?php echo $query_options->show_unwhitelisted_chars->name ?>" value="1"
+            <?php echo $query_options->show_unwhitelisted_chars->val_checked_str ?> > ASCII spam / unnatural characters
+        <br>
+        <!--<div class="orderOptions">-->
+<!--        <input id="js-CheckboxSort" type="checkbox" class="options" 
+               name="<?php echo $query_options->display_sort_asc->name ?>" value="1"
+             <?php echo $query_options->display_sort_asc->val_checked_str ?> > Display in chronological order-->
+        <!--</div>-->
+        <input id="js-reloadButton" type="button" name="reload" tabindex="-1"
+               class="clickableButton reloadButton blueButton" 
+               value="⟳"/><span class="reloadText">Apply to current results</span>
+<!--         <input type="checkbox" class="options" name="wlist" value="1" <?php echo $non_wlist_check ?> > Show non-whitelisted -->
+<!--         <br> -->
+<!--         <input type="checkbox" class="options" name="me" value="1" <?php echo $highlight_me_check ?> > Highlight /me -->
+       
+       
+   </div>
+   <div class="searchButtonContainer">
+        <input id="js-searchButton" type="submit" name="search" tabindex="6" 
+            class="searchButton clickableButton" value="Search"/>
+   </div>
 </form>
 
 <!----------------------------------------------------------
