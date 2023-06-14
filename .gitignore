@@ -9,3 +9,4 @@
 /oauth.json
 credentials.php
 *.gitignore.*
+*.pyc
