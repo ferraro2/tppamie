@@ -45,12 +45,9 @@
    </div>
    <div style="float: left;">
         <h2> At Date:</h2>
-        <input type="text" id="js-date" name="date" tabindex="20" 
-           value="" onfocus="this.select()"
-           class="logTextField form-date tooltip"/>
-    <!--           <input type="text" id="js-date" name="date" 
+        <input type="text" id="js-date" name="date" tabindex="20"  onfocus="this.select()"
            value="<?php echo restoredDate($from_date, $to_date)?>" 
-           class="logTextField form-date tooltip"/>-->
+           class="logTextField form-date tooltip"/>
 
         <h3>&nbsp;&nbsp;&nbsp;from:
         <input id="js-dateDirectionFrom" type="radio" name="dir" 
@@ -171,6 +168,8 @@
        <li>Username-changed users may incorrectly show a later username 
            than what they had at the time of chatting.</li>
        <li>Messages from Twitch-banned or deleted users may be missing.</li>
+       <li>Most logs whenever the stream was down after 2016-06-05 are missing.</li>
+       <li>Most logs prior to 2016-06-05 do not include inputs.</li>
    </ul>
 <!--   <p>This page has two modes- browsing logs and search. </p>
    <p>Within each page:<br>

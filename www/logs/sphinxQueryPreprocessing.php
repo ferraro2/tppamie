@@ -61,7 +61,8 @@
      * 
      */
     function translate_query($q) {
-    //    $q = str_replace(" or ", " OR ", $q);
+        // translate tppvisuals `OR` to new `or` syntax
+        $q = str_replace(" OR ", " or ", $q);
     //    $q = str_replace(" or ", " | ", $q);
         return minimize_or_precedence($q);
     }
@@ -75,43 +76,43 @@
             return minimize_or_precedence_recursive(str_split($str));
     }
     function minimize_or_precedence_recursive($chars) {
-            $len = count($chars);
-            $chunks = array();
-            $i = 0;
-            while ($i < $len) {
+        $len = count($chars);
+        $chunks = array();
+        $i = 0;
+        while ($i < $len) {
+            $c = $chars[$i];
+            if ($c !== '(') {
+                array_push($chunks, $c);
+                $i += 1;
+            } else {
+                $subgroup = array();
+                $level = 1;
+                $i += 1;
+                while ($level > 0) {
                     $c = $chars[$i];
-                    if ($c !== '(') {
-                            array_push($chunks, $c);
-                            $i += 1;
-                    } else {
-                            $subgroup = array();
-                            $level = 1;
-                            $i += 1;
-                            while ($level > 0) {
-                                    $c = $chars[$i];
-                                    if ($c === '(') {
-                                            $level += 1;
-                                    } else if ($c === ')') {
-                                            $level -= 1;
-                                    }  
-                                    if ($level != 0) {
-                                            array_push($subgroup, $c);
-                                    }
-                                    $i += 1;
-                            }
-                            #echo var_dump($subgroup);
-                            array_push($chunks, '(');
-                            array_push($chunks, inc_or_precedence_recursive($subgroup));
-                            array_push($chunks, ')');
+                    if ($c === '(') {
+                            $level += 1;
+                    } else if ($c === ')') {
+                            $level -= 1;
+                    }  
+                    if ($level != 0) {
+                            array_push($subgroup, $c);
                     }
-
+                    $i += 1;
+                }
+                #echo var_dump($subgroup);
+                array_push($chunks, '(');
+                array_push($chunks, inc_or_precedence_recursive($subgroup));
+                array_push($chunks, ')');
             }
-            $string_all = implode("", $chunks);
-            #echo $string_all . "\n";
-            $nonOrParts = orSplit($string_all);
-            #echo var_dump($nonOrParts);
-            $result = implode(" | ", $nonOrParts);
-            return $result;
+
+        }
+        $string_all = implode("", $chunks);
+        #echo $string_all . "\n";
+        $nonOrParts = orSplit($string_all);
+        #echo var_dump($nonOrParts);
+        $result = implode(" | ", $nonOrParts);
+        return $result;
 
     }
 

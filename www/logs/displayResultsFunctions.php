@@ -232,6 +232,14 @@ function getVodLink($id, $offset) {
 }
 
 function restoredDate($from_date, $to_date) {
+    /*
+     * paging through searches, where the search originally had no date,
+     * does fill the from/to date parameters, which fills this field annoyingly.
+     * Another flag would be needed I suppose to indicate whether search had a 
+     * date, and then we restore conditionally on that.  But I'll leave it like
+     * this.
+     */
+    return "";
     if($from_date) {
         return h(getMysqlDateNoUSFromNullableDTI($from_date));
     } else {
