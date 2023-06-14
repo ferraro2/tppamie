@@ -4,7 +4,7 @@ import re, json, io, time, random
 import socket	#exception handling
 import signal, traceback	#SIGINT handling and exception trace printing
 
-import priv_routines
+import unused_priv_routines
 
 import sys
 paths = [r"../common", r"../emotes"]
