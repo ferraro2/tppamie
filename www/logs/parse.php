@@ -65,8 +65,8 @@ if ($query_options->direction->val == 'from') {
 }
 
 $query_filter_array = array();
-//array_push($query_filter_array, "is_hidden=0");
-//array_push($query_filter_array, "hide_all_messages=0");
+array_push($query_filter_array, "is_hidden=0");
+array_push($query_filter_array, "hide_all_messages=0");
 
 // additionally filter results from sphinx on filter parameters
 // that may have gone stale: e.g. user wants messages hidden,

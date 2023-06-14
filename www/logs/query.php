@@ -146,7 +146,7 @@
          */
         $sphinx_match_query = getMatchQuery($q1, $q2, $q3, $u1, $u2, $u3);
         //$sphinx_match_query = "(@msg (\\@z33k33))";
-        echo "Sphinx Match Query: $sphinx_match_query<br>";
+//        echo "Sphinx Match Query: $sphinx_match_query<br>";
         /*
         * sphinx doesn't take a username or password, just the hostname
         */
@@ -214,7 +214,7 @@
                         . " tstamp, is_action, emote_locs, msg, video_id, "
                         . " video_offset_seconds, md.display_name "
                         . " $display_tstamp_sort ";
-                echo "Sphinx msg ids query: <br>$all_msg_query<br>";
+//                echo "Sphinx msg ids query: <br>$all_msg_query<br>";
                 $all_msg_result = $pdo->prepare($all_msg_query);
                 $all_msg_result->execute( $msg_ids );
 

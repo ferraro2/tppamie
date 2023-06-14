@@ -39,7 +39,7 @@
          ------------------------------------------------------------
          ------------------------------------------------------------>
 
-        <a class=\"banner\" href=\"" . getJumpLink($flags_only_query) . "\">
+        <a class=\"banner\" tabindex=\"-1\" href=\"" . getJumpLink($flags_only_query) . "\">
         <!--        <img alt = '' src='../img/chatBanner.png'/>-->
         <img alt = '' src='/img/pokemon/xy/unown-t.gif'/>
         <img alt = '' src='/img/pokemon/xy/unown-p.gif'/>

@@ -24,37 +24,41 @@
                 tabindex ="-1" ><?php echo $EXTRA_FIELDS_BUTTON_VALUE ?></button>
    </div>
    <div id="js-extraFields" class="extraFields" style="<?php echo $EXTRA_FIELDS_DISPLAY ?>">
-       <h1>Or for:</h1>
-       <input id="js-q2" type="text" name="q2" value="<?php echo h($q2) ?>" class="logTextField form-query tooltip"/>
+       <h2>Or for:</h2>
+       <input id="js-q2" type="text" name="q2" value="<?php echo h($q2) ?>"
+              class="logTextField form-query tooltip"  tabindex="11" onfocus="this.select()"/>
        <br>
        <div class="smallBr"></div>
        <h2>By Users:</h2>
-       <input type="text" id="js-u2" name = "u2" value="<?php echo h($u2) ?>" class="logTextField form-user tooltip"/>
+       <input type="text" id="js-u2" name = "u2" value="<?php echo h($u2) ?>"
+              class="logTextField form-user tooltip"  tabindex="12" onfocus="this.select()"/>
        <br>
-       <h1>Or for:</h1>
-       <input id="js-q3" type="text" name="q3" value="<?php echo h($q3) ?>" class="logTextField form-query tooltip"/>
+       <h2>Or for:</h2>
+       <input id="js-q3" type="text" name="q3" value="<?php echo h($q3) ?>"
+              class="logTextField form-query tooltip" tabindex="13" onfocus="this.select()"/>
        <br>
        <div class="smallBr"> </div>
        <h2>By Users:</h2>
-       <input type="text" id="js-u3" name = "u3" value="<?php echo h($u3) ?>" class="logTextField form-user tooltip"/>
+       <input type="text" id="js-u3" name = "u3" value="<?php echo h($u3) ?>"
+              class="logTextField form-user tooltip" tabindex="14" onfocus="this.select()"/>
        <br>
    </div>
    <div style="float: left;">
-        <h2> Starting from Date:</h2>
-        <input type="text" id="js-date" name="date" tabindex="3" 
+        <h2> At Date:</h2>
+        <input type="text" id="js-date" name="date" tabindex="20" 
            value="" onfocus="this.select()"
            class="logTextField form-date tooltip"/>
     <!--           <input type="text" id="js-date" name="date" 
            value="<?php echo restoredDate($from_date, $to_date)?>" 
            class="logTextField form-date tooltip"/>-->
 
-        <h3>&nbsp;&nbsp;&nbsp;or from:
+        <h3>&nbsp;&nbsp;&nbsp;from:
         <input id="js-dateDirectionFrom" type="radio" name="dir" 
-               tabindex="4" value="from" <?php echo $from_checked?>>
+               tabindex="21" value="from" <?php echo $from_checked?>>
         <span class="dateDirection dateDirectionFrom">Earliest</span>
 
         <input id="js-dateDirectionTo" type="radio" name="dir"
-               tabindex="5" value="to" <?php echo $to_checked?>>
+               tabindex="22" value="to" <?php echo $to_checked?>>
         <span class="dateDirection dateDirectionTo">Latest</span>
         </h3>
     </div>
@@ -67,19 +71,19 @@
        ------------------------------------------------------------
        ------------------------------------------------------------>
 
-        <input id="js-CheckboxBot" type="checkbox" class="options" tabindex="20"
+        <input id="js-CheckboxBot" type="checkbox" class="options" tabindex="30"
                name="<?php echo $query_options->show_tpp_bot->name?>" value="1" 
              <?php echo $query_options->show_tpp_bot->val_checked_str ?> > TPP bot messages
         <br> 
-        <input id="js-CheckboxInputs" type="checkbox" class="options" tabindex="21"
+        <input id="js-CheckboxInputs" type="checkbox" class="options" tabindex="31"
                name="<?php echo $query_options->show_game_inputs->name ?>" value="1"
              <?php echo $query_options->show_game_inputs->val_checked_str ?> > Game inputs <i>(up, !a, !bet, !balance, etc.)</i>
         <br> 
-        <input id="js-CheckboxCommands" type="checkbox" class="options" tabindex="22"
+        <input id="js-CheckboxCommands" type="checkbox" class="options" tabindex="32"
                name="<?php echo $query_options->show_commands->name ?>" value="1"
              <?php echo $query_options->show_commands->val_checked_str ?> > Commands <i>(anything starting with !)</i>
         <br> 
-        <input id="js-CheckboxChars" type="checkbox" class="options" tabindex="23"
+        <input id="js-CheckboxChars" type="checkbox" class="options" tabindex="33"
                name="<?php echo $query_options->show_unwhitelisted_chars->name ?>" value="1"
             <?php echo $query_options->show_unwhitelisted_chars->val_checked_str ?> > ASCII spam / unnatural characters
         <br>
@@ -98,7 +102,7 @@
        
    </div>
    <div class="searchButtonContainer">
-        <input id="js-searchButton" type="submit" name="search" tabindex="6" 
+        <input id="js-searchButton" type="submit" name="search" tabindex="25" 
             class="searchButton clickableButton" value="Search"/>
    </div>
    <div style="clear: left;"></div>
@@ -117,14 +121,14 @@
    <p><b><i>Messages with: </b></i>(<i>exactly</i> <u>thisWord</u> <i>and not</i> <u>thatWord</u>)
        <i>or</i> (<u>"Exact phrase"</u>) </p>
    <p><b><i>Sent by users: </b></i><u>name1</u> <i>or</i> <u>name2</u></p>
-   <p><b><i>Starting from date: </b></i><u>2014-04-06 00:00:00 UTC</u> 
-   (Also type "April 6 2014", "10 days ago", "yesterday 6pm", etc.)</p>
-   <p>&nbsp;&nbsp;&nbsp;When you type in a date:</p>
-   <p>&nbsp;&nbsp;&nbsp;- selecting <b><i>From Date</b></i> (or not making a selection) shows messages starting from that date</p>
-   <p>&nbsp;&nbsp;&nbsp;- selecting <b><i>To Date</b></i> shows messages up until that date</p>
-   <p>&nbsp;&nbsp;&nbsp;When you leave the date blank:</p>
-   <p>&nbsp;&nbsp;&nbsp;- selecting <b><i>From Date</b></i> shows messages from the <u>beginning of time</u></p>
-   <p>&nbsp;&nbsp;&nbsp;- selecting <b><i>To Date</b></i> (or not making a selection) shows messages to the <u>end of time</u></p>
+   <p><b><i>Showing earliest messages from date: </b></i><u>2014-04-06 00:00:00 UTC</u></p>
+   <h2>Date Options</h2>
+   <ul>
+       <li>Leave the date blank to see the <b><i>earliest</b></i> / <b><i>latest</b></i> messages ever recorded.</li>
+       <li>Entering a date and selecting <b><i>latest</b></i> will show messages up until that date.</li>
+       <li>You can type "April 6 2014", "10 days ago", "yesterday 6pm", and some others.</li>
+       <li>All times are in UTC.</li>
+   </ul>
    <h2>Page Links</h2>
    <ul>
        <li>Click the <b><u>hour:minutes AM/PM</b></u> to the left of a message to see all chatlogs
@@ -150,27 +154,30 @@
            It also doesn't filter most democracy inputs because they overlap
            heavily with real words.<br>
            It also doesn't filter game inputs containing additional text after 
-           the input.
-       </li>
-       <li><u>Display in chronological order</u> determines the order in which
-           the results of current page are displayed. <br>
-           Clicking the little arrow between <b><u>11:00 pm 🠕 00s</b></u> 
-            has the same effect, and inverts this selection.<br>
-       </li>
+           the input.</li>
    </ul>
-       <h2>Other</h2>
+   <h2>Other Search Operators</h2>
+   <p>Apart from <b><i>=</b>exactWord</i>, <b><i>!</b>notThisWord</i>, and <b><i>"</b>exact phrase<b>"</i></b>, there is:
    <ul>
-       <li>All times are in UTC.</li>
-       <li>Use | for a high-precedence <b>OR</b> operator. 
-           You can use parenthesis with this style as well.<br>
-           Parenthesis are <b>not</b> compatible with the low-precedence <b>OR</b>.</li>
+       <li> <b>|</b> High-precedence <b>OR</b> operator: <i>Selling growlithe </i><b>|</b><i> arcanine badge</i></li>
+       <li> <b><<</b> Strict order operator: <i>firstThis <b><<</b> thenThat <b><<</b> thenThisToo</i></li>
+       <li> <b>^$</b> Start and End operators: <i><b>^</b>Hello etc goodbye<b>$</b></i></li>
+       <li> <b>""/</b> Quorum matching operator: <i><b>"</b>Any three of these words<b>"/3</b></i></li>
+       <li> <b>NEAR/</b> Proximity operator: <i>words <b>NEAR/2</b> close <b>NEAR/4</b> together</i></li>
+       <li> <b>( )</b> Parenthesis are also supported for altering operator precedence</li>
+   </ul>
+   <h2>Caveats</h2>
+   <ul>
+       <li>Username-changed users may incorrectly show a later username 
+           than what they had at the time of chatting.</li>
+       <li>Messages from Twitch-banned or deleted users may be missing.</li>
    </ul>
 <!--   <p>This page has two modes- browsing logs and search. </p>
    <p>Within each page:<br>
         - Search results may be sorted in time descending order as appropriate.<br>
         - Log browsing are always sorted in time ascending order.<br></p>-->
    
-   <h1>General info</h1>
+   <h1>About</h1>
    <h2>Contact</h2>
    <p>I'm ferraro2 and I run this site on my own.</p>
    <p>Feel free to <a href="https://www.discordapp.com/users/ferraro2#2257">contact me on Discord</a> 
@@ -178,12 +185,11 @@
    <p>This website is not affiliated with TwitchPlaysPokémon.</p>
    <h2>Privacy</h2>
    <p>To have all your messages removed from this site, just whisper me from the 
-       Twitch account in question. Then let me know on Discord, and I will 
-       remove them promptly, no questions asked.<br>
-      If you prefer, I can also remove individual messages of your choice, 
+       Twitch account in question. <br>Then let me know on Discord, and I will 
+       remove them promptly, no questions asked.<br></p>
+    <p>If you prefer, I can also remove individual messages of your choice, 
       or all messages in any specified time range.<br>
-      I do not disclose who has made requests or what they requested.
-   </p>
+      I do not disclose who has made requests or what they requested.</p>
    <p>This site provides an identical experience for all its visitors 
        (e.g., there are no special hidden features for moderators or anyone else).<br>
        Your activity on this site will not be exposed to any other party, in any way.</p>

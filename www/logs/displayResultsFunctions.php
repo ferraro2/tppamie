@@ -66,12 +66,19 @@ function adjustColor($color, $ADJUST_COLOR) {
         'blue'  => hexdec(substr($color, 4, 2))
     );
     if ($subcolors['red']   >= 0xc0
-     && $subcolors['green'] >= 0xc0
-     && $subcolors['blue']  >= 0xc0) {
+            && $subcolors['green'] >= 0xc0
+            && $subcolors['blue']  >= 0xc0) {
         $color = dechex(($subcolors['red'] - 0x50))
                 . dechex(($subcolors['green'] - 0x50))
                 . dechex(($subcolors['blue'] - 0x50));
-    }
+    } else if (
+            $subcolors['red']   >= 0xa0
+            && $subcolors['green'] >= 0xa0
+            && $subcolors['blue']  >= 0xa0) {
+        $color = dechex(($subcolors['red'] - 0x30))
+                . dechex(($subcolors['green'] - 0x30))
+                . dechex(($subcolors['blue'] - 0x30));
+    } 
    return $color;
 }
 

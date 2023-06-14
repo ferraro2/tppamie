@@ -273,12 +273,12 @@ function sphinxQuery($hostname, $sphinx_match_query, $query_filter,
      */
 
     try {
-       echo "establishing new pdo<br>";
+//       echo "establishing new pdo<br>";
        $pdo = new PDO("mysql:host=localhost;port=9306;charset=utf8mb4", 'me', 'none');
        // set the PDO error mode to exception
-       echo "setting attribute<br>";
+//       echo "setting attribute<br>";
        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-       echo "running subroutine<br>";
+//       echo "running subroutine<br>";
         list($had_results, $msg_ids, $min_tstamp_sphinx, $max_tstamp_sphinx) =
            getSphinxIdsAndRange($pdo, $sphinx_match_query, $query_filter, 
                    $fetch_tstamp_range_filter, $fetch_tstamp_sort);
@@ -346,7 +346,7 @@ function getSphinxIdsAndRange($pdo, $sphx_match_string, $query_filter,
            . " $tstamp_ordered_range"
            . " LIMIT " . LIMIT
            . " OPTION boolean_simplify=1";
-    echo "Sphinx match query: $sphx_match_query<br>";
+//    echo "Sphinx match query: $sphx_match_query<br>";
     $sphx_match_result = $pdo->prepare($sphx_match_query);
     $sphx_match_result->execute( [$sphx_match_string] );
     
@@ -399,7 +399,7 @@ function sphinxPrevResultsExist($pdo, $query, $query_filter, $tstamp_sphinx) {
             . " tppDelta5, tppDelta6"
             . " WHERE Match(?) $filter "
             ." AND tstamp < $tstamp_sphinx LIMIT 1";
-    echo "Sphinx prev results query: <br>$prev_query<br>";
+//    echo "Sphinx prev results query: <br>$prev_query<br>";
     $prev_results = $pdo->prepare($prev_query);
     $prev_results->execute( array($query) );
     return $prev_results->fetchObject() == True;
@@ -418,7 +418,7 @@ function sphinxNextResultsExist($pdo, $query, $query_filter, $tstamp_sphinx) {
             . " tppDelta5, tppDelta6"
             . " WHERE Match(?) $filter "
             . " AND tstamp > $tstamp_sphinx LIMIT 1";
-    echo "Sphinx next results query: <br>$next_query<br>";
+//    echo "Sphinx next results query: <br>$next_query<br>";
     $next_results = $pdo->prepare($next_query);
     $next_results->execute( array($query) );
     return $next_results->fetchObject() == True;
