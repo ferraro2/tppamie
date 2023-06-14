@@ -10,3 +10,4 @@
 credentials.php
 *.gitignore.*
 *.pyc
+.*\~
