@@ -1,58 +1,62 @@
  # -*- coding: utf-8 -*-
 from __future__ import division, print_function, unicode_literals
 import sys, urllib2, traceback
-import re, json, time, pprint, urllib2
+import re, json, time, pprint, urllib2, random
 
 import sys
-sys.path.insert(0, r"../common")
+sys.path.insert(0, r"../")
 
 #from common
-import utils, pkmnUtils, sioRoutines, random
-from twitch_bot import TwitchBot
+from common import utils, pkmnUtils, sioRoutines
+from common.twitch_bot import TwitchBot
 
 import logging, logging.config
+
+
 logging.config.dictConfig(utils.readYaml('logging.yaml'))
 logger = logging.getLogger(__name__)
 
 pp = pprint.PrettyPrinter(indent=4)
 
 announcePhrases = [' Match visualizer', 'Match overview']
+
+
 class LiveMatchUpdater(TwitchBot):
 
 	def __init__(self, host, port, channels, nick, pword, **args):
 		TwitchBot.__init__(self, host, port, channels, nick, pword, **args)
-		self.setMute('')
+		self.setMute('pw')
 		self.nextIsTokenMatch = False
 		self.matchGimmick = False
 		self.setIrcLoggers(['all'])
-		
+
 	def run(self):
 		TwitchBot.run(self)
-		
+
 	#handler methods
 	def onConnectStatus(self, status):
 		logger.info(status.msg())
 		if status.code() == 'accept':
 			logger.info('Fetching current match on script startup.')
 			self.newMatchSpec()
-	
+
 	def onUnmatched(self, rawMsg):
 		logger.info("[UNMATCHED] {}".format(rawMsg))
-		
+
 	def onTick(self):
 		pass
-	
+
 	def onAll(self, rawMsg):
 		self.logs['all'].info(rawMsg)
-	
+
 	def onPriv(self, twitchMsg):
 		msgTimeStr = utils.datetimeStr()
 		self.priv(twitchMsg, msgTimeStr)
-		
+
 	def priv(self, twitchMsg, msgTimeStr):
 		sender = twitchMsg.sender
 		text = twitchMsg.text
-		if sender == 'tpp': 
+		if sender == 'tpp':
 			if 'break has started' in text:
 				sioRoutines.emit('visualizer', "load blank match")
 				sioRoutines.emit('visualizer', "state change", "break started")
@@ -69,7 +73,7 @@ class LiveMatchUpdater(TwitchBot):
 					time.sleep(.1)
 					self.newMatchSpec()
 				sioRoutines.emit('visualizer', 'feed notice', 'The match has begun!')
-		
+
 	def newMatchSpec(self, announce=False):
 		try:
 			response = self.fetchCurrentMatchPage()
@@ -77,13 +81,13 @@ class LiveMatchUpdater(TwitchBot):
 			logger.warning('API failed to deliver match.\n\tHTTP status code: {}\n\tReason: {}'.format(e.code, e.reason))
 		except urllib2.URLError as e:
 			logger.warning('API failed to deliver match.\nReason: {}'.format(e.reason))
-		else:		
+		else:
 			rawMatch = self.extractRawMatch(response)
-		
+
 			visMatch = self.genVisMatchSpec(rawMatch)
-			
+
 			self.gimmick = False if visMatch['gimmick'] == 'normal' else True
-				
+
 			if visMatch['teams']:
 				# pp.pprint(visMatch)
 				self.emitMatchSpec(visMatch)
@@ -95,7 +99,7 @@ class LiveMatchUpdater(TwitchBot):
 				logger.info('Teams not available yet.')
 				if announce:
 					logger.error("Warn- teams not available on announced match")
-			
+
 	def fetchCurrentMatchPage(self):
 		url = 'https://twitchplayspokemon.tv/api/current_match'
 		# user_agent = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64)'
@@ -112,7 +116,7 @@ class LiveMatchUpdater(TwitchBot):
 		the_page = response.read()
 		match = json.loads(the_page)
 		return match
-	
+
 	def genVisMatchSpec(self, apiMatch):
 		matchOut = {}
 		# print(apiMatch)
@@ -120,12 +124,12 @@ class LiveMatchUpdater(TwitchBot):
 		matchOut['base_gimmicks'] = apiMatch['base_gimmicks']
 		matchOut['stage'] = apiMatch['stage']
 		matchOut['switching'] = apiMatch['switching']
-		
+
 		if 'teams' in apiMatch:
 			matchOut['teams'] = self.getTeams(apiMatch)
-			
+
 		return matchOut
-		
+
 	def getTeams(self, apiMatch):
 		teams = []
 		for apiTeam in apiMatch['teams']:
@@ -134,10 +138,10 @@ class LiveMatchUpdater(TwitchBot):
 				team.append(pkmnUtils.api2VisSpec(apiPkmn, instantiated=True))
 			teams.append(team)
 		return teams
-		
+
 	def emitMatchSpec(self, data):
 		sioRoutines.emit('visualizer', 'live match spec', data)
-		
+
 	def announceMatch(self, rawMatch, visMatch):
 		try:
 			teams = rawMatch['teams']
@@ -237,6 +241,7 @@ def main():
 		except Exception:
 			logger.critical( 'THE WHOLE PROGRAM DIED LUL' )
 			logger.critical( traceback.format_exc() )
+
 
 if __name__ == "__main__":
     main()

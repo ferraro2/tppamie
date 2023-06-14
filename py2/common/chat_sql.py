@@ -276,7 +276,7 @@ class ChatSql(SqlLoader):
                 self.commit()
             except (IntegrityError, InternalError):
                 print('message processing failed with %s' % traceback.format_exc())
-                print('in transaction: %s' % self.in_transaction)
+                print('in transaction: %s' % self.cnx.in_transaction)
                 attempts += 1
                 if attempts >= 5:
                     raise Exception('could not insert message after several attempts')

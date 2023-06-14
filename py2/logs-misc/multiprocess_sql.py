@@ -29,7 +29,7 @@ from common.chat_sql import ChatSql
 
 
 def main():
-    mongo_comments_insert()
+    insert_mongo_comments_into_sql()
 
     # go through all messages and modify them in some way
     # e.g. if our input regex is modified, we can update the flags with this
@@ -39,14 +39,14 @@ def main():
     # microsecond_assign()
 
 
-def mongo_comments_insert():
+def insert_mongo_comments_into_sql():
     num_processes = 15
     # min_date = datetime.strptime('2014-02-01T00:00:00.000', '%Y-%m-%dT%H:%M:%S.%f')
     max_date = datetime.utcnow()
 
     # min_date = datetime.strptime('2016-12-06T05:23:08.426', '%Y-%m-%dT%H:%M:%S.%f')
     # max_date = datetime.strptime('2016-12-16T15:25:42.425', '%Y-%m-%dT%H:%M:%S.%f')
-    min_date = datetime.strptime('2023-03-23T15:25:42.425', '%Y-%m-%dT%H:%M:%S.%f')
+    min_date = datetime.strptime('2023-05-30T15:25:42.425', '%Y-%m-%dT%H:%M:%S.%f')
     # max_date = datetime.strptime('2016-12-16T15:25:42.425', '%Y-%m-%dT%H:%M:%S.%f')
     interval_size = timedelta(minutes=20)
     partition_ranges = get_partition_ranges_of_time_interval(interval_size, min_date, max_date)
@@ -54,10 +54,10 @@ def mongo_comments_insert():
     #     print(pr)
 
     print('%d partition ranges' % len(partition_ranges))
-    perform_partitions_work(partition_ranges, num_processes, mongo_comments_insert_consumer)
+    perform_partitions_work(partition_ranges, num_processes, insert_mongo_comments_into_sql_consumer)
 
 
-def mongo_comments_insert_consumer(i, q):
+def insert_mongo_comments_into_sql_consumer(i, q):
     mongodb_client = pymongo.MongoClient('127.0.0.1:27017')
     amie_db = mongodb_client['amie']
     comments_table = amie_db['comments2']

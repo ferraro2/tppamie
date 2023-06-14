@@ -45,7 +45,7 @@ Usage:
 """
 
 MONGO_SERVER_URI = '127.0.0.1:27017'
-VIDEOS_JSON_FILENAME = 'all_tpp_videos.json'
+VIDEOS_JSON_FILENAME = 'all_tpp_videos.gitignore.json'
 DB_NAME = 'amie'
 VIDEOS_PROGRESS_TABLE_NAME = 'videos_progress'
 COMMENTS_TABLE_NAME = 'comments2'
@@ -55,7 +55,7 @@ VIDEOS_PROGRESS_SORT_CREATED_AT = pymongo.ASCENDING
 
 # must clear progress with -r for this to update
 # don't worry about any overlap- upsert by id prevents duplicates
-ONLY_VIDEOS_AFTER_DATE = '2016-03-02T00:00:00Z'
+ONLY_VIDEOS_AFTER_DATE = '2023-05-29T21:27:30Z'
 
 VideoWork = namedtuple("VideoWork", "video offset_seconds queue_pos")
 
@@ -81,6 +81,7 @@ def main():
                 pool.join()
             except KeyboardInterrupt:
                 pool.terminate()
+    print('done')
 
 
 def video_work_consumer(video_work_queue: Queue, total_queued):

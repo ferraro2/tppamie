@@ -58,13 +58,13 @@ def main():
         response_json = response.json()
         results.extend(response_json['data'])
 
-        print(response_json['data'])
+        # print(response_json['data'])
 
         print(len(results))
 
     print(len(results))
 
-    with open("all_tpp_videos.json", "w") as outfile:
+    with open("all_tpp_videos.gitignore.json", "w") as outfile:
         outfile.write(json.dumps(results, indent=4))
 
 
