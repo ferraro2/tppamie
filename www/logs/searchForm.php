@@ -170,6 +170,7 @@
        <li>Messages from Twitch-banned or deleted users may be missing.</li>
        <li>Most logs whenever the stream was down after 2016-06-05 are missing.</li>
        <li>Most logs prior to 2016-06-05 do not include inputs.</li>
+       <li>Non-twitch emotes (FFZ, BTTV, etc) are not unfortunately not recognized at this time.</li>
    </ul>
 <!--   <p>This page has two modes- browsing logs and search. </p>
    <p>Within each page:<br>
