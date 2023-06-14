@@ -18,12 +18,16 @@
 //        var_dump($_GET);
 //        echo "<br>param '$param_name' set:" . isset($_GET[$param_name]). "<br>";
 //        echo "<br>param '$param_name' type:" . gettype($_GET[$param_name]) . "<br>";
-        $date_html = !isset($_GET[$param_name]) || gettype($_GET[$param_name]) !== 'string'
+        $date_str = !isset($_GET[$param_name]) || gettype($_GET[$param_name]) !== 'string'
                ? ''
                : preg_replace(DATE_SANITIZE, " ", $_GET[$param_name]);
-        
+        // Translate "2016" to "2016-01-01"
+        if (substr($date_str, 0, 2) === "20" 
+                && strlen($date_str) === 4) {
+            $date_str .= "-01-01";
+        }
 //        echo "<br>param '$param_name':$date<br>";
-        $date_mysql = mysqlDateFromUrlDate($date_html);
+        $date_mysql = mysqlDateFromUrlDate($date_str);
 //        echo "<br>param '$param_name':$date<br>";
 //        exit();
         return $date_mysql;

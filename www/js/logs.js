@@ -54,10 +54,10 @@ define(['jquery'],
             isOldDateFromChecked = dateFrom.is(":checked");
             isOldDateToChecked = dateTo.is(":checked");
             examples.css("display", "block");
-            q1.val("=thisWord !thatWord OR \"exact phrase\"");
+            q1.val("=thisWord !thatWord or \"exact phrase\"");
             u1.val("name1 name2");
             date.val('4/6/14');
-            dateFrom.prop("checked", false);
+            dateFrom.prop("checked", true);
             dateTo.prop("checked", false);
 
             helpButton.html("Restore previous");

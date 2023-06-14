@@ -10,7 +10,7 @@
     <h2>Search For:</h2>
     <div>
         <input id="js-q1" type="text" name="q1" tabindex="1" value="<?php echo h($q1) ?>" 
-               class="logTextField form-query tooltip"/>
+               class="logTextField form-query tooltip" onfocus="this.select()"/>
         <button type="button" id="js-helpButton" class="helpButton clickableButton redButton"
            tabindex ="-1">Help</button>
     </div>
@@ -18,20 +18,20 @@
    <h2>By Users:</h2>
    <div>
         <input type="text" id="js-u1" name = "u1" tabindex="2" value="<?php echo h($u1) ?>" 
-               class="logTextField form-user tooltip"/>
+               class="logTextField form-user tooltip" onfocus="this.select()"/>
         <button type="button" id="js-extraFieldsButton" 
                 class="extraFieldsButton clickableButton blueButton" 
                 tabindex ="-1" ><?php echo $EXTRA_FIELDS_BUTTON_VALUE ?></button>
    </div>
    <div id="js-extraFields" class="extraFields" style="<?php echo $EXTRA_FIELDS_DISPLAY ?>">
-       <h1>Additional search fields:</h1>
+       <h1>Or for:</h1>
        <input id="js-q2" type="text" name="q2" value="<?php echo h($q2) ?>" class="logTextField form-query tooltip"/>
        <br>
        <div class="smallBr"></div>
        <h2>By Users:</h2>
        <input type="text" id="js-u2" name = "u2" value="<?php echo h($u2) ?>" class="logTextField form-user tooltip"/>
        <br>
-       <br>
+       <h1>Or for:</h1>
        <input id="js-q3" type="text" name="q3" value="<?php echo h($q3) ?>" class="logTextField form-query tooltip"/>
        <br>
        <div class="smallBr"> </div>
@@ -42,7 +42,7 @@
    <div style="float: left;">
         <h2> Starting from Date:</h2>
         <input type="text" id="js-date" name="date" tabindex="3" 
-           value="" 
+           value="" onfocus="this.select()"
            class="logTextField form-date tooltip"/>
     <!--           <input type="text" id="js-date" name="date" 
            value="<?php echo restoredDate($from_date, $to_date)?>" 
@@ -101,6 +101,7 @@
         <input id="js-searchButton" type="submit" name="search" tabindex="6" 
             class="searchButton clickableButton" value="Search"/>
    </div>
+   <div style="clear: left;"></div>
 </form>
 
 <!----------------------------------------------------------
@@ -117,7 +118,7 @@
        <i>or</i> (<u>"Exact phrase"</u>) </p>
    <p><b><i>Sent by users: </b></i><u>name1</u> <i>or</i> <u>name2</u></p>
    <p><b><i>Starting from date: </b></i><u>2014-04-06 00:00:00 UTC</u> 
-   (Type your date in any way- "June 6 2015", etc.)</p>
+   (Also type "April 6 2014", "10 days ago", "yesterday 6pm", etc.)</p>
    <p>&nbsp;&nbsp;&nbsp;When you type in a date:</p>
    <p>&nbsp;&nbsp;&nbsp;- selecting <b><i>From Date</b></i> (or not making a selection) shows messages starting from that date</p>
    <p>&nbsp;&nbsp;&nbsp;- selecting <b><i>To Date</b></i> shows messages up until that date</p>

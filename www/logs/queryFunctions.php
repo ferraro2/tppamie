@@ -316,84 +316,7 @@ function sphinxQuery($hostname, $sphinx_match_query, $query_filter,
     
 }
 
-
-/***********************************************************
- ***********************************************************
- *      SPHINX MATCH QUERY PREPARATION
- ***********************************************************
- ***********************************************************/
-
-/*
-* @param ($q)  query string
-* @param ($u)  users string
-* @return      a sphinx-readable query for the relevant query and users, entirely
-*  contained within a set of parenthesis
-*/
-function createQuery($q, $u) {
-    if ($q === '' && $u === '') {
-        // both fields are empty
-        return '';
-    }
-
-    $ret = '';
-    if ($q !== '') {
-        //add message query
-        $ret .= "(@msg " . alter_OR_precedence($q) .  " ) ";
-    }
-
-    if ($u !== '') {
-        //add users query
-        $u_match = preg_replace("/[ ]/", " | ", $u);
-        $ret .= " (@username $u_match)";
-    }
-
-    if ($q !== '' && $u!= '') {
-        // if both queries are present, surround them in parenthesis
-        return " ( $ret ) ";
-    } else {
-        //otherwise, the query ok for returning
-        return $ret;
-    }
-}
-
-/*
-* Split query on keyword 'OR', and encase each piece in parenthesis
-* 
-* This causes 'OR' to have lower precedence than the implicit AND.
-* 
-* Queries containing 'OR' must NOT contain parenthesis, or the query could be nonsensical
-*/
-function alter_OR_precedence($q) {
-    $ret = '';
-    $c = 0;
-    foreach (explode(" OR ", $q) as $or_piece) {
-        if ($c++ !== 0) {
-            $ret .= ' | ';
-        }
-        $ret .= "($or_piece)";
-    }
-    return $ret;
-}
-
-function getMatchQuery($q1, $q2, $q3, $u1, $u2, $u3) {
-// add escaping for the '@' character
-    $qu1 = createQuery(preg_replace("/@/", "\\@", $q1), $u1);
-    $qu2 = createQuery(preg_replace("/@/", "\\@", $q2), $u2);
-    $qu3 = createQuery(preg_replace("/@/", "\\@", $q3), $u3);
-
-    // push non-empty queries into an array...
-    $qu_matches = [];
-    $qu1 === '' || array_push($qu_matches, $qu1);
-    $qu2 === '' || array_push($qu_matches, $qu2);
-    $qu3 === '' || array_push($qu_matches, $qu3);
-
-    /*
-     * ...and join them appropriately
-     * Recall each query is contained within one set of parenthesis, so the high
-     * precedence of the '|' operater causes no trouble here
-     */
-    return implode(" | ", $qu_matches);
-}
+include 'sphinxQueryPreprocessing.php';
 
 /***********************************************************
  ***********************************************************
@@ -421,7 +344,8 @@ function getSphinxIdsAndRange($pdo, $sphx_match_string, $query_filter,
            . " WHERE MATCH(?) "
            . " $filter"
            . " $tstamp_ordered_range"
-           . " LIMIT " . LIMIT;
+           . " LIMIT " . LIMIT
+           . " OPTION boolean_simplify=1";
     echo "Sphinx match query: $sphx_match_query<br>";
     $sphx_match_result = $pdo->prepare($sphx_match_query);
     $sphx_match_result->execute( [$sphx_match_string] );
