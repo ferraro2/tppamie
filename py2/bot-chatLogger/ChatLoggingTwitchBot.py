@@ -54,7 +54,7 @@ def main():
     host = "irc.chat.twitch.tv"
     port = 443
     channels = ['#twitchplayspokemon']
-    allCred = utils.readJson('../../oauth.json')
+    allCred = utils.readJson('../../config.json')
     ircCred = allCred['chatLogger']
     nick = ircCred['user']
     pword = ircCred['oauth']

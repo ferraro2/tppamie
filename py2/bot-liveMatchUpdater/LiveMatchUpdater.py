@@ -230,7 +230,7 @@ def main():
 	host = "irc.chat.twitch.tv"
 	port = 443
 	channels = ['#twitchplayspokemon']
-	cred = utils.readJson('../../oauth.json')['liveMatchUpdater']
+	cred = utils.readJson('../../config.json')['liveMatchUpdater']
 	nick = cred['user']
 	# CANNOT be blank
 	pword = cred['oauth']

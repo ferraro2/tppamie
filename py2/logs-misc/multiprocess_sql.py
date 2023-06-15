@@ -62,7 +62,7 @@ def insert_mongo_comments_into_sql_consumer(i, q):
     amie_db = mongodb_client['amie']
     comments_table = amie_db['comments2']
 
-    auth = json.load(open('../../oauth.json'))
+    auth = json.load(open('../../config.json'))
     sql = ChatSql('tpp_chat', auth['mysql']['user'], auth['mysql']['pass'])
     lastitem = None
     try:
@@ -203,7 +203,7 @@ def message_update():
 
 
 def message_update_consumer(i, q):
-    auth = json.load(open('../../oauth.json'))
+    auth = json.load(open('../../config.json'))
     sql = ChatSql('tpp_chat', auth['mysql']['user'], auth['mysql']['pass'])
     # results = []
     lastitem = None
@@ -288,7 +288,7 @@ def microsecond_assign():
 
 
 def get_partition_ranges_of_size(range_size, min_date, max_date):
-    auth = json.load(open('../../oauth.json'))
+    auth = json.load(open('../../config.json'))
     sql = ChatSql('tpp_chat', auth['mysql']['user'], auth['mysql']['pass'])
     result = sql.getPartitionRangesOfSize(range_size, min_date, max_date)
     sql.close()
@@ -329,7 +329,7 @@ def callback(data):
 
 
 def microseconds_assign_consumer(i, q):
-    auth = json.load(open('../../oauth.json'))
+    auth = json.load(open('../../config.json'))
     sql = ChatSql('tpp_chat', auth['mysql']['user'], auth['mysql']['pass'])
     results = []
     lastitem = None

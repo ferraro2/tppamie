@@ -31,7 +31,7 @@ def main():
 
 
 def fetch_and_insert():
-    auth = json.load(open('../../oauth.json'))
+    auth = json.load(open('../../config.json'))
 
     (tpp_badges, global_badges) = fetch(auth['twitchAPI'])
 

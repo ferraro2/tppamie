@@ -1,0 +1,28 @@
+{
+    "liveMatchUpdater": {
+        "user": "mytwitchusername",
+        "oauth": "oauth:blah"
+    },
+    "chatLogger": {
+        "user": "mytwitchusername",
+        "oauth": "oauth:blah"
+    },
+    "mysql": {
+        "user": "root",
+        "pass": "mysql"
+    },
+    "twitchAPI": {
+        "client_id": "abc",
+        "oauth": "def"
+    },
+    "twitchGQL": {
+        "Client-ID": "find this in browser gql requests",
+        "content-type": "application/json",
+        "Authorization": "find this in browser gql requests.",
+        "Client-Integrity": "find this in browser gql requests.",
+        "Client-Session-ID": "find this in browser gql requests.",
+        "Client-Version": "find this in browser gql requests",
+        "User-Agent": "find this in browser gql requests",
+        "X-Device-id": "find this in browser gql requests"
+    }
+}

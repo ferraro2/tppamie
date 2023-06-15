@@ -6,7 +6,7 @@
 *.cred
 /nbproject/
 /auth_socketIO
-/oauth.json
+/config.json
 credentials.php
 *.gitignore.*
 *.pyc

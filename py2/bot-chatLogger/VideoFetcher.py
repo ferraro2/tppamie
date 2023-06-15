@@ -11,7 +11,7 @@ USERID_TWITCHPLAYSPOKEMON = 56648155
 
 class VideoFetcher:
     def __init__(self):
-        auth = json.load(open('../../oauth.json'))['twitchAPI']
+        auth = json.load(open('../../config.json'))['twitchAPI']
         header_client_id = auth['client_id']
         header_authorization = 'Bearer ' + auth['oauth']
         self.session = requests.Session()

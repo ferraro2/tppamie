@@ -34,7 +34,7 @@ def insertComments():
         .sort("node.createdAt")\
         # .limit(100)
 
-    auth = json.load(open('../../oauth.json'))
+    auth = json.load(open('../../config.json'))
     sql = ChatSql('tpp_chat', auth['mysql']['user'], auth['mysql']['pass'])
     for comment in comments:
         node = None
