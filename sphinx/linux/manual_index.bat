@@ -1,0 +1,1 @@
+indexer.exe --config /etc/sphinxsearch/sphinx.conf tppMain tppDelta1 tppDelta2 tppDelta3 tppDelta4 tppDelta5 tppDelta6 tppDelta7 tppDelta8 tppDelta9 tppDelta10 --rotate

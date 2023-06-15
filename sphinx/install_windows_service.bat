@@ -1,0 +1,1 @@
+searchd.exe --install --config C:\Users\admin\Documents\main\dev\tpp\amie\sphinx\sphinx.conf
