@@ -99,8 +99,8 @@ define(['jquery'],
         /*
          * Remove all empty variables from old query
          */
-        let isBot = false;
-        let showCommands = false;
+        var isBot = false;
+        var showCommands = false;
         oldQueryArr.forEach(function(val) {
             console.log(val);
             var valLen = val.length;
@@ -140,12 +140,12 @@ define(['jquery'],
 //        console.log(window.location.href);
 //        
         
-        let params = new URLSearchParams(window.location.search);
+        var params = new URLSearchParams(window.location.search);
         
-        let isBotChecked = $("#js-CheckboxBot").is(":checked");
-        let isCommandsChecked = $("#js-CheckboxCommands").is(":checked");
-        let isInputsChecked = $("#js-CheckboxInputs").is(":checked");
-        let isCharsChecked = $("#js-CheckboxChars").is(":checked");
+        var isBotChecked = $("#js-CheckboxBot").is(":checked");
+        var isCommandsChecked = $("#js-CheckboxCommands").is(":checked");
+        var isInputsChecked = $("#js-CheckboxInputs").is(":checked");
+        var isCharsChecked = $("#js-CheckboxChars").is(":checked");
         // default True
         if (isBotChecked) {
             params.delete('bot');
@@ -174,9 +174,9 @@ define(['jquery'],
 //            params.set("sort", 1);
 //        }
         
-        let paramStr = params.toString();
+        var paramStr = params.toString();
         paramStr = paramStr ? "?" + paramStr : paramStr;
-        let newUrl = window.location.origin + window.location.pathname +
+        var newUrl = window.location.origin + window.location.pathname +
                 paramStr + window.location.hash;
 //        console.log(newUrl);
         window.location.href = newUrl;
