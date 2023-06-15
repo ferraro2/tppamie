@@ -339,8 +339,8 @@ function getSphinxIdsAndRange($pdo, $sphx_match_string, $query_filter,
     * Execute the search
     */
     $sphx_match_query = "SELECT id, tstamp FROM"
-           . " tppMain, tppDelta1, tppDelta2, tppDelta3, tppDelta4, "
-           . " tppDelta5, tppDelta6 "
+           . " tppMain, tppDelta1, tppDelta2, tppDelta3, tppDelta4, tppDelta5,"
+           . " tppDelta6, tppDelta7, tppDelta8, tppDelta9, tppDelta10"
            . " WHERE MATCH(?) "
            . " $filter"
            . " $tstamp_ordered_range"
@@ -395,8 +395,8 @@ function sphinxPrevResultsExist($pdo, $query, $query_filter, $tstamp_sphinx) {
         ? ""
         : " AND " . $query_filter;
     $prev_query = "SELECT id FROM"
-            . " tppMain, tppDelta1, tppDelta2, tppDelta3, tppDelta4, "
-            . " tppDelta5, tppDelta6"
+            . " tppMain, tppDelta1, tppDelta2, tppDelta3, tppDelta4, tppDelta5,"
+            . " tppDelta6, tppDelta7, tppDelta8, tppDelta9, tppDelta10"
             . " WHERE Match(?) $filter "
             ." AND tstamp < $tstamp_sphinx LIMIT 1";
 //    echo "Sphinx prev results query: <br>$prev_query<br>";
@@ -414,8 +414,8 @@ function sphinxNextResultsExist($pdo, $query, $query_filter, $tstamp_sphinx) {
         ? ""
         : " AND " . $query_filter;
     $next_query = "SELECT id FROM"
-            . " tppMain, tppDelta1, tppDelta2, tppDelta3, tppDelta4, "
-            . " tppDelta5, tppDelta6"
+            . " tppMain, tppDelta1, tppDelta2, tppDelta3, tppDelta4, tppDelta5,"
+            . " tppDelta6, tppDelta7, tppDelta8, tppDelta9, tppDelta10"
             . " WHERE Match(?) $filter "
             . " AND tstamp > $tstamp_sphinx LIMIT 1";
 //    echo "Sphinx next results query: <br>$next_query<br>";

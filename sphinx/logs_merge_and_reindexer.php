@@ -5,20 +5,25 @@ echo "------ Sphinx Log Merge & ReIndexer ------\n";
 echo "------------------------------------------\n";
 echo "------------------------------------------\n\n";
 
-define("LINUX", 1);
-define("VERBOSE", 0);
+# windows must run as administrator. not sure about linux yet
+if ($argc < 4) {
+    echo "Usage: $argv[0] <os> <debug print flag> <mysql pass>";
+    return;
+}
+
+define("LINUX", $argv[1] == 'windows' ? 0 : 1);
+define("VERBOSE", $argv[2] == '1' ? 1 : 0);
+define("MYSQL_PASS", $argv[3]);
 
 if(LINUX) {
 	define("INDEXER", "indexer");
 	define("DATA_PATH", "/usr/local/sphinx/data/");
 	define("MYSQL_USER", "dhason");
-	define("MYSQL_PASS", "qp3NXI759twp168");
-	define("CONFIG", "tpp-linux.conf");
+	define("CONFIG", "sphinx.conf");
 } else {	
 	define("INDEXER", "C:\\Users\\admin\\Documents\\main\\installs\\sphinx-2.2.11-release-win64\\bin\\indexer.exe");
 	define("DATA_PATH", "C:\\Users\\admin\\Documents\\main\\installs\\sphinx-2.2.11-release-win64\\data\\");
 	define("MYSQL_USER", "root");
-	define("MYSQL_PASS", "mysql");
 	define("CONFIG", "sphinx.conf");
 }
 
@@ -33,7 +38,7 @@ function mergeAndUpdate($base, $delta) {
 	if(LINUX) {
 		$code = "sudo " . INDEXER . " -c " . CONFIG . " --rotate --merge $base $delta";
 	} else {
-		$code = "cmd.exe /c ". INDEXER . " -c" . CONFIG . " --rotate --merge $base $delta";
+		$code = "cmd.exe /c ". INDEXER . " -c " . CONFIG . " --rotate --merge $base $delta";
 	}
 	exec($code, $output, $exitCode);
 	echo "done!\n";
@@ -74,7 +79,7 @@ function reIndex($index) {
 	if(LINUX) {
 		$code = INDEXER . " -c " . CONFIG . " --rotate $index";
 	} else {
-		$code = "cmd.exe /c ". INDEXER . " -c" . CONFIG . " --rotate $index";
+		$code = "cmd.exe /c ". INDEXER . " -c " . CONFIG . " --rotate $index";
 	}
 	exec($code, $output, $exitCode);
 	echo "done!\n";
@@ -86,15 +91,16 @@ function reIndex($index) {
 		logError("Reindex of $index FAILED\nOutput: $output\nExit Code: $exitCode\n\n");
 	}
 }
+
 while (1) {
 	$activity = 1;
-	if (filemtime(DATA_PATH . 'tppMain.sph') < time()-(5000000)) {
+	if (filemtime(DATA_PATH . 'tppMain.sph') < 0) {
 		# INDEX FULL (we try to cap at 2 GB)
 		# mergeAndUpdate("tppMain", "tppDelta1");
-    } elseif (filemtime(DATA_PATH . 'tppDelta1.sph') < time()-(500000)) {
+    } elseif (filemtime(DATA_PATH . 'tppDelta1.sph') < 0) {
 		# INDEX FULL
 		# mergeAndUpdate("tppDelta1", "tppDelta2");
-	} elseif (filemtime(DATA_PATH . 'tppDelta2.sph') < time()-(50000)) {
+	} elseif (filemtime(DATA_PATH . 'tppDelta2.sph') < 0) {
 		# INDEX FULL
 		# mergeAndUpdate("tppDelta2", "tppDelta3");
     } elseif (filemtime(DATA_PATH . 'tppDelta3.sph') < time()-(31104000 * 10)) {  # 10 years aka unused
