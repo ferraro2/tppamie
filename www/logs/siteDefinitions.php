@@ -5,25 +5,23 @@
      */
     $CAST_MYSQL_RESULTS = True;
 
-    /*
-     * Error reporting should be already set by php.ini
-     */
-    error_reporting(E_ALL);
-    ini_set('display_errors', 1);
-
-    define("DEBUG", 1);
-    
-    define("LOCAL", 1);
-    if (LOCAL) {
-        define("SITE", "http://localhost/logs/");
-        
-    } else {
-        define("SITE", "http://www.tppvisuals.com/logs/");
-
-        define("SPHINX_USER", "dhason");
-    }
-
     include 'credentials.php';
+
+    if (LOCAL) {
+        error_reporting(E_ALL);
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        ini_set('html_errors', 1);
+        ini_set('log_errors', 1);
+        define("DEBUG", 1);
+    } else {
+        error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT);
+        ini_set('display_errors', 0);
+        ini_set('display_startup_errors', 0);
+        ini_set('html_errors', 1);
+        ini_set('log_errors', 1);
+        define("DEBUG", 0);
+    }
 
     /*
      * Number of results, and
