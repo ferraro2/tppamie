@@ -17,11 +17,11 @@ define("MYSQL_PASS", $argv[3]);
 
 if(LINUX) {
 	define("INDEXER", "indexer");
-	define("DATA_PATH", "/usr/local/sphinx/data/");
-	define("MYSQL_USER", "dhason");
+	define("DATA_PATH", "/mnt/volume_nyc1_01/sphinx/data/");
+	define("MYSQL_USER", "logsbot");
 	define("CONFIG", "sphinx.conf");
 } else {	
-	define("INDEXER", "C:\\Users\\admin\\Documents\\main\\installs\\sphinx-2.2.11-release-win64\\bin\\indexer.exe");
+	define("INDEXER", "indexer.exe");
 	define("DATA_PATH", "C:\\Users\\admin\\Documents\\main\\installs\\sphinx-2.2.11-release-win64\\data\\");
 	define("MYSQL_USER", "root");
 	define("CONFIG", "sphinx.conf");
