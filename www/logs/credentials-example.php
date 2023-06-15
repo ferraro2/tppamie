@@ -1,6 +1,7 @@
 <?php
 
     define("LOCAL", 1);
+    define("DEBUG", 1);
     
     if (LOCAL) {
         define("MYSQL_USER", "root");
