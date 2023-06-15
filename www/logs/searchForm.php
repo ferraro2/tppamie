@@ -72,13 +72,13 @@
                name="<?php echo $query_options->show_tpp_bot->name?>" value="1" 
              <?php echo $query_options->show_tpp_bot->val_checked_str ?> > TPP bot messages
         <br> 
-        <input id="js-CheckboxInputs" type="checkbox" class="options" tabindex="31"
-               name="<?php echo $query_options->show_game_inputs->name ?>" value="1"
-             <?php echo $query_options->show_game_inputs->val_checked_str ?> > Game inputs <i>(up, !a, !bet, !balance, etc.)</i>
-        <br> 
         <input id="js-CheckboxCommands" type="checkbox" class="options" tabindex="32"
                name="<?php echo $query_options->show_commands->name ?>" value="1"
              <?php echo $query_options->show_commands->val_checked_str ?> > Commands <i>(anything starting with !)</i>
+        <br> 
+        <input id="js-CheckboxInputs" type="checkbox" class="options" tabindex="31"
+               name="<?php echo $query_options->show_game_inputs->name ?>" value="1"
+             <?php echo $query_options->show_game_inputs->val_checked_str ?> > Game inputs <i>(up, !a, !bet, !balance, etc.)</i>
         <br> 
         <input id="js-CheckboxChars" type="checkbox" class="options" tabindex="33"
                name="<?php echo $query_options->show_unwhitelisted_chars->name ?>" value="1"
