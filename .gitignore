@@ -1,7 +1,6 @@
 /www-build/
 /venv/
 *.log*
-/logs*
 /.idea*
 *.cred
 /nbproject/
