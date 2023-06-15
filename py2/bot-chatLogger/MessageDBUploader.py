@@ -6,7 +6,7 @@ import sys, urllib2, traceback, logging
 import re, json, time, pprint, urllib2, random
 
 sys.path.insert(0, r"../")
-from common import utils
+from common import utils, patterns
 from common.chat_sql import ChatSql
 from VideoFetcher import VideoFetcher
 
@@ -71,6 +71,25 @@ class MessageDBUploader:
             else:
                 self.activeVideoId = None
         self.timeLastVideoFetch = datetime.utcnow()
+
+    def newWhisperMessage(self, twitchMsg):
+        twitch_id = twitchMsg.config.user_id
+        text = twitchMsg.text
+        try:
+            if text.lower() == "hide all my messages on tppamie.com/logs":
+                self.sql.markTwitchIdHidden(twitch_id)
+            elif text.lower() == "undo hide all my messages on tppamie.com/logs":
+                self.sql.markTwitchIdVisible(twitch_id)
+            match = patterns.msgRemoveUndoPat.match(text)
+            if match:
+                self.sql.markMsgIdVisible(twitch_id, match.group('msg_id'))
+            else:
+                match = patterns.msgRemovePat.match(text)
+                if match:
+                    self.sql.markMsgIdHidden(twitch_id, match.group('msg_id'))
+        except Exception as e:
+            logger.exception(e)
+
 
     def close(self):
         self.sql.close()

@@ -281,12 +281,13 @@ class ChatSql(SqlLoader):
                 if attempts >= 5:
                     raise Exception('could not insert message after several attempts')
                 else:
-                    print('sleeping before attempting again')
+                    sleeptime = attempts * attempts
+                    print('sleeping %ds before attempting again' % sleeptime)
                     # user in db already thanks to another thread
                     # but the fresh insert may not be available in our locked data set.  Refresh it
                     if self.in_transaction():
                         self.rollback()
-                    time.sleep(attempts * attempts)  # wait a bit
+                    time.sleep(sleeptime)  # wait a bit
 
     def _isDuplicateMessage(self, userId, dateStr, text):
         self.queryDuplicateMessage((userId, dateStr, text))
@@ -390,3 +391,27 @@ class ChatSql(SqlLoader):
             (userId, color) = idAndColor
             self.updateUserIfInDB(userId, username, color, mod, sub, turbo, twitchId, dispName, dateStr)
             return idAndColor
+
+    def markTwitchIdHidden(self, twitch_id):
+        # Hide all messages of users with this user's twitch_id
+        update = {"hide_all_messages": 1}
+        criteria = {"twitch_id": twitch_id}
+        self.update('users', update, criteria)
+
+    def markTwitchIdVisible(self, twitch_id):
+        # Unhide all messages of users with this user's twitch_id
+        update = {"hide_all_messages": 0}
+        criteria = {"twitch_id": twitch_id}
+        self.update('users', update, criteria)
+
+    def markMsgIdHidden(self, twitch_id, msg_id):
+        # Hide a message by this user with this msg_id
+        update = {"is_hidden": 1}
+        criteria = {"twitch_id": twitch_id, "msg_id": msg_id}
+        self.update('messages join users using(user_id)', update, criteria)
+
+    def markMsgIdVisible(self, twitch_id, msg_id):
+        # Hide a message by this user with this msg_id
+        update = {"is_hidden": 0}
+        criteria = {"twitch_id": twitch_id, "msg_id": msg_id}
+        self.update('messages join users using(user_id)', update, criteria)

@@ -43,6 +43,9 @@ class LoggingTwitchBot(TwitchBot):
     def onPriv(self, twitchMsg):
         self.uploader.newChatMessage(twitchMsg)
 
+    def onWhisper(self, twitchMsg):
+        self.uploader.newWhisperMessage(twitchMsg)
+
     def close(self):
         self.uploader.close()
 

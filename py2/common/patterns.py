@@ -150,3 +150,8 @@ battleBegunPat = re.compile(r"The battle between (.*), (.*), (.*) and (.*), (.*)
 matchEndedPat = re.compile(r"Team (\w+) won the match!")
 matchDrawPat = re.compile(r"Match resulted in a draw.")
 bettingClosesPat = re.compile(r"The match starts in (\d+) seconds.")
+
+
+# USER WHISPER TO BOT PATTERNS
+msgRemovePat = re.compile(r"^hide message from tppamie\.com/logs with id (?P<msg_id>\d+)", re.IGNORECASE)
+msgRemoveUndoPat = re.compile(r"^undo hide message from tppamie\.com/logs with id (?P<msg_id>\d+)", re.IGNORECASE)

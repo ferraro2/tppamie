@@ -184,12 +184,15 @@
        or <a href="https://www.twitch.tv/ferraro2">Twitch</a>.</p>
    <p>This website is not affiliated with TwitchPlaysPokémon.</p>
    <h2>Privacy</h2>
-   <p>To have all your messages removed from this site, just whisper me from the 
-       Twitch account in question. <br>Then let me know on Discord, and I will 
-       remove them promptly, no questions asked.<br></p>
-    <p>If you prefer, I can also remove individual messages of your choice, 
-      or all messages in any specified time range.<br>
-      I do not disclose who has made requests or what they requested.</p>
+   <p>To hide all your messages on this site, just whisper:<br>
+       <b>hide all my messages on tppamie.com/logs</b><br>
+       to <b>tppamie</b> on twitch.</p>
+   <p>To hide a single message on this site, whisper:<br>
+       <b>hide message from tppamie.com/logs with id 12345</b><br>
+       replacing the number 12345 with the message id in that message's link.</p>
+   <p>To undo either of the above two operations, whisper the same thing but 
+       add the word <b>undo</b> at the beginning.</p>
+   <p>I do not disclose who has made requests or what they requested.</p>
    <p>This site provides an identical experience for all its visitors 
        (e.g., there are no special hidden features for moderators or anyone else).<br>
        Your activity on this site will not be exposed to any other party, in any way.</p>

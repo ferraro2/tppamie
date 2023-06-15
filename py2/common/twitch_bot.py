@@ -12,7 +12,7 @@ from twitch_irc import TwitchIrc
 
 logger = logging.getLogger(__name__)
 
-HANDLER_NAMES = ['onException', 'onRecoverableError', 'onConnectStatus', 'onUnmatched', 'onTick', 'onData', 'onAll', 'onPriv', 'onJoin', 'onPart', 'onClearchat']
+HANDLER_NAMES = ['onException', 'onRecoverableError', 'onConnectStatus', 'onUnmatched', 'onTick', 'onData', 'onAll', 'onPriv', 'onWhisper', 'onJoin', 'onPart', 'onClearchat']
 class TwitchBot:
 	def __init__(self, host, port, channels, nick, pword, **args):
 		self.logs = {}
