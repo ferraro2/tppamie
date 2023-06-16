@@ -20,19 +20,30 @@ from partitions import get_partition_ranges_of_time_interval
 # can delete a few lines printed to the terminal.  Scroll instead, or resize
 # terminal before a ctrl-c
 
+TPP_START_DATE = datetime.strptime('2014-02-14T00:00:00.000', '%Y-%m-%dT%H:%M:%S.%f')
 TPPVISUALS_LOGS_END_DATE = datetime.strptime('2016-12-06T05:23:08.426', '%Y-%m-%dT%H:%M:%S.%f')
+MONGO_TABLE = 'comments2'
+# MONGO_TABLE = 'comments-leftovers'
 
 
 def main():
     num_processes = 15
-    # min_date = datetime.strptime('2014-02-01T00:00:00.000', '%Y-%m-%dT%H:%M:%S.%f')
-    max_date = datetime.utcnow()
 
-    # min_date = datetime.strptime('2016-12-06T05:23:08.426', '%Y-%m-%dT%H:%M:%S.%f')
-    # max_date = datetime.strptime('2016-12-16T15:25:42.425', '%Y-%m-%dT%H:%M:%S.%f')
-    min_date = datetime.strptime('2023-05-30T15:25:42.425', '%Y-%m-%dT%H:%M:%S.%f')
-    # max_date = datetime.strptime('2016-12-16T15:25:42.425', '%Y-%m-%dT%H:%M:%S.%f')
+    # General format
+    min_date = datetime.strptime('2020-01-01T00:00:00.000', '%Y-%m-%dT%H:%M:%S.%f')
+    max_date = datetime.strptime('2020-01-01T00:00:00.000', '%Y-%m-%dT%H:%M:%S.%f')
     interval_size = timedelta(minutes=20)
+
+    # Add comments-leftovers
+    # min_date = TPPVISUALS_LOGS_END_DATE
+    # max_date = datetime.utcnow()
+    # interval_size = timedelta(minutes=120)
+
+    # Add everything post-tppvisuals
+    # min_date = TPPVISUALS_LOGS_END_DATE
+    # max_date = datetime.utcnow()
+    # interval_size = timedelta(minutes=20)
+
     partition_ranges = get_partition_ranges_of_time_interval(interval_size, min_date, max_date)
     # for pr in partition_ranges:
     #     print(pr)
@@ -44,7 +55,7 @@ def main():
 def partition_consumer(i, q):
     mongodb_client = pymongo.MongoClient('127.0.0.1:27017')
     amie_db = mongodb_client['amie']
-    comments_table = amie_db['comments2']
+    comments_table = amie_db[MONGO_TABLE]
 
     auth = json.load(open('../../config.json'))
     sql = ChatSql('tpp_chat', auth['mysql']['user'], auth['mysql']['pass'])
@@ -55,8 +66,8 @@ def partition_consumer(i, q):
             start_str = datetime.strftime(start, '%Y-%m-%dT%H:%M:%S.%f')[:-3] + 'Z'
             end_str = datetime.strftime(end, '%Y-%m-%dT%H:%M:%S.%f')[:-3] + 'Z'
             # let the 1st thread print its progress
-            # if i == 0:
-            #     print("running range %s - %s" % (start_str, end_str))
+            if i == 0:
+                print("running range %s - %s" % (start_str, end_str))
             comments = comments_table \
                 .find({"createdAt": {"$gte": start_str, "$lt": end_str}}) \
                 .sort("createdAt")

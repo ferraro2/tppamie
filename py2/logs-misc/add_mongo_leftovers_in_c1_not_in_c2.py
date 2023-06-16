@@ -20,7 +20,7 @@ TPPVISUALS_LOGS_END_DATE = datetime.strptime('2016-12-06T05:23:08.426', '%Y-%m-%
 # A few comments are missing in comments2, put them in leftovers.
 # They're missing a video link but that's ok.
 def main():
-    num_processes = 1
+    num_processes = 12
     min_date = TPPVISUALS_LOGS_END_DATE
     # min_date = datetime.strptime('2017-06-03T21:05:34.075', '%Y-%m-%dT%H:%M:%S.%f')
     max_date = datetime.utcnow()
