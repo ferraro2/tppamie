@@ -27,6 +27,7 @@ class ChatSql(SqlLoader):
             'host': '127.0.0.1',
             'database': database,
             'buffered': True,
+            'auth_plugin': 'mysql_native_password',
         }
 
         SqlLoader.__init__(self, config)
