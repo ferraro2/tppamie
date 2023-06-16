@@ -30,7 +30,8 @@ function getMysqlRange($pdo, $tstamp_range_filter, $tstamp_sort, $query_filter) 
         */
 //        $time_pre = microtime(true);
         $tstamp_query = "SELECT MIN(tstamp) as min_t, MAX(tstamp) as max_t "
-               ."FROM (SELECT tstamp FROM messages join users using(user_id) "
+               ."FROM (SELECT tstamp "
+               . "FROM messages USE INDEX(tstamp) join users using(user_id) "
                . "WHERE " . $query_filter . " AND "
                . $tstamp_range_filter 
                . $tstamp_sort
@@ -79,13 +80,13 @@ function getMysqlJumpRange($pdo, $jump_id, $query_filter) {
 
         $min_tstamp_query = "SELECT MIN(low_stamp_range) as min_t "
             ."FROM (SELECT tstamp as low_stamp_range FROM "
-            . "messages join users using(user_id) "
+            . "messages USE INDEX(tstamp) join users using(user_id) "
             . "WHERE tstamp <= '$jump_tstamp' AND " . $query_filter
             . " ORDER BY tstamp desc LIMIT " . JUMP_OFFSET . ") t1";
 
         $max_tstamp_query = "SELECT MAX(high_stamp_range) as max_t "
             ."FROM (SELECT tstamp as high_stamp_range FROM "
-            . "messages join users using(user_id) "
+            . "messages USE INDEX(tstamp) join users using(user_id) "
             . "WHERE tstamp >= '$jump_tstamp' AND " . $query_filter
             . " ORDER BY tstamp asc LIMIT " . (LIMIT - JUMP_OFFSET) . ") t2";
 
