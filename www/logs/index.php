@@ -106,7 +106,7 @@
     <div class=\"leftBorder\"> </div>
     <script type=\"text/javascript\">
         var require = {
-            urlArgs : \"bust=1.0.0\"
+            urlArgs : \"bust=1.0.1\"
     }
     </script>
     <script data-main=\"/js/main-logs\" src=\"/js/require.js\"></script>
