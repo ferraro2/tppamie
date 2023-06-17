@@ -87,7 +87,7 @@ if($had_results) {
 //            $displayedTime = date("g\:i\:", $date)
 //                    . "<span style=\"font-size: 12px;\">" . date("s", $date) . "</span>"
 //                    . date(" a", $date);
-        $arrowTimeDirection = $flag_display_sort_asc ? "🠗" : "🠕";
+        $arrowTimeDirection = $flag_display_sort_asc ? "&#129047;" : "&#129045;";
         $arrowTimeHtml = '<a href="' . $reverse_display_sort_url
                  . '#' . $result->msg_id 
                 . '" class="uncoloredLink">' . $arrowTimeDirection . '</a>';

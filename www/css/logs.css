@@ -31,6 +31,7 @@ html, body {
 	padding: 0;
 }
 body, input, textarea, button {
+    font-size: 16px;
     font-family: Calibri, sans-serif;
     abackground-color: #a8a8a8;
     
@@ -238,41 +239,42 @@ h2 {
     margin-bottom: 11px;
 }
 .logTable {
-	text-align: center;
+    text-align: center;
     width: 100%;
     margin: 0 auto;
-	font-size:18px;
+    font-size:18px;
         
     margin-top: 4px;
     margin-bottom: 4px;
         
-	box-shadow: 8px 8px 5px #585858;
+    box-shadow: 8px 8px 5px #585858;
     -webkit-box-shadow: 8px 8px 5px #585858;
-	border:3px solid #000;
+    border:3px solid #000;
 
     background-color: #ece4dc;
         
-	-moz-border-radius-bottomleft:7px;
-	-webkit-border-bottom-left-radius:7px;
-	border-bottom-left-radius:7px;
-	
-	-moz-border-radius-bottomright:7px;
-	-webkit-border-bottom-right-radius:7px;
-	border-bottom-right-radius:7px;
-	
-	-moz-border-radius-topright:7px;
-	-webkit-border-top-right-radius:7px;
-	border-top-right-radius:7px;
-	
-	-moz-border-radius-topleft:7px;
-	-webkit-border-top-left-radius:7px;
-	border-top-left-radius:7px;
-        
-        table-layout: fixed;
+    -moz-border-radius-bottomleft:7px;
+    -webkit-border-bottom-left-radius:7px;
+    border-bottom-left-radius:7px;
+
+    -moz-border-radius-bottomright:7px;
+    -webkit-border-bottom-right-radius:7px;
+    border-bottom-right-radius:7px;
+
+    -moz-border-radius-topright:7px;
+    -webkit-border-top-right-radius:7px;
+    border-top-right-radius:7px;
+
+    -moz-border-radius-topleft:7px;
+    -webkit-border-top-left-radius:7px;
+    border-top-left-radius:7px;
+
+    table-layout: fixed;
 }
 .logTable tr {
     /* prevent foreign displaynames from making row height askew */
     line-height: 23px; 
+    font-size:18px;  /* sometimes mobile makes font bigger so specify again */
 }
 .logTable tr:nth-child(odd) {
 }
@@ -293,7 +295,7 @@ h2 {
     text-align:center;
     border-width:0px 0px 1px 1px;
     font-size:14px;
-    font-family:Arial;
+    font-family:Arial, sans-serif;
     font-weight:bold;
     color:#ffffff;
 }
