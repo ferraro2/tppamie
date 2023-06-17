@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 
 class MessageDBUploader:
-    videoRefreshIntervalSeconds = 10
+    videoRefreshIntervalSeconds = 60
     videoRefreshInterval = timedelta(seconds=videoRefreshIntervalSeconds)
 
     def __init__(self, sqlUser, sqlPass):
@@ -89,7 +89,6 @@ class MessageDBUploader:
                     self.sql.markMsgIdHidden(twitch_id, match.group('msg_id'))
         except Exception as e:
             logger.exception(e)
-
 
     def close(self):
         self.sql.close()
