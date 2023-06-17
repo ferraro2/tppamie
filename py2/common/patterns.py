@@ -153,5 +153,8 @@ bettingClosesPat = re.compile(r"The match starts in (\d+) seconds.")
 
 
 # USER WHISPER TO BOT PATTERNS
-msgRemovePat = re.compile(r"^hide message from tppamie\.com/logs with id (?P<msg_id>\d+)", re.IGNORECASE)
-msgRemoveUndoPat = re.compile(r"^undo hide message from tppamie\.com/logs with id (?P<msg_id>\d+)", re.IGNORECASE)
+msgHideAllPat = re.compile(r"^hide all my messages on tppamie\.com/logs", re.IGNORECASE)
+msgUnhideAllPat = re.compile(r"^(undo|un)\s?hide all my messages on tppamie\.com/logs", re.IGNORECASE)
+
+msgHidePat = re.compile(r"^hide message from tppamie\.com/logs with id (?P<msg_id>\d+)", re.IGNORECASE)
+msgUnhidePat = re.compile(r"^(undo|un)\s?hide message from tppamie\.com/logs with id (?P<msg_id>\d+)", re.IGNORECASE)

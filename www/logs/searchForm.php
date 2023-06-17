@@ -165,14 +165,18 @@
    </ul>
    <h2>Caveats</h2>
    <ul>
+       
+       <li>Non-twitch emotes (FFZ, BTTV, etc) are not unfortunately not recognized at this time.</li>
        <li>The searcher treats messages with special characters as though they had spaces instead.<br>
            E.g., "poll at strawpoll.me/123 !!!!" is treated like it was "poll at strawpoll me 123".</br></li>
        <li>Game inputs are missing from most logs prior to 2016-12-05.</li>
        <li>Messages are missing from whenever the stream was down after 2016-12-05.</li>
        <li>Messages from Twitch-banned or deleted users may be missing.</li>
+       <li>Messages are hidden for users that I heard requested deletion on the old tpp.chat logs site.</li>
        <li>Username-changed users may incorrectly show a later username 
            than what they had at the time of chatting.</li>
-       <li>Non-twitch emotes (FFZ, BTTV, etc) are not unfortunately not recognized at this time.</li>
+       <li>Old tppvisuals logs links were changed to tppamie links for convenience.<br>
+           I believe most of them should still work.</li>
    </ul>
 <!--   <p>This page has two modes- browsing logs and search. </p>
    <p>Within each page:<br>
@@ -195,17 +199,17 @@
        <b>hide all my messages on tppamie.com/logs</b></p>
    <p>To hide a single message on this site, whisper:<br>
        <b>hide message from tppamie.com/logs with id 12345</b><br>
-       replacing the number 12345 with the message id in that message's link.</p>
-   <p>To undo either of the above two operations, whisper the same thing but 
-       add the word <b>undo</b> at the beginning (include a space after undo).</p>
+       replacing the number 12345 with the id in the URL of that message's link.</p>
+   <p>To unhide instead, whisper the same thing but with <b>unhide</b> instead of <b>hide</b>.</p>
    <p>I do not disclose who has made requests or what they requested.</p>
-   <p>This site provides an identical experience for all its visitors 
-       (e.g., there are no special hidden features for moderators or anyone else).<br>
-       Your activity on this site will not be exposed to any other party, in any way.</p>
+   <p>This site provides an identical experience for all its visitors. <br>
+       There are no special hidden features for moderators or anyone else.<br></p>
+   <p>Your activity on this site is not monitored by or exposed to any parties,<br>
+       including myself, in any way, outside of what is necessary to operate this site.</p>
    <h2>Source</h2>
    <p>The source code for this entire site is <a href="https://github.com/ferraro2/tppamie">available on Github.</a></p>
     <p>The chat messages themselves (between 2014-02-14 and 
-        2023-06-11) <a href="https://archive.org/details/tpp_chat.sql">are available on archive.org.</a></p>
+        2023-06-11) are <a href="https://archive.org/details/tpp_chat.sql">available on archive.org.</a></p>
     <p>Search functionality is performed by <a href="/sphinx">SphinxSearch.</a></p>
    
 </div>
