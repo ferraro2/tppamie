@@ -171,15 +171,30 @@
     $pg_body = ob_get_contents();
     ob_end_clean();
     
+    if (!$header_meta_content) {
+        if ($q1) {
+            $header_meta_content = " Searching for: '". trim(h($q1) . "'");
+        } 
+        if ($u1) {
+            $header_meta_content .= " By users: '". trim(h($u1)) . "'";
+        } 
+        if ($from_date) {
+            $header_meta_content .= " From: ". trim(h($from_date->format("M jS Y")));
+        }
+        if ($to_date) {
+            $header_meta_content .= " To: ". trim(h($to_date->format("M jS Y")));
+        }
+    }
+    
     if ($header_meta_content) {
         if (mb_strlen($header_meta_content, "UTF-8") > 150) {
             $header_meta_content = mb_substr($header_meta_content, 0, 150) . "...";
         }
-        $header_meta_content = $header_meta_content 
-                . " (Searchable chat logs for Twitch Plays Pokémon)";
+        $header_meta_content .= " (Searchable chat logs for Twitch Plays Pokémon)";
     } else {
         $header_meta_content = "Searchable chat logs for Twitch Plays Pokémon.";
     }
+    $header_meta_content = trim($header_meta_content);
 
     echo "<!DOCTYPE html>
         <html>
