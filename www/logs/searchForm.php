@@ -202,9 +202,10 @@
    <p>This site provides an identical experience for all its visitors 
        (e.g., there are no special hidden features for moderators or anyone else).<br>
        Your activity on this site will not be exposed to any other party, in any way.</p>
-   <h2>Source Code</h2>
-   <p><a href="https://github.com/ferraro2/tppamie">The source for 
-           this entire site is available on Github.</a></p>
-   <p>Search functionality is performed by SphinxSearch.</p>
+   <h2>Source</h2>
+   <p>The source code for this entire site is <a href="https://github.com/ferraro2/tppamie">available on Github.</a></p>
+    <p>The chat messages themselves (between 2014-02-14 and 
+        2023-06-11) <a href="https://archive.org/details/tpp_chat.sql">are available on archive.org.</a></p>
+    <p>Search functionality is performed by <a href="/sphinx">SphinxSearch.</a></p>
    
 </div>
