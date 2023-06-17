@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>TPP Chat Logs</title>
-<link rel="stylesheet" href="/css/logs.css" />
+<link rel="stylesheet" href="/css/logs.css?v=1.0.0" />
 <meta property="og:description" content="Searchable chat logs for Twitch Plays Pokemon."/>
 <meta name="description" content="Searchable chat logs for Twitch Plays Pokemon."/>
 <meta property="og:image" content="/img/friendball.png" />
@@ -104,6 +104,11 @@
 
     </div>
     <div class=\"leftBorder\"> </div>
+    <script type=\"text/javascript\">
+        var require = {
+            urlArgs : \"bust=1.0.0\"
+    }
+    </script>
     <script data-main=\"/js/main-logs\" src=\"/js/require.js\"></script>
     "
     
