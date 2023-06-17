@@ -4,8 +4,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>TPP Chat Logs</title>
 <link rel="stylesheet" href="/css/logs.css?v=1.0.0" />
-<meta property="og:description" content="Searchable chat logs for Twitch Plays Pokemon."/>
-<meta name="description" content="Searchable chat logs for Twitch Plays Pokemon."/>
+<meta property="og:description" content="Searchable chat logs for Twitch Plays Pokémon."/>
+<meta name="description" content="Searchable chat logs for Twitch Plays Pokémon."/>
 <meta property="og:image" content="/img/friendball.png" />
 <link rel="shortcut icon" href="/img/friendball.png" />
 <link rel="icon" sizes='42x42' href="/img/friendball.png" />
