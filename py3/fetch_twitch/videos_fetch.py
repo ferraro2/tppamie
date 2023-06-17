@@ -6,10 +6,9 @@ USERID_TWITCHPLAYSPOKEMON = 56648155
 
 
 def main():
-    with open("api_auth.json", "r") as infile:
-        auth = json.load(open('api_auth.json'))
-        header_client_id = auth['client_id']
-        header_authorization = 'Bearer ' + auth['oauth']
+    auth = json.load(open('../../config.json'))['twitchAPI']
+    header_client_id = auth['client_id']
+    header_authorization = 'Bearer ' + auth['oauth']
 
     results = []
 

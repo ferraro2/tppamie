@@ -33,6 +33,7 @@ Terms:
         Populates <COMMENTS_TABLE_NAME> table.
         
 Usage:
+     - run videos_fetch.py to grab latest videos
      - populate gql_session_headers.json
      - run this script
      
