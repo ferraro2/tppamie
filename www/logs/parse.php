@@ -54,15 +54,8 @@ class QueryOptions {
         $this->direction = new QueryOption("dir", "to", $valid_directions);
     }
 }
-//echo ($query_options->direction) + "<br>";
+
 $query_options = new QueryOptions();
-if ($query_options->direction->val == 'from') {
-    $from_checked = 'checked';
-    $to_checked = '';
-} else {
-    $from_checked = '';
-    $to_checked = 'checked';
-}
 
 $query_filter_array = array();
 array_push($query_filter_array, "is_hidden=0");
@@ -125,47 +118,18 @@ if ($extra_fields_set) {
 }
 
 /*
- * getMysqlDate behavior: 
- * 
- * If the indicated parameter contains a string parsable as a valid date, 
- *  returns (mysql-formatted string, corresponding unix time, param)
- * 
- * Otherwise returns ("", 0, param)
- * 
- * Where param is the parameter, as a lightly sanitized string.
+ * Setting both from and to is contradictory by the logic expressed in 
+ * our help file.
+ * We don't expect they will both ever not be not null.
  */
-
-$user_date = getNullableDTIFromDateParam('date');
-if ($user_date) {
-    /*
-     * if $user_date was a valid date,
-     * set from_date to the user date and $to_date to empty string.
-     * 
-     */
-    if ($query_options->direction->val == 'to') {
-        $to_date = $user_date;
-        $from_date = null;
-    } else {
-        $from_date = $user_date;
-        $to_date = null;
-    }
+$from_date = getNullableDTIFromDateParam('from');
+if ($from_date) {
+    $to_date = null;
 } else {
-    $from_date = getNullableDTIFromDateParam('from');
-    if ($from_date) {
-        /* if from_date was a valid date, 
-         * force to_date to be the empty string
-         * 
-         * Setting both from and to is entirely meaningless for these searches
-         */
-        $to_date = null;
-    } else {
-        // might be null if user didn't specify a date
-        $to_date = getNullableDTIFromDateParam('to');
-//        echo "<br>to_date: :$to_date<br>";
-//        echo "<br>to_unix: :$to_unix<br>";
-//        echo "<br>to: :$to<br>";
-    }
+    // might be null if user didn't specify a date
+    $to_date = getNullableDTIFromDateParam('to');
 }
+
 $from_date_url = getUrlDateFromNullableDTI($from_date);
 $from_date_mysql = getMysqlDateFromNullableDTI($from_date);
 $from_date_sphinx = getSphinxDateFromNullableDTI($from_date);
@@ -173,14 +137,6 @@ $from_date_sphinx = getSphinxDateFromNullableDTI($from_date);
 $to_date_url = getUrlDateFromNullableDTI($to_date);
 $to_date_mysql = getMysqlDateFromNullableDTI($to_date);
 $to_date_sphinx = getSphinxDateFromNullableDTI($to_date);
-
-//var_dump($user_date);
-//echo "<br>";
-//var_dump($from_date);
-//echo "<br>";
-//var_dump($sort_str);
-//echo "<br>";
-
 
 if(!$query_present) {
     $flag_display_sort_asc = $query_options->display_sort_asc->val == '1';
@@ -224,10 +180,6 @@ if(!$query_present) {
             $fetch_tstamp_sort = " ORDER BY tstamp desc ";
         }
     }
-
-    //var_dump($outer_sort_asc);
-    //echo "<br>";
-    //var_dump($sort_str);
 }
 
 /*
@@ -336,32 +288,6 @@ if (!$query_present && !$from_date && !$to_date) {
  *      -
  * 
  */
-
-
-/*
- * URL redirecting
- * redirect *.com/?to=2014-....&... to *.com/to/2014-../?...
- * 
- * The variables $q1-3, $u1-3, and $jump_id do not cause redirection
- * 
- * If $user_date_DIO is not null, search form submission occurred.
- * When $user_date is not empty, we have set exactly one of $from_date 
- * and $to_date is not empty.
- * We'll redirect the user to a pretty url.
- */
-if($user_date) {
-    $new_link = SITE;
-    
-    if ($from_date) {
-        $new_link .= "from/" . $from_date_url . "/";
-    } else if ($to_date) {
-        $new_link .= "to/" . $to_date_url . "/";
-    } 
-
-    $new_link .= getRedactedQuery($query_options);
-    header("Location: " . $new_link);
-}
-
 
 $redacted_query = getRedactedQuery($query_options);
 $flags_only_query = getRedactedQuery($query_options, True);

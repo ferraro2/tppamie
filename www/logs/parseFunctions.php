@@ -5,7 +5,7 @@
      ***********************************************************
      ***********************************************************/
 
-    define("DATE_SANITIZE", "/[^a-zA-Z0-9\-:\s\\/,\+\.]/");
+    define("DATE_SANITIZE", "/[^a-zA-Z0-9\-_:\s\\/,\+\.]/");
     define("USER_SANITIZE", "/[^a-zA-Z0-9_ !]/");
     define("ID_SANITIZE", "/[^0-9]/");
 
@@ -103,9 +103,10 @@
        $url = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']; 
        return parse_url($url);
     }
-
+    
+    // node url might be user-provided
     function mysqlDateFromUrlDate($date) {
-        return preg_replace("/\+/", " ", $date);
+        return preg_replace("/\+/", " ", preg_replace("/_/", "/", $date));
     }
     
     function urlDateFromMysqlDate($date) {

@@ -50,12 +50,12 @@
            class="logTextField form-date tooltip"/>
 
         <h3>&nbsp;&nbsp;&nbsp;from:
-        <input id="js-dateDirectionFrom" type="radio" name="dir" 
-               tabindex="21" value="from" <?php echo $from_checked?>>
+        <input id="js-dateDirectionEarliest" type="radio" name="dir" 
+               tabindex="21" value="from">
         <span class="dateDirection dateDirectionFrom">Earliest</span>
 
-        <input id="js-dateDirectionTo" type="radio" name="dir"
-               tabindex="22" value="to" <?php echo $to_checked?>>
+        <input id="js-dateDirectionLatest" type="radio" name="dir"
+               tabindex="22" value="to">
         <span class="dateDirection dateDirectionTo">Latest</span>
         </h3>
     </div>
@@ -74,15 +74,15 @@
         <br> 
         <input id="js-CheckboxCommands" type="checkbox" class="options" tabindex="32"
                name="<?php echo $query_options->show_commands->name ?>" value="1"
-             <?php echo $query_options->show_commands->val_checked_str ?> > Commands <i>(anything starting with !)</i>
+             <?php echo $query_options->show_commands->val_checked_str ?> > Commands <i>(!anything)</i>
         <br> 
         <input id="js-CheckboxInputs" type="checkbox" class="options" tabindex="31"
                name="<?php echo $query_options->show_game_inputs->name ?>" value="1"
-             <?php echo $query_options->show_game_inputs->val_checked_str ?> > Game inputs <i>(up, !a, !bet, !balance, etc.)</i>
+             <?php echo $query_options->show_game_inputs->val_checked_str ?> > Game inputs <i>(up, !a, !bet, !balance)</i>
         <br> 
         <input id="js-CheckboxChars" type="checkbox" class="options" tabindex="33"
                name="<?php echo $query_options->show_unwhitelisted_chars->name ?>" value="1"
-            <?php echo $query_options->show_unwhitelisted_chars->val_checked_str ?> > ASCII spam / unnatural characters
+            <?php echo $query_options->show_unwhitelisted_chars->val_checked_str ?> > ASCII art / unnatural characters
         <br>
         <!--<div class="orderOptions">-->
 <!--        <input id="js-CheckboxSort" type="checkbox" class="options" 
@@ -122,7 +122,7 @@
    <h2>Date Options</h2>
    <ul>
        <li>Leave the date blank to see the <b><i>earliest</b></i> / <b><i>latest</b></i> messages ever recorded.</li>
-       <li>Entering a date and selecting <b><i>latest</b></i> will show messages up until that date.</li>
+       <li>Entering a date but instead selecting <b><i>latest</b></i> will show messages up until that date.</li>
        <li>You can type "April 6 2014", "10 days ago", "yesterday 6pm", and some others.</li>
        <li>All times are in UTC.</li>
    </ul>
@@ -187,7 +187,8 @@
    <p><b>tppamie</b> is a Twitch bot you can whisper to hide/unhide your messages automatically, effective immediately.<br>
      Unfortunately, it cannot whisper back to you, but you can check this site to 
      verify your messages were hidden. </p>
-   <p>Due to technical constraints, there may be a delay in unhiding messages long after they were hidden.</p>
+   <p>Due to technical constraints, unhiding messages is not immediate.<br>
+       Messages hidden for a very long time may never unhide at all.</p>
    <p>To hide all your messages on this site, just whisper:<br>
        <b>hide all my messages on tppamie.com/logs</b></p>
    <p>To hide a single message on this site, whisper:<br>
