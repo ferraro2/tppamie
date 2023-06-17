@@ -168,28 +168,34 @@
         ";
     }
 
-    $pg = ob_get_contents();
+    $pg_body = ob_get_contents();
     ob_end_clean();
+    
     if ($header_meta_content) {
         if (mb_strlen($header_meta_content, "UTF-8") > 150) {
             $header_meta_content = mb_substr($header_meta_content, 0, 150) . "...";
         }
-        
-        $header_meta_original = 'Searchable chat logs for Twitch Plays Pokémon.';
-        $replacement = $header_meta_content . ' (searchable chat logs for Twitch Plays Pokémon)';
-        
-        $header_meta_prefix = '<meta property="og:description" content="';
-        $pos = strpos($pg, $header_meta_prefix . $header_meta_original);
-        if ($pos !== false) {
-            $pg = substr_replace($pg, $header_meta_prefix . $replacement, $pos, strlen($header_meta_prefix . $header_meta_original));
-        }
-        $header_meta_prefix = '<meta name="description" content="';
-        $pos = strpos($pg, $header_meta_prefix . $header_meta_original);
-        if ($pos !== false) {
-            $pg = substr_replace($pg, $header_meta_prefix . $replacement, $pos, strlen($header_meta_prefix . $header_meta_original));
-        }
+        $header_meta_content = $header_meta_content 
+                . " (Searchable chat logs for Twitch Plays Pokémon)";
+    } else {
+        $header_meta_content = "Searchable chat logs for Twitch Plays Pokémon.";
     }
-    echo $pg;
+
+    echo "<!DOCTYPE html>
+        <html>
+        <head>
+        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">
+        <title>TPP Chat Logs</title>
+        <link rel=\"stylesheet\" href=\"/css/logs.css?v=1.0.1\" />
+        <meta property=\"og:description\" content=\"$header_meta_content\"/>
+        <meta name=\"description\" content=\"$header_meta_content\"/>
+        <meta property=\"og:image\" content=\"/img/friendball.png\" />
+        <link rel=\"shortcut icon\" href=\"/img/friendball.png\" />
+        <link rel=\"icon\" sizes=\'42x42\' href=\"/img/friendball.png\" />
+
+        </head>
+        <body>";
+    echo $pg_body;
 
 ?>
      

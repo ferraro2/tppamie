@@ -1,21 +1,6 @@
 
 <?php
     ob_start();
-    echo '
-        <!DOCTYPE html>
-        <html>
-        <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>TPP Chat Logs</title>
-        <link rel="stylesheet" href="/css/logs.css?v=1.0.1" />
-        <meta property="og:description" content="Searchable chat logs for Twitch Plays Pokémon."/>
-        <meta name="description" content="Searchable chat logs for Twitch Plays Pokémon."/>
-        <meta property="og:image" content="/img/friendball.png" />
-        <link rel="shortcut icon" href="/img/friendball.png" />
-        <link rel="icon" sizes=\'42x42\' href="/img/friendball.png" />
-
-        </head>
-        <body>';
 
     /*
     * include constants, etc
