@@ -10,7 +10,7 @@ from MessageDBUploader import MessageDBUploader
 sys.path.insert(0, r"../")
 
 # from common
-from common import utils, pkmnUtils, sioRoutines
+from common import utils
 from common.twitch_bot import TwitchBot
 
 logging.config.dictConfig(utils.readYaml('logging.yaml'))
