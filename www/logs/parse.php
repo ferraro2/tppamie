@@ -196,6 +196,7 @@ if (!$query_present && !$from_date && !$to_date) {
            : preg_replace(ID_SANITIZE, " ", $_GET['id']);
     $jump_id = (int) $jump_str;
 }   else {
+    $jump_str = '';
     $jump_id = 0;
 }
 

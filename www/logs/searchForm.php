@@ -122,7 +122,7 @@
    <h2>Date Options</h2>
    <ul>
        <li>Leave the date blank to see the <b><i>earliest</b></i> / <b><i>latest</b></i> messages ever recorded.</li>
-       <li>Entering a date but instead selecting <b><i>latest</b></i> will show messages up until that date.</li>
+       <li>Entering a date but selecting <b><i>latest</b></i> will instead show messages up until that date.</li>
        <li>You can type "April 6 2014", "10 days ago", "yesterday 6pm", and some others.</li>
        <li>All times are in UTC.</li>
    </ul>
