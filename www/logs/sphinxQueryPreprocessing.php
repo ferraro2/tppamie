@@ -102,7 +102,7 @@
                 }
                 #echo var_dump($subgroup);
                 array_push($chunks, '(');
-                array_push($chunks, inc_or_precedence_recursive($subgroup));
+                array_push($chunks, minimize_or_precedence_recursive($subgroup));
                 array_push($chunks, ')');
             }
 
