@@ -241,6 +241,7 @@ def main():
 		except Exception:
 			logger.critical( 'THE WHOLE PROGRAM DIED LUL' )
 			logger.critical( traceback.format_exc() )
+			time.sleep(5)
 
 
 if __name__ == "__main__":
