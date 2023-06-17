@@ -82,9 +82,9 @@
         } else {
             $meta_info = "";
             if($from_date) {
-                $meta_info .= "Browsing logs after:<br> $from_date_mysql";
+                $meta_info .= "Browsing logs after:<br> " . $from_date->format("M jS Y\, g\:i a");
             } else if($to_date) {
-                $meta_info .= "Browsing logs before $to_date_mysql";
+                $meta_info .= "Browsing logs before " . $to_date->format("M jS Y\, g\:i a");
             }
         }
         
@@ -254,9 +254,9 @@
             if ($query_was_valid) {
                 /* print some meta info about the query */
                 if($from_date) {
-                    $meta_info .= "Searched after:<br> $from_date_mysql";
+                    $meta_info .= "Searched after:<br> " . $from_date->format("M jS Y\, g\:i a");
                 } else if($to_date) {
-                    $meta_info .= "Searched before $to_date_mysql";
+                    $meta_info .= "Searched before " . $to_date->format("M jS Y\, g\:i a");
                 }
             } else {
                 $meta_info .= "<span class=\"warning\">"
