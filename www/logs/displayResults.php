@@ -176,7 +176,19 @@
             $header_meta_content = " Searching for: '". trim(h($q1) . "'");
         } 
         if ($u1) {
-            $header_meta_content .= " By users: '". trim(h($u1)) . "'";
+            $u1_list = explode(" ", $u1);
+            if ($q1) {
+                $header_meta_content .= " By ";
+            } else {
+                $header_meta_content .= " Messages by ";
+            }
+            
+            if (count($u1_list) > 1) {
+                $header_meta_content .= "users: "
+                        . trim(h(implode(", ", $u1_list)));
+            } else {
+                $header_meta_content .= "user: ". trim(h($u1));
+            }
         } 
         if ($from_date) {
             $header_meta_content .= " From: ". trim(h($from_date->format("M jS Y")));
