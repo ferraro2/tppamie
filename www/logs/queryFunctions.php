@@ -275,7 +275,7 @@ function sphinxQuery($hostname, $sphinx_match_query, $query_filter,
 
     try {
 //       echo "establishing new pdo<br>";
-       $pdo = new PDO("mysql:host=localhost;port=9306;charset=utf8mb4", 'me', 'none');
+       $pdo = new PDO("mysql:host=127.0.0.1;port=9306;charset=utf8mb4");
        // set the PDO error mode to exception
 //       echo "setting attribute<br>";
        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
