@@ -117,7 +117,7 @@
                 $displayed_msg = "<span style=\"font-style: italic;\">$displayed_msg</span>";
             }
 
-            if ($result->msg_id === $jump_str) {
+            if ($result->msg_id == $jump_str) {
                 $header_meta_content = "$result->username: " . trim(h($result->msg));
             }
             
