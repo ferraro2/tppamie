@@ -49,13 +49,13 @@ VIDEOS_JSON_FILENAME = 'all_tpp_videos.gitignore.json'
 DB_NAME = 'amie'
 VIDEOS_PROGRESS_TABLE_NAME = 'videos_progress'
 COMMENTS_TABLE_NAME = 'comments2'
-NUM_PROCESSES = 10
+NUM_PROCESSES = 10  # Going over 10 trips gql bot detection
 PRINT_PROGRESS_PER_N_PAGES = 500
 VIDEOS_PROGRESS_SORT_CREATED_AT = pymongo.ASCENDING
 
 # must clear progress with -r for this to update
 # don't worry about any overlap- upsert by id prevents duplicates
-ONLY_VIDEOS_AFTER_DATE = '2023-05-29T21:27:30Z'
+ONLY_VIDEOS_AFTER_DATE = '2023-06-07T21:27:30Z'
 
 VideoWork = namedtuple("VideoWork", "video offset_seconds queue_pos")
 
@@ -137,7 +137,7 @@ def populate_video_work_queue(video_work_queue, reset_progress):
 
 def fetch_video_comments_after_offset(db, video, offset_seconds):
     session = requests.Session()
-    session.headers = json.load(open('gql_session_headers.json'))
+    session.headers = json.load(open('../../config.json'))['twitchGQL']
 
     video_id = video['id']
     num_page = 1
