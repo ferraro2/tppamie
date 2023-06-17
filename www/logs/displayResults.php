@@ -176,7 +176,7 @@
         }
         
         $header_meta_original = 'Searchable chat logs for Twitch Plays Pokémon.';
-        $replacement = $header_meta_content . '(searchable chat logs for Twitch Plays Pokémon)';
+        $replacement = $header_meta_content . ' (searchable chat logs for Twitch Plays Pokémon)';
         
         $header_meta_prefix = '<meta property="og:description" content="';
         $pos = strpos($pg, $header_meta_prefix . $header_meta_original);
