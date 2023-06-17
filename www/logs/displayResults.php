@@ -171,8 +171,8 @@
     $pg = ob_get_contents();
     ob_end_clean();
     if ($header_meta_content) {
-        if (mb_strlen($header_meta_content, "UTF-8") > 120) {
-            $header_meta_content = mb_substr($header_meta_content, 0, 120) . "...";
+        if (mb_strlen($header_meta_content, "UTF-8") > 150) {
+            $header_meta_content = mb_substr($header_meta_content, 0, 150) . "...";
         }
         
         $header_meta_original = 'Searchable chat logs for Twitch Plays Pokémon.';
