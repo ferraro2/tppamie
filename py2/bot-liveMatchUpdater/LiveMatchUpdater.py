@@ -152,7 +152,7 @@ class LiveMatchUpdater(TwitchBot):
 			emote = self.getEmote(ids)
 			phrase = self.getPhrase()
 			msg = "{} {}: https://www.tppAmie.com/vis".format(emote, phrase)
-			self.bot.sendPriv(msg)
+			#self.bot.sendPriv(msg)
 
 		except Exception:
 			logger.critical( 'Announce failed :(' )
