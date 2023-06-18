@@ -199,8 +199,8 @@
     }
     
     if ($header_meta_content) {
-        if (mb_strlen($header_meta_content, "UTF-8") > 150) {
-            $header_meta_content = mb_substr($header_meta_content, 0, 150) . "...";
+        if (mb_strlen($header_meta_content, "UTF-8") > 165) {
+            $header_meta_content = mb_substr($header_meta_content, 0, 165) . "...";
         }
         $header_meta_content .= " (Searchable chat logs for Twitch Plays Pokémon)";
     } else {
