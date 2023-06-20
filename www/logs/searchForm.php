@@ -183,16 +183,15 @@
         - Search results may be sorted in time descending order as appropriate.<br>
         - Log browsing are always sorted in time ascending order.<br></p>-->
    
-   <h1>About</h1>
-   <h2>Contact</h2>
-   <p>I'm ferraro2 and I run this site on my own.</p>
-   <p>Feel free to <a href="https://www.discordapp.com/users/ferraro2#2257">contact me on Discord</a> 
-       or <a href="https://www.twitch.tv/ferraro2">Twitch</a>.</p>
-   <p>This website is not affiliated with TwitchPlaysPokémon.</p>
-   <h2>Privacy</h2>
-   <p><b>tppamie</b> is a Twitch bot you can whisper to hide/unhide your messages automatically, effective immediately.<br>
+   <h1>Privacy</h1>
+   
+   <h2>Hiding your messages</h2>
+   <p><b>tppamie</b> is a Twitch bot you can whisper to hide/unhide your messages 
+       automatically, effective immediately.<br>
      Unfortunately, it cannot whisper back to you, but you can check this site to 
      verify your messages were hidden. </p>
+   <p>Due to technical constraints, the bot may fail to hide older messages if you have undergone a username change.<br>
+       If this occurs, or you've lost credentials for an old account, please feel free to contact me and I'll handle it manually.</p>
    <p>Due to technical constraints, unhiding messages is not immediate.<br>
        Messages hidden for a very long time may never unhide at all.</p>
    <p>To hide all your messages on this site, just whisper:<br>
@@ -201,11 +200,19 @@
        <b>hide message from tppamie.com/logs with id 12345</b><br>
        replacing the number 12345 with the id in the URL of that message's link.</p>
    <p>To unhide instead, whisper the same thing but with <b>unhide</b> instead of <b>hide</b>.</p>
+   <h2>Policy</h2>
    <p>I do not disclose who has made requests or what they requested.</p>
    <p>This site provides an identical experience for all its visitors. <br>
        There are no special hidden features for moderators or anyone else.<br></p>
    <p>Your activity on this site is not monitored by or exposed to any parties,<br>
        including myself, in any way, outside of what is necessary to operate this site.</p>
+   
+   <h1>About</h1>
+   <h2>Contact</h2>
+   <p>I'm ferraro2 and I run this site on my own.</p>
+   <p>Feel free to <a href="https://www.discordapp.com/users/ferraro2#2257">contact me on Discord</a> 
+       or <a href="https://www.twitch.tv/ferraro2">Twitch</a>.</p>
+   <p>This website is not affiliated with TwitchPlaysPokémon.</p>
    <h2>Source</h2>
    <p>The source code for this entire site is <a href="https://github.com/ferraro2/tppamie">available on Github.</a></p>
     <p>The chat messages themselves (between 2014-02-14 and 
