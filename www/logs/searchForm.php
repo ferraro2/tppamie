@@ -186,7 +186,7 @@
    <h1>Privacy</h1>
    
    <h2>Hiding your messages</h2>
-   <p> is a Twitch bot you can whisper to hide/unhide your messages 
+   <p><b>tppamie</b> is a Twitch bot you can whisper to hide/unhide your messages 
        automatically, effective immediately.<br>
      Unfortunately, it cannot whisper back to you, but you can check this site to 
      verify your messages were hidden. </p>
