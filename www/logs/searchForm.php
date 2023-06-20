@@ -186,7 +186,7 @@
    <h1>Privacy</h1>
    
    <h2>Hiding your messages</h2>
-   <p><b>tppamie</b> is a Twitch bot you can whisper to hide/unhide your messages 
+   <p> is a Twitch bot you can whisper to hide/unhide your messages 
        automatically, effective immediately.<br>
      Unfortunately, it cannot whisper back to you, but you can check this site to 
      verify your messages were hidden. </p>
@@ -194,9 +194,9 @@
        If this occurs, or you've lost credentials for an old account, please feel free to contact me and I'll handle it manually.</p>
    <p>Due to technical constraints, unhiding messages is not immediate.<br>
        Messages hidden for a very long time may never unhide at all.</p>
-   <p>To hide all your messages on this site, just whisper:<br>
+   <p>To hide all your messages on this site, just whisper this to <b>tppamie</b>:<br>
        <b>hide all my messages on tppamie.com/logs</b></p>
-   <p>To hide a single message on this site, whisper:<br>
+   <p>To hide a single message on this site, whisper this to <b>tppamie</b>:<br>
        <b>hide message from tppamie.com/logs with id 12345</b><br>
        replacing the number 12345 with the id in the URL of that message's link.</p>
    <p>To unhide instead, whisper the same thing but with <b>unhide</b> instead of <b>hide</b>.</p>
