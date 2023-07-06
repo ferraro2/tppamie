@@ -49,14 +49,15 @@ MONGO_SERVER_URI = '127.0.0.1:27017'
 VIDEOS_JSON_FILENAME = 'all_tpp_videos.gitignore.json'
 DB_NAME = 'amie'
 VIDEOS_PROGRESS_TABLE_NAME = 'videos_progress'
-COMMENTS_TABLE_NAME = 'comments-2023-06-07T21:27:30-2023-06-17 03:13:10'
-NUM_PROCESSES = 10  # Going over 10 trips gql bot detection
+COMMENTS_TABLE_NAME = 'comments-2023-05-27-to-2023-06-07'
+NUM_PROCESSES = 8  # Going over 10 trips gql bot detection
 PRINT_PROGRESS_PER_N_PAGES = 500
 VIDEOS_PROGRESS_SORT_CREATED_AT = pymongo.ASCENDING
 
 # must clear progress with -r for this to update
 # don't worry about any overlap- upsert by id prevents duplicates
-ONLY_VIDEOS_AFTER_DATE = '2023-06-07T21:27:30Z'
+ONLY_VIDEOS_CREATED_AFTER_DATE = '2023-05-26T21:27:30Z'
+ONLY_VIDEOS_CREATED_BEFORE_DATE = '2023-06-07T21:27:30Z'
 
 VideoWork = namedtuple("VideoWork", "video offset_seconds queue_pos")
 
@@ -216,7 +217,7 @@ def insert_unstarted_fetch_progress(db, videos):
     for video in videos:
         created_at = video['created_at']
         # videos prior to this date have no comments so exclude them
-        if ONLY_VIDEOS_AFTER_DATE < created_at:
+        if ONLY_VIDEOS_CREATED_AFTER_DATE < created_at < ONLY_VIDEOS_CREATED_BEFORE_DATE:
             ops.append(pymongo.InsertOne({
                 "completed": False,
                 "offset_seconds": 0,
